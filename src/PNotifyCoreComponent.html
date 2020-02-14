@@ -178,8 +178,8 @@
       {_animatingClass}
       {_moveClass}
       {animation === 'fade' ? 'ui-pnotify-fade-'+animateSpeed : ''}
-      {stack && stack.modal ? 'ui-pnotify-modal' : ''}
-      {_masking ? 'ui-pnotify-masking' : ''}
+      {stack && (stack.modal === true || (stack.modal === 'ish' && _timer === 'prevented')) ? 'ui-pnotify-modal' : ''}
+      {_masking ? 'ui-pnotify-masking ui-pnotify-masking-' + _masking : ''}
       {_maskingIn ? 'ui-pnotify-masking-in' : ''}
       {_moduleClasses.elem.join(' ')}
     "
@@ -385,7 +385,7 @@
     }
 
     // Queue a position
-    if (_state !== 'closed' && stack) {
+    if (_state !== 'closed' && _state !== 'closing' && stack && !stack._collapsingModalState) {
       stack.queuePosition();
     }
 
@@ -438,9 +438,6 @@
     // Start the close timer.
     if (hide && mouseReset && _animating !== 'out') {
       queueClose();
-    }
-    if (stack) {
-      stack.position();
     }
   }
 
@@ -531,8 +528,34 @@
     }
   }
 
+  function insertIntoDOM () {
+    // If the notice is not in the DOM, or in the wrong context, append it.
+    if (
+      refs.elem &&
+      !refs.elem.parentNode ||
+      (
+        stack &&
+        stack.context &&
+        stack.context !== refs.elem.parentNode
+      )
+    ) {
+      if (stack && (stack.context || document.body)) {
+        if (!stack.context) {
+          stack.context = document.body;
+        }
+        stack.context.appendChild(refs.elem);
+      } else {
+        throw new Error('No context to insert this notice into.');
+      }
+    }
+  }
+
+  function removeFromDOM () {
+    refs.elem && refs.elem.parentNode.removeChild(refs.elem);
+  }
+
   // Display the notice.
-  export let open = () => {
+  export let open = immediate => {
     if (_state === 'opening') {
       return;
     }
@@ -576,25 +599,7 @@
       return;
     }
 
-    // If the notice is not in the DOM, or in the wrong context, append it.
-    if (
-      refs.elem &&
-      !refs.elem.parentNode ||
-      (
-        stack &&
-        stack.context &&
-        stack.context !== refs.elem.parentNode
-      )
-    ) {
-      if (stack && (stack.context || document.body)) {
-        if (!stack.context) {
-          stack.context = document.body;
-        }
-        stack.context.appendChild(refs.elem);
-      } else {
-        throw new Error('No context to open this notice in.');
-      }
-    }
+    insertIntoDOM();
 
     // Wait until the DOM is updated.
     window.requestAnimationFrame(() => {
@@ -613,12 +618,12 @@
         stack._animation = true;
       }
 
-      animateIn(afterOpenCallback);
+      animateIn(afterOpenCallback, immediate);
     });
   };
 
   // Remove the notice.
-  export let close = (timerHide, waitAfterward) => {
+  export let close = (immediate, timerHide, waitAfterward) => {
     if (_state === 'closing' || _state === 'closed') {
       return;
     }
@@ -656,22 +661,22 @@
       _timerHide = false;
       _state = waitAfterward ? 'waiting' : 'closed';
       runModules('afterClose');
-      if (destroy && !waitAfterward) {
-        // If we're supposed to destroy the notice, run the destroy module
-        // events, remove from notices array, and let Svelte handle DOM removal.
-        runDestroy();
-      } else if (remove && !waitAfterward) {
-        // If we're supposed to remove the notice from the DOM, do it.
-        refs.elem && refs.elem.parentNode.removeChild(refs.elem);
-      }
       if (stack) {
         stack._handleNoticeClosed(self);
       }
-    });
+      if (destroy && !waitAfterward) {
+        // If we're supposed to destroy the notice, run the destroy module
+        // events, remove from stack, and let Svelte handle DOM removal.
+        runDestroy();
+      } else if (remove && !waitAfterward) {
+        // If we're supposed to remove the notice from the DOM, do it.
+        removeFromDOM();
+      }
+    }, immediate);
   };
 
   // Animate the notice in.
-  export let animateIn = async callback => {
+  export let animateIn = async (callback, immediate) => {
     // Declare that the notice is animating in.
     _animating = 'in';
     const finished = event => {
@@ -706,7 +711,7 @@
       }
     };
 
-    if (animation === 'fade') {
+    if (animation === 'fade' && !immediate) {
       refs.elem && refs.elem.addEventListener('transitionend', finished);
       _animatingClass = 'ui-pnotify-in';
       // eslint-disable-next-line no-unused-expressions
@@ -722,7 +727,7 @@
   };
 
   // Animate the notice out.
-  export let animateOut = async callback => {
+  export let animateOut = async (callback, immediate) => {
     // Declare that the notice is animating out.
     _animating = 'out';
     const finished = event => {
@@ -759,7 +764,7 @@
       }
     };
 
-    if (animation === 'fade') {
+    if (animation === 'fade' && !immediate) {
       refs.elem && refs.elem.addEventListener('transitionend', finished);
       _animatingClass = 'ui-pnotify-in';
       // Just in case the event doesn't fire, call it after 650 ms.
@@ -794,7 +799,7 @@
     }
     // Cancel any current close timer.
     cancelClose();
-    _timer = setTimeout(() => close(true), (isNaN(delay) ? 0 : delay));
+    _timer = setTimeout(() => close(false, true), (isNaN(delay) ? 0 : delay));
   }
 
   export function _preventTimerClose (prevent) {
@@ -876,16 +881,28 @@
     return _moveClass = value;
   }
 
-  export function _setMasking (value) {
+  export function _setMasking (value, immediate) {
+    if (_maskingTimer) {
+      clearTimeout(_maskingTimer);
+    }
     if (value) {
-      _animatingClass = 'ui-pnotify-initial-hidden';
-      _masking = true;
-      // Wait for the DOM to update.
-      window.requestAnimationFrame(() => {
-        stack.position();
-        _animatingClass = '';
+      insertIntoDOM();
+      _masking = value;
+      if (immediate) {
         _maskingIn = true;
-      });
+      } else {
+        window.requestAnimationFrame(() => {
+          if (_masking) {
+            _maskingIn = true;
+          }
+        });
+      }
+    } else if (immediate) {
+      _masking = false;
+      _maskingIn = false;
+      if (remove && ['open', 'opening', 'closing'].indexOf(_state) === -1) {
+        removeFromDOM();
+      }
     } else {
       const finished = () => {
         refs.elem && refs.elem.removeEventListener('transitionend', finished);
@@ -894,6 +911,9 @@
         }
         if (!_maskingIn) {
           _masking = false;
+          if (remove && ['open', 'opening', 'closing'].indexOf(_state) === -1) {
+            removeFromDOM();
+          }
         }
       };
 
@@ -965,6 +985,18 @@
     display: block;
     -webkit-mask-image: linear-gradient(to bottom, rgba(0, 0, 0, .8), rgba(0, 0, 0, 0) 30px, rgba(0, 0, 0, 0));
     mask-image: linear-gradient(to bottom, rgba(0, 0, 0, .8), rgba(0, 0, 0, 0) 30px, rgba(0, 0, 0, 0));
+  }
+  :global(.ui-pnotify.ui-pnotify-masking-up) {
+    -webkit-mask-image: linear-gradient(to top, rgba(0, 0, 0, .8), rgba(0, 0, 0, 0) 30px, rgba(0, 0, 0, 0));
+    mask-image: linear-gradient(to top, rgba(0, 0, 0, .8), rgba(0, 0, 0, 0) 30px, rgba(0, 0, 0, 0));
+  }
+  :global(.ui-pnotify.ui-pnotify-masking-left) {
+    -webkit-mask-image: linear-gradient(to left, rgba(0, 0, 0, .8), rgba(0, 0, 0, 0) 30px, rgba(0, 0, 0, 0));
+    mask-image: linear-gradient(to left, rgba(0, 0, 0, .8), rgba(0, 0, 0, 0) 30px, rgba(0, 0, 0, 0));
+  }
+  :global(.ui-pnotify.ui-pnotify-masking-right) {
+    -webkit-mask-image: linear-gradient(to right, rgba(0, 0, 0, .8), rgba(0, 0, 0, 0) 30px, rgba(0, 0, 0, 0));
+    mask-image: linear-gradient(to right, rgba(0, 0, 0, .8), rgba(0, 0, 0, 0) 30px, rgba(0, 0, 0, 0));
   }
   :global(.ui-pnotify.ui-pnotify-fade-in, .ui-pnotify.ui-pnotify-masking-in) {
     opacity: 1;
@@ -1040,11 +1072,23 @@
     height: 100%;
     width: 100%;
     z-index: 2;
-    transition: opacity .075s linear;
+    transition: opacity .25s linear;
     opacity: 0;
+    padding: 0 1rem;
     display: flex;
     justify-content: center;
     align-items: flex-end;
+  }
+  :global(.ui-pnotify-modal-overlay-up) {
+    align-items: flex-start;
+  }
+  :global(.ui-pnotify-modal-overlay-left) {
+    justify-content: flex-start;
+    align-items: center;
+  }
+  :global(.ui-pnotify-modal-overlay-right) {
+    justify-content: flex-end;
+    align-items: center;
   }
   :global(.ui-pnotify-modal-overlay.ui-pnotify-modal-overlay-in) {
     opacity: 1;
