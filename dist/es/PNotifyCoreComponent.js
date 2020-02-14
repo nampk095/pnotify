@@ -37,36 +37,36 @@ import { onMount, beforeUpdate, tick, createEventDispatcher } from "svelte";
 
 function get_each_context(ctx, list, i) {
 	const child_ctx = ctx.slice();
-	child_ctx[104] = list[i];
+	child_ctx[107] = list[i];
 	return child_ctx;
 }
 
 function get_each_context_1(ctx, list, i) {
 	const child_ctx = ctx.slice();
-	child_ctx[104] = list[i];
+	child_ctx[107] = list[i];
 	return child_ctx;
 }
 
 function get_each_context_2(ctx, list, i) {
 	const child_ctx = ctx.slice();
-	child_ctx[104] = list[i];
+	child_ctx[107] = list[i];
 	return child_ctx;
 }
 
 function get_each_context_3(ctx, list, i) {
 	const child_ctx = ctx.slice();
-	child_ctx[104] = list[i];
+	child_ctx[107] = list[i];
 	return child_ctx;
 }
 
-// (222:4) {#if self}
+// (223:4) {#if self}
 function create_if_block_10(ctx) {
 	let each_blocks = [];
 	let each_1_lookup = new Map();
 	let each_1_anchor;
 	let current;
 	let each_value_3 = modulesPrependContainer;
-	const get_key = ctx => /*module*/ ctx[104].key;
+	const get_key = ctx => /*module*/ ctx[107].key;
 
 	for (let i = 0; i < each_value_3.length; i += 1) {
 		let child_ctx = get_each_context_3(ctx, each_value_3, i);
@@ -122,18 +122,18 @@ function create_if_block_10(ctx) {
 	};
 }
 
-// (223:6) {#each modulesPrependContainer as module (module.key)}
+// (224:6) {#each modulesPrependContainer as module (module.key)}
 function create_each_block_3(key_1, ctx) {
 	let first;
 	let switch_instance_anchor;
 	let current;
-	const switch_instance_spread_levels = [{ _notice: /*self*/ ctx[17] }, /*modules*/ ctx[2][/*module*/ ctx[104].key]];
+	const switch_instance_spread_levels = [{ _notice: /*self*/ ctx[17] }, /*modules*/ ctx[2][/*module*/ ctx[107].key]];
 
 	function init_handler(...args) {
-		return /*init_handler*/ ctx[94](/*module*/ ctx[104], ...args);
+		return /*init_handler*/ ctx[97](/*module*/ ctx[107], ...args);
 	}
 
-	var switch_value = /*module*/ ctx[104];
+	var switch_value = /*module*/ ctx[107];
 
 	function switch_props(ctx) {
 		let switch_instance_props = {};
@@ -175,11 +175,11 @@ function create_each_block_3(key_1, ctx) {
 			const switch_instance_changes = (dirty[0] & /*self, modules*/ 131076)
 			? get_spread_update(switch_instance_spread_levels, [
 					dirty[0] & /*self*/ 131072 && { _notice: /*self*/ ctx[17] },
-					dirty[0] & /*modules*/ 4 && get_spread_object(/*modules*/ ctx[2][/*module*/ ctx[104].key])
+					dirty[0] & /*modules*/ 4 && get_spread_object(/*modules*/ ctx[2][/*module*/ ctx[107].key])
 				])
 			: {};
 
-			if (switch_value !== (switch_value = /*module*/ ctx[104])) {
+			if (switch_value !== (switch_value = /*module*/ ctx[107])) {
 				if (switch_instance) {
 					group_outros();
 					const old_component = switch_instance;
@@ -221,7 +221,7 @@ function create_each_block_3(key_1, ctx) {
 	};
 }
 
-// (227:4) {#if icon !== false}
+// (228:4) {#if icon !== false}
 function create_if_block_9(ctx) {
 	let div;
 	let span;
@@ -242,7 +242,7 @@ function create_if_block_9(ctx) {
 		m(target, anchor) {
 			insert(target, div, anchor);
 			append(div, span);
-			/*div_binding*/ ctx[95](div);
+			/*div_binding*/ ctx[98](div);
 		},
 		p(ctx, dirty) {
 			if (dirty[0] & /*icon, type*/ 17 && span_class_value !== (span_class_value = /*icon*/ ctx[0] === true
@@ -253,19 +253,19 @@ function create_if_block_9(ctx) {
 		},
 		d(detaching) {
 			if (detaching) detach(div);
-			/*div_binding*/ ctx[95](null);
+			/*div_binding*/ ctx[98](null);
 		}
 	};
 }
 
-// (233:6) {#if self}
+// (234:6) {#if self}
 function create_if_block_8(ctx) {
 	let each_blocks = [];
 	let each_1_lookup = new Map();
 	let each_1_anchor;
 	let current;
 	let each_value_2 = modulesPrependContent;
-	const get_key = ctx => /*module*/ ctx[104].key;
+	const get_key = ctx => /*module*/ ctx[107].key;
 
 	for (let i = 0; i < each_value_2.length; i += 1) {
 		let child_ctx = get_each_context_2(ctx, each_value_2, i);
@@ -321,18 +321,18 @@ function create_if_block_8(ctx) {
 	};
 }
 
-// (234:8) {#each modulesPrependContent as module (module.key)}
+// (235:8) {#each modulesPrependContent as module (module.key)}
 function create_each_block_2(key_1, ctx) {
 	let first;
 	let switch_instance_anchor;
 	let current;
-	const switch_instance_spread_levels = [{ _notice: /*self*/ ctx[17] }, /*modules*/ ctx[2][/*module*/ ctx[104].key]];
+	const switch_instance_spread_levels = [{ _notice: /*self*/ ctx[17] }, /*modules*/ ctx[2][/*module*/ ctx[107].key]];
 
 	function init_handler_1(...args) {
-		return /*init_handler_1*/ ctx[96](/*module*/ ctx[104], ...args);
+		return /*init_handler_1*/ ctx[99](/*module*/ ctx[107], ...args);
 	}
 
-	var switch_value = /*module*/ ctx[104];
+	var switch_value = /*module*/ ctx[107];
 
 	function switch_props(ctx) {
 		let switch_instance_props = {};
@@ -374,11 +374,11 @@ function create_each_block_2(key_1, ctx) {
 			const switch_instance_changes = (dirty[0] & /*self, modules*/ 131076)
 			? get_spread_update(switch_instance_spread_levels, [
 					dirty[0] & /*self*/ 131072 && { _notice: /*self*/ ctx[17] },
-					dirty[0] & /*modules*/ 4 && get_spread_object(/*modules*/ ctx[2][/*module*/ ctx[104].key])
+					dirty[0] & /*modules*/ 4 && get_spread_object(/*modules*/ ctx[2][/*module*/ ctx[107].key])
 				])
 			: {};
 
-			if (switch_value !== (switch_value = /*module*/ ctx[104])) {
+			if (switch_value !== (switch_value = /*module*/ ctx[107])) {
 				if (switch_instance) {
 					group_outros();
 					const old_component = switch_instance;
@@ -420,11 +420,11 @@ function create_each_block_2(key_1, ctx) {
 	};
 }
 
-// (238:6) {#if title !== false}
+// (239:6) {#if title !== false}
 function create_if_block_5(ctx) {
 	let div;
 	let div_class_value;
-	let if_block = !/*_titleElement*/ ctx[24] && create_if_block_6(ctx);
+	let if_block = !/*_titleElement*/ ctx[25] && create_if_block_6(ctx);
 
 	return {
 		c() {
@@ -435,10 +435,10 @@ function create_if_block_5(ctx) {
 		m(target, anchor) {
 			insert(target, div, anchor);
 			if (if_block) if_block.m(div, null);
-			/*div_binding_1*/ ctx[97](div);
+			/*div_binding_1*/ ctx[100](div);
 		},
 		p(ctx, dirty) {
-			if (!/*_titleElement*/ ctx[24]) {
+			if (!/*_titleElement*/ ctx[25]) {
 				if (if_block) {
 					if_block.p(ctx, dirty);
 				} else {
@@ -454,12 +454,12 @@ function create_if_block_5(ctx) {
 		d(detaching) {
 			if (detaching) detach(div);
 			if (if_block) if_block.d();
-			/*div_binding_1*/ ctx[97](null);
+			/*div_binding_1*/ ctx[100](null);
 		}
 	};
 }
 
-// (240:10) {#if !_titleElement}
+// (241:10) {#if !_titleElement}
 function create_if_block_6(ctx) {
 	let if_block_anchor;
 
@@ -500,7 +500,7 @@ function create_if_block_6(ctx) {
 	};
 }
 
-// (243:12) {:else}
+// (244:12) {:else}
 function create_else_block_1(ctx) {
 	let span;
 	let t;
@@ -524,7 +524,7 @@ function create_else_block_1(ctx) {
 	};
 }
 
-// (241:12) {#if titleTrusted}
+// (242:12) {#if titleTrusted}
 function create_if_block_7(ctx) {
 	let html_tag;
 
@@ -544,11 +544,11 @@ function create_if_block_7(ctx) {
 	};
 }
 
-// (249:6) {#if text !== false}
+// (250:6) {#if text !== false}
 function create_if_block_2(ctx) {
 	let div;
 	let div_class_value;
-	let if_block = !/*_textElement*/ ctx[25] && create_if_block_3(ctx);
+	let if_block = !/*_textElement*/ ctx[26] && create_if_block_3(ctx);
 
 	return {
 		c() {
@@ -560,10 +560,10 @@ function create_if_block_2(ctx) {
 		m(target, anchor) {
 			insert(target, div, anchor);
 			if (if_block) if_block.m(div, null);
-			/*div_binding_2*/ ctx[98](div);
+			/*div_binding_2*/ ctx[101](div);
 		},
 		p(ctx, dirty) {
-			if (!/*_textElement*/ ctx[25]) {
+			if (!/*_textElement*/ ctx[26]) {
 				if (if_block) {
 					if_block.p(ctx, dirty);
 				} else {
@@ -579,12 +579,12 @@ function create_if_block_2(ctx) {
 		d(detaching) {
 			if (detaching) detach(div);
 			if (if_block) if_block.d();
-			/*div_binding_2*/ ctx[98](null);
+			/*div_binding_2*/ ctx[101](null);
 		}
 	};
 }
 
-// (251:10) {#if !_textElement}
+// (252:10) {#if !_textElement}
 function create_if_block_3(ctx) {
 	let if_block_anchor;
 
@@ -625,7 +625,7 @@ function create_if_block_3(ctx) {
 	};
 }
 
-// (254:12) {:else}
+// (255:12) {:else}
 function create_else_block(ctx) {
 	let span;
 	let t;
@@ -649,7 +649,7 @@ function create_else_block(ctx) {
 	};
 }
 
-// (252:12) {#if textTrusted}
+// (253:12) {#if textTrusted}
 function create_if_block_4(ctx) {
 	let html_tag;
 
@@ -669,14 +669,14 @@ function create_if_block_4(ctx) {
 	};
 }
 
-// (260:6) {#if self}
+// (261:6) {#if self}
 function create_if_block_1(ctx) {
 	let each_blocks = [];
 	let each_1_lookup = new Map();
 	let each_1_anchor;
 	let current;
 	let each_value_1 = modulesAppendContent;
-	const get_key = ctx => /*module*/ ctx[104].key;
+	const get_key = ctx => /*module*/ ctx[107].key;
 
 	for (let i = 0; i < each_value_1.length; i += 1) {
 		let child_ctx = get_each_context_1(ctx, each_value_1, i);
@@ -732,18 +732,18 @@ function create_if_block_1(ctx) {
 	};
 }
 
-// (261:8) {#each modulesAppendContent as module (module.key)}
+// (262:8) {#each modulesAppendContent as module (module.key)}
 function create_each_block_1(key_1, ctx) {
 	let first;
 	let switch_instance_anchor;
 	let current;
-	const switch_instance_spread_levels = [{ _notice: /*self*/ ctx[17] }, /*modules*/ ctx[2][/*module*/ ctx[104].key]];
+	const switch_instance_spread_levels = [{ _notice: /*self*/ ctx[17] }, /*modules*/ ctx[2][/*module*/ ctx[107].key]];
 
 	function init_handler_2(...args) {
-		return /*init_handler_2*/ ctx[99](/*module*/ ctx[104], ...args);
+		return /*init_handler_2*/ ctx[102](/*module*/ ctx[107], ...args);
 	}
 
-	var switch_value = /*module*/ ctx[104];
+	var switch_value = /*module*/ ctx[107];
 
 	function switch_props(ctx) {
 		let switch_instance_props = {};
@@ -785,11 +785,11 @@ function create_each_block_1(key_1, ctx) {
 			const switch_instance_changes = (dirty[0] & /*self, modules*/ 131076)
 			? get_spread_update(switch_instance_spread_levels, [
 					dirty[0] & /*self*/ 131072 && { _notice: /*self*/ ctx[17] },
-					dirty[0] & /*modules*/ 4 && get_spread_object(/*modules*/ ctx[2][/*module*/ ctx[104].key])
+					dirty[0] & /*modules*/ 4 && get_spread_object(/*modules*/ ctx[2][/*module*/ ctx[107].key])
 				])
 			: {};
 
-			if (switch_value !== (switch_value = /*module*/ ctx[104])) {
+			if (switch_value !== (switch_value = /*module*/ ctx[107])) {
 				if (switch_instance) {
 					group_outros();
 					const old_component = switch_instance;
@@ -831,14 +831,14 @@ function create_each_block_1(key_1, ctx) {
 	};
 }
 
-// (266:4) {#if self}
+// (267:4) {#if self}
 function create_if_block(ctx) {
 	let each_blocks = [];
 	let each_1_lookup = new Map();
 	let each_1_anchor;
 	let current;
 	let each_value = modulesAppendContainer;
-	const get_key = ctx => /*module*/ ctx[104].key;
+	const get_key = ctx => /*module*/ ctx[107].key;
 
 	for (let i = 0; i < each_value.length; i += 1) {
 		let child_ctx = get_each_context(ctx, each_value, i);
@@ -894,18 +894,18 @@ function create_if_block(ctx) {
 	};
 }
 
-// (267:6) {#each modulesAppendContainer as module (module.key)}
+// (268:6) {#each modulesAppendContainer as module (module.key)}
 function create_each_block(key_1, ctx) {
 	let first;
 	let switch_instance_anchor;
 	let current;
-	const switch_instance_spread_levels = [{ _notice: /*self*/ ctx[17] }, /*modules*/ ctx[2][/*module*/ ctx[104].key]];
+	const switch_instance_spread_levels = [{ _notice: /*self*/ ctx[17] }, /*modules*/ ctx[2][/*module*/ ctx[107].key]];
 
 	function init_handler_3(...args) {
-		return /*init_handler_3*/ ctx[101](/*module*/ ctx[104], ...args);
+		return /*init_handler_3*/ ctx[104](/*module*/ ctx[107], ...args);
 	}
 
-	var switch_value = /*module*/ ctx[104];
+	var switch_value = /*module*/ ctx[107];
 
 	function switch_props(ctx) {
 		let switch_instance_props = {};
@@ -947,11 +947,11 @@ function create_each_block(key_1, ctx) {
 			const switch_instance_changes = (dirty[0] & /*self, modules*/ 131076)
 			? get_spread_update(switch_instance_spread_levels, [
 					dirty[0] & /*self*/ 131072 && { _notice: /*self*/ ctx[17] },
-					dirty[0] & /*modules*/ 4 && get_spread_object(/*modules*/ ctx[2][/*module*/ ctx[104].key])
+					dirty[0] & /*modules*/ 4 && get_spread_object(/*modules*/ ctx[2][/*module*/ ctx[107].key])
 				])
 			: {};
 
-			if (switch_value !== (switch_value = /*module*/ ctx[104])) {
+			if (switch_value !== (switch_value = /*module*/ ctx[107])) {
 				if (switch_instance) {
 					group_outros();
 					const old_component = switch_instance;
@@ -1037,7 +1037,7 @@ function create_fragment(ctx) {
 			if (if_block6) if_block6.c();
 			attr(div0, "class", div0_class_value = "ui-pnotify-content " + /*getStyle*/ ctx[15]("content"));
 			attr(div1, "class", div1_class_value = "\n        ui-pnotify-container\n        " + /*getStyle*/ ctx[15]("container") + "\n        " + /*getStyle*/ ctx[15](/*type*/ ctx[4]) + "\n        " + /*cornerClass*/ ctx[11] + "\n        " + (/*shadow*/ ctx[14] ? "ui-pnotify-shadow" : "") + "\n        " + /*_moduleClasses*/ ctx[20].container.join(" ") + "\n      ");
-			attr(div1, "style", div1_style_value = "" + (/*_widthStyle*/ ctx[22] + " " + /*_minHeightStyle*/ ctx[23]));
+			attr(div1, "style", div1_style_value = "" + (/*_widthStyle*/ ctx[23] + " " + /*_minHeightStyle*/ ctx[24]));
 			attr(div1, "role", "alert");
 			attr(div2, "aria-live", "assertive");
 			attr(div2, "role", "alertdialog");
@@ -1045,9 +1045,9 @@ function create_fragment(ctx) {
 
 			attr(div2, "class", div2_class_value = "\n      ui-pnotify\n      " + (/*icon*/ ctx[0] !== false ? "ui-pnotify-with-icon" : "") + "\n      " + /*getStyle*/ ctx[15]("element") + "\n      ui-pnotify-mode-" + /*mode*/ ctx[9] + "\n      " + /*addClass*/ ctx[10] + "\n      " + /*_animatingClass*/ ctx[18] + "\n      " + /*_moveClass*/ ctx[19] + "\n      " + (/*animation*/ ctx[12] === "fade"
 			? "ui-pnotify-fade-" + /*animateSpeed*/ ctx[13]
-			: "") + "\n      " + (/*stack*/ ctx[1] && (/*stack*/ ctx[1].modal === true || /*stack*/ ctx[1]._overlayInserted)
+			: "") + "\n      " + (/*stack*/ ctx[1] && /*stack*/ ctx[1].modal
 			? "ui-pnotify-modal"
-			: "") + "\n      " + (/*_masking*/ ctx[21] ? "ui-pnotify-masking" : "") + "\n      " + /*_moduleClasses*/ ctx[20].elem.join(" ") + "\n    ");
+			: "") + "\n      " + (/*_masking*/ ctx[21] ? "ui-pnotify-masking" : "") + "\n      " + (/*_maskingIn*/ ctx[22] ? "ui-pnotify-masking-in" : "") + "\n      " + /*_moduleClasses*/ ctx[20].elem.join(" ") + "\n    ");
 		},
 		m(target, anchor) {
 			insert(target, div2, anchor);
@@ -1064,37 +1064,37 @@ function create_fragment(ctx) {
 			if (if_block4) if_block4.m(div0, null);
 			append(div0, t4);
 			if (if_block5) if_block5.m(div0, null);
-			/*div0_binding*/ ctx[100](div0);
+			/*div0_binding*/ ctx[103](div0);
 			append(div1, t5);
 			if (if_block6) if_block6.m(div1, null);
-			/*div1_binding*/ ctx[102](div1);
-			/*div2_binding*/ ctx[103](div2);
+			/*div1_binding*/ ctx[105](div1);
+			/*div2_binding*/ ctx[106](div2);
 			current = true;
 
 			dispose = [
-				listen(div2, "mouseenter", /*handleInteraction*/ ctx[26]),
-				listen(div2, "mouseleave", /*handleLeaveInteraction*/ ctx[27]),
-				listen(div2, "focusin", /*handleInteraction*/ ctx[26]),
-				listen(div2, "focusout", /*handleLeaveInteraction*/ ctx[27]),
-				listen(div2, "mouseover", /*mouseover_handler*/ ctx[77]),
-				listen(div2, "mouseout", /*mouseout_handler*/ ctx[78]),
-				listen(div2, "mouseenter", /*mouseenter_handler*/ ctx[79]),
-				listen(div2, "mouseleave", /*mouseleave_handler*/ ctx[80]),
-				listen(div2, "mousemove", /*mousemove_handler*/ ctx[81]),
-				listen(div2, "mousedown", /*mousedown_handler*/ ctx[75]),
-				listen(div2, "mouseup", /*mouseup_handler*/ ctx[82]),
-				listen(div2, "click", /*click_handler*/ ctx[83]),
-				listen(div2, "dblclick", /*dblclick_handler*/ ctx[84]),
-				listen(div2, "focus", /*focus_handler*/ ctx[85]),
-				listen(div2, "blur", /*blur_handler*/ ctx[86]),
-				listen(div2, "focusin", /*focusin_handler*/ ctx[87]),
-				listen(div2, "focusout", /*focusout_handler*/ ctx[88]),
-				listen(div2, "touchstart", /*touchstart_handler*/ ctx[89]),
-				listen(div2, "touchmove", /*touchmove_handler*/ ctx[90]),
-				listen(div2, "touchend", /*touchend_handler*/ ctx[91]),
-				listen(div2, "touchcancel", /*touchcancel_handler*/ ctx[92]),
-				listen(div2, "animationend", /*animationend_handler*/ ctx[93]),
-				listen(div2, "transitionend", /*transitionend_handler*/ ctx[76])
+				listen(div2, "mouseenter", /*handleInteraction*/ ctx[27]),
+				listen(div2, "mouseleave", /*handleLeaveInteraction*/ ctx[28]),
+				listen(div2, "focusin", /*handleInteraction*/ ctx[27]),
+				listen(div2, "focusout", /*handleLeaveInteraction*/ ctx[28]),
+				listen(div2, "mouseover", /*mouseover_handler*/ ctx[80]),
+				listen(div2, "mouseout", /*mouseout_handler*/ ctx[81]),
+				listen(div2, "mouseenter", /*mouseenter_handler*/ ctx[82]),
+				listen(div2, "mouseleave", /*mouseleave_handler*/ ctx[83]),
+				listen(div2, "mousemove", /*mousemove_handler*/ ctx[84]),
+				listen(div2, "mousedown", /*mousedown_handler*/ ctx[78]),
+				listen(div2, "mouseup", /*mouseup_handler*/ ctx[85]),
+				listen(div2, "click", /*click_handler*/ ctx[86]),
+				listen(div2, "dblclick", /*dblclick_handler*/ ctx[87]),
+				listen(div2, "focus", /*focus_handler*/ ctx[88]),
+				listen(div2, "blur", /*blur_handler*/ ctx[89]),
+				listen(div2, "focusin", /*focusin_handler*/ ctx[90]),
+				listen(div2, "focusout", /*focusout_handler*/ ctx[91]),
+				listen(div2, "touchstart", /*touchstart_handler*/ ctx[92]),
+				listen(div2, "touchmove", /*touchmove_handler*/ ctx[93]),
+				listen(div2, "touchend", /*touchend_handler*/ ctx[94]),
+				listen(div2, "touchcancel", /*touchcancel_handler*/ ctx[95]),
+				listen(div2, "animationend", /*animationend_handler*/ ctx[96]),
+				listen(div2, "transitionend", /*transitionend_handler*/ ctx[79])
 			];
 		},
 		p(ctx, dirty) {
@@ -1221,15 +1221,15 @@ function create_fragment(ctx) {
 				attr(div1, "class", div1_class_value);
 			}
 
-			if (!current || dirty[0] & /*_widthStyle, _minHeightStyle*/ 12582912 && div1_style_value !== (div1_style_value = "" + (/*_widthStyle*/ ctx[22] + " " + /*_minHeightStyle*/ ctx[23]))) {
+			if (!current || dirty[0] & /*_widthStyle, _minHeightStyle*/ 25165824 && div1_style_value !== (div1_style_value = "" + (/*_widthStyle*/ ctx[23] + " " + /*_minHeightStyle*/ ctx[24]))) {
 				attr(div1, "style", div1_style_value);
 			}
 
-			if (!current || dirty[0] & /*icon, mode, addClass, _animatingClass, _moveClass, animation, animateSpeed, stack, _masking, _moduleClasses*/ 3945987 && div2_class_value !== (div2_class_value = "\n      ui-pnotify\n      " + (/*icon*/ ctx[0] !== false ? "ui-pnotify-with-icon" : "") + "\n      " + /*getStyle*/ ctx[15]("element") + "\n      ui-pnotify-mode-" + /*mode*/ ctx[9] + "\n      " + /*addClass*/ ctx[10] + "\n      " + /*_animatingClass*/ ctx[18] + "\n      " + /*_moveClass*/ ctx[19] + "\n      " + (/*animation*/ ctx[12] === "fade"
+			if (!current || dirty[0] & /*icon, mode, addClass, _animatingClass, _moveClass, animation, animateSpeed, stack, _masking, _maskingIn, _moduleClasses*/ 8140291 && div2_class_value !== (div2_class_value = "\n      ui-pnotify\n      " + (/*icon*/ ctx[0] !== false ? "ui-pnotify-with-icon" : "") + "\n      " + /*getStyle*/ ctx[15]("element") + "\n      ui-pnotify-mode-" + /*mode*/ ctx[9] + "\n      " + /*addClass*/ ctx[10] + "\n      " + /*_animatingClass*/ ctx[18] + "\n      " + /*_moveClass*/ ctx[19] + "\n      " + (/*animation*/ ctx[12] === "fade"
 			? "ui-pnotify-fade-" + /*animateSpeed*/ ctx[13]
-			: "") + "\n      " + (/*stack*/ ctx[1] && (/*stack*/ ctx[1].modal === true || /*stack*/ ctx[1]._overlayInserted)
+			: "") + "\n      " + (/*stack*/ ctx[1] && /*stack*/ ctx[1].modal
 			? "ui-pnotify-modal"
-			: "") + "\n      " + (/*_masking*/ ctx[21] ? "ui-pnotify-masking" : "") + "\n      " + /*_moduleClasses*/ ctx[20].elem.join(" ") + "\n    ")) {
+			: "") + "\n      " + (/*_masking*/ ctx[21] ? "ui-pnotify-masking" : "") + "\n      " + (/*_maskingIn*/ ctx[22] ? "ui-pnotify-masking-in" : "") + "\n      " + /*_moduleClasses*/ ctx[20].elem.join(" ") + "\n    ")) {
 				attr(div2, "class", div2_class_value);
 			}
 		},
@@ -1256,10 +1256,10 @@ function create_fragment(ctx) {
 			if (if_block3) if_block3.d();
 			if (if_block4) if_block4.d();
 			if (if_block5) if_block5.d();
-			/*div0_binding*/ ctx[100](null);
+			/*div0_binding*/ ctx[103](null);
 			if (if_block6) if_block6.d();
-			/*div1_binding*/ ctx[102](null);
-			/*div2_binding*/ ctx[103](null);
+			/*div1_binding*/ ctx[105](null);
+			/*div2_binding*/ ctx[106](null);
 			run_all(dispose);
 		}
 	};
@@ -1492,6 +1492,9 @@ function instance($$self, $$props, $$invalidate) {
 	// first notice is hovered.
 	let _masking = false;
 
+	let _maskingIn = false;
+	let _maskingTimer = null;
+
 	// These hold the instances to the Svelte-loaded modules.
 	// const _modulesPrependContainerInstances = [];
 	// const _modulesAppendContainerInstances = [];
@@ -1679,31 +1682,13 @@ function instance($$self, $$props, $$invalidate) {
 			return;
 		}
 
-		// Check the max in stack.
-		if (_state !== "waiting" && stack && !(stack.modal === "ish" && stack._overlayOpen)) {
-			if (stack.maxOpen !== Infinity) {
-				if (stack._openNotices >= stack.maxOpen) {
-					if (stack.maxStrategy === "close") {
-						stack.forEach(notice => {
-							if (["opening", "open"].indexOf(notice.getState()) !== -1) {
-								// Close oldest notification, leaving only stack.maxOpen from
-								// the stack.
-								notice.close(false);
-
-								return false;
-							}
-						});
-					} else if (stack.maxStrategy === "wait") {
-						_state = "waiting";
-						return;
-					} else {
-						throw new Error(`Bad stack maxStrategy option: ${stack.maxStrategy}`);
-					}
-				}
-			}
+		if (stack && stack._shouldNoticeWait()) {
+			_state = "waiting";
+			return;
 		}
 
 		_state = "opening";
+		$$invalidate(21, _masking = false);
 
 		// This makes the notice visibity: hidden; so its dimensions can be
 		// determined.
@@ -1750,8 +1735,16 @@ function instance($$self, $$props, $$invalidate) {
 				// Mark the stack so it won't animate the new notice.
 				$$invalidate(1, stack._animation = false, stack);
 
+				if (stack.push === "top") {
+					// Reset the position data so the notice is positioned as the first
+					// notice.
+					stack._resetPositionData();
+				}
+
 				// Now position the stack's the notices.
-				stack.position();
+				stack._positionNotice(self);
+
+				stack.queuePosition(0);
 
 				// Reset animation.
 				$$invalidate(1, stack._animation = true, stack);
@@ -1796,8 +1789,9 @@ function instance($$self, $$props, $$invalidate) {
 
 		if (_timer && _timer !== "prevented" && clearTimeout) {
 			clearTimeout(_timer);
-			_timer = null;
 		}
+
+		_timer = null;
 
 		animateOut(() => {
 			_timerHide = false;
@@ -1941,245 +1935,6 @@ function instance($$self, $$props, $$invalidate) {
 		}
 	} } = $$props;
 
-	function position() {
-		// Get the notice's stack.
-		let elem = refs.elem;
-
-		if (!stack || !elem) {
-			return;
-		}
-
-		if (typeof stack._nextpos1 !== "number") {
-			$$invalidate(1, stack._nextpos1 = stack.firstpos1, stack);
-		}
-
-		if (typeof stack._nextpos2 !== "number") {
-			$$invalidate(1, stack._nextpos2 = stack.firstpos2, stack);
-		}
-
-		if (typeof stack._addpos2 !== "number") {
-			$$invalidate(1, stack._addpos2 = 0, stack);
-		}
-
-		// Skip this notice if it's not shown.
-		if (!elem.classList.contains("ui-pnotify-in") && !elem.classList.contains("ui-pnotify-initial-hidden")) {
-			return;
-		}
-
-		// Use local variables, since a masking notice position shouldn't update the
-		// stack.
-		let [firstpos1, firstpos2, _nextpos1, _nextpos2, _addpos2] = [
-			stack.firstpos1,
-			stack.firstpos2,
-			stack._nextpos1,
-			stack._nextpos2,
-			stack._addpos2
-		];
-
-		// Read from the DOM to cause refresh.
-		elem.getBoundingClientRect();
-
-		if (stack._animation && !_masking) {
-			// Add animate class.
-			$$invalidate(19, _moveClass = "ui-pnotify-move");
-		}
-
-		let spaceY = stack.context === document.body
-		? window.innerHeight
-		: stack.context.scrollHeight;
-
-		let spaceX = stack.context === document.body
-		? window.innerWidth
-		: stack.context.scrollWidth;
-
-		let csspos1;
-
-		if (stack.dir1) {
-			csspos1 = ({
-				down: "top",
-				up: "bottom",
-				left: "right",
-				right: "left"
-			})[stack.dir1];
-
-			// Calculate the current pos1 value.
-			let curpos1;
-
-			switch (stack.dir1) {
-				case "down":
-					curpos1 = elem.offsetTop;
-					break;
-				case "up":
-					curpos1 = spaceY - elem.scrollHeight - elem.offsetTop;
-					break;
-				case "left":
-					curpos1 = spaceX - elem.scrollWidth - elem.offsetLeft;
-					break;
-				case "right":
-					curpos1 = elem.offsetLeft;
-					break;
-			}
-
-			// Remember the first pos1, so the first notice goes there.
-			if (typeof firstpos1 === "undefined") {
-				firstpos1 = curpos1;
-				_nextpos1 = firstpos1;
-			}
-		}
-
-		if (stack.dir1 && stack.dir2) {
-			let csspos2 = ({
-				down: "top",
-				up: "bottom",
-				left: "right",
-				right: "left"
-			})[stack.dir2];
-
-			// Calculate the current pos2 value.
-			let curpos2;
-
-			switch (stack.dir2) {
-				case "down":
-					curpos2 = elem.offsetTop;
-					break;
-				case "up":
-					curpos2 = spaceY - elem.scrollHeight - elem.offsetTop;
-					break;
-				case "left":
-					curpos2 = spaceX - elem.scrollWidth - elem.offsetLeft;
-					break;
-				case "right":
-					curpos2 = elem.offsetLeft;
-					break;
-			}
-
-			// Remember the first pos2, so the first notice goes there.
-			if (typeof firstpos2 === "undefined") {
-				firstpos2 = curpos2;
-				_nextpos2 = firstpos2;
-			}
-
-			// Check that it's not beyond the viewport edge.
-			const endY = _nextpos1 + elem.offsetHeight + (typeof stack.spacing1 === "undefined"
-			? 25
-			: stack.spacing1);
-
-			const endX = _nextpos1 + elem.offsetWidth + (typeof stack.spacing1 === "undefined"
-			? 25
-			: stack.spacing1);
-
-			if ((stack.dir1 === "down" || stack.dir1 === "up") && endY > spaceY || (stack.dir1 === "left" || stack.dir1 === "right") && endX > spaceX) {
-				// If it is, it needs to go back to the first pos1, and over on pos2.
-				_nextpos1 = firstpos1;
-
-				_nextpos2 += _addpos2 + (typeof stack.spacing2 === "undefined"
-				? 25
-				: stack.spacing2);
-
-				_addpos2 = 0;
-			}
-
-			// Move the notice on dir2.
-			if (typeof _nextpos2 === "number") {
-				elem.style[csspos2] = _nextpos2 + "px";
-
-				if (!stack._animation) {
-					// eslint-disable-next-line no-unused-expressions
-					elem.style[csspos2]; // Read from the DOM for update.
-				}
-			}
-
-			// Keep track of the widest/tallest notice in the column/row, so we can push the next column/row.
-			switch (stack.dir2) {
-				case "down":
-				case "up":
-					if (elem.offsetHeight + (parseFloat(elem.style.marginTop, 10) || 0) + (parseFloat(elem.style.marginBottom, 10) || 0) > _addpos2) {
-						_addpos2 = elem.offsetHeight;
-					}
-					break;
-				case "left":
-				case "right":
-					if (elem.offsetWidth + (parseFloat(elem.style.marginLeft, 10) || 0) + (parseFloat(elem.style.marginRight, 10) || 0) > _addpos2) {
-						_addpos2 = elem.offsetWidth;
-					}
-					break;
-			}
-		} else if (stack.dir1) {
-			// Center the notice along dir1 axis, because the stack has no dir2.
-			let cssMiddle, cssposCross;
-
-			switch (stack.dir1) {
-				case "down":
-				case "up":
-					cssposCross = ["left", "right"];
-					cssMiddle = stack.context.scrollWidth / 2 - elem.offsetWidth / 2;
-					break;
-				case "left":
-				case "right":
-					cssposCross = ["top", "bottom"];
-					cssMiddle = spaceY / 2 - elem.offsetHeight / 2;
-					break;
-			}
-
-			elem.style[cssposCross[0]] = cssMiddle + "px";
-			elem.style[cssposCross[1]] = "auto";
-
-			if (!stack._animation) {
-				// eslint-disable-next-line no-unused-expressions
-				elem.style[cssposCross[0]]; // Read from the DOM for update.
-			}
-		}
-
-		if (stack.dir1) {
-			// Move the notice on dir1.
-			if (typeof _nextpos1 === "number") {
-				elem.style[csspos1] = _nextpos1 + "px";
-
-				if (!stack._animation) {
-					// eslint-disable-next-line no-unused-expressions
-					elem.style[csspos1]; // Read from the DOM for update.
-				}
-			}
-
-			// Calculate the next dir1 position.
-			switch (stack.dir1) {
-				case "down":
-				case "up":
-					_nextpos1 += elem.offsetHeight + (typeof stack.spacing1 === "undefined"
-					? 25
-					: stack.spacing1);
-					break;
-				case "left":
-				case "right":
-					_nextpos1 += elem.offsetWidth + (typeof stack.spacing1 === "undefined"
-					? 25
-					: stack.spacing1);
-					break;
-			}
-		} else {
-			// Center the notice on the screen, because the stack has no dir1.
-			let cssMiddleLeft = spaceX / 2 - elem.offsetWidth / 2;
-
-			let cssMiddleTop = spaceY / 2 - elem.offsetHeight / 2;
-			elem.style.left = cssMiddleLeft + "px";
-			elem.style.top = cssMiddleTop + "px";
-
-			if (!stack._animation) {
-				// eslint-disable-next-line no-unused-expressions
-				elem.style.left; // Read from the DOM for update.
-			}
-		}
-
-		// If we're not positioning a masking notice, update the stack properties.
-		if (!_masking) {
-			$$invalidate(1, stack.firstpos1 = firstpos1, stack);
-			$$invalidate(1, stack.firstpos2 = firstpos2, stack);
-			$$invalidate(1, stack._nextpos1 = _nextpos1, stack);
-			$$invalidate(1, stack._nextpos2 = _nextpos2, stack);
-			$$invalidate(1, stack._addpos2 = _addpos2, stack);
-		}
-	}
-
 	function cancelClose() {
 		if (_timer && _timer !== "prevented") {
 			clearTimeout(_timer);
@@ -2212,7 +1967,7 @@ function instance($$self, $$props, $$invalidate) {
 		_timer = setTimeout(() => close(true), isNaN(delay) ? 0 : delay);
 	}
 
-	function preventTimerClose(prevent) {
+	function _preventTimerClose(prevent) {
 		if (prevent) {
 			cancelClose();
 			_timer = "prevented";
@@ -2290,18 +2045,46 @@ function instance($$self, $$props, $$invalidate) {
 		return $$invalidate(18, _animatingClass = value);
 	}
 
-	function setMasking(value) {
+	function _getMoveClass() {
+		return _moveClass;
+	}
+
+	function _setMoveClass(value) {
+		return $$invalidate(19, _moveClass = value);
+	}
+
+	function _setMasking(value) {
 		if (value) {
 			$$invalidate(18, _animatingClass = "ui-pnotify-initial-hidden");
+			$$invalidate(21, _masking = true);
 
 			// Wait for the DOM to update.
 			window.requestAnimationFrame(() => {
-				$$invalidate(21, _masking = true);
-				position();
+				stack.position();
 				$$invalidate(18, _animatingClass = "");
+				$$invalidate(22, _maskingIn = true);
 			});
 		} else {
-			$$invalidate(21, _masking = false);
+			const finished = () => {
+				refs.elem && refs.elem.removeEventListener("transitionend", finished);
+
+				if (_maskingTimer) {
+					clearTimeout(_maskingTimer);
+				}
+
+				if (!_maskingIn) {
+					$$invalidate(21, _masking = false);
+				}
+			};
+
+			$$invalidate(22, _maskingIn = false);
+			refs.elem && refs.elem.addEventListener("transitionend", finished);
+
+			// eslint-disable-next-line no-unused-expressions
+			refs.elem && refs.elem.style.opacity; // This line is necessary for some reason. Some notices don't fade without it.
+
+			// Just in case the event doesn't fire, call it after 650 ms.
+			_maskingTimer = setTimeout(finished, 650);
 		}
 	}
 
@@ -2437,29 +2220,29 @@ function instance($$self, $$props, $$invalidate) {
 		if ("titleTrusted" in $$props) $$invalidate(6, titleTrusted = $$props.titleTrusted);
 		if ("text" in $$props) $$invalidate(7, text = $$props.text);
 		if ("textTrusted" in $$props) $$invalidate(8, textTrusted = $$props.textTrusted);
-		if ("styling" in $$props) $$invalidate(29, styling = $$props.styling);
-		if ("icons" in $$props) $$invalidate(30, icons = $$props.icons);
+		if ("styling" in $$props) $$invalidate(30, styling = $$props.styling);
+		if ("icons" in $$props) $$invalidate(31, icons = $$props.icons);
 		if ("mode" in $$props) $$invalidate(9, mode = $$props.mode);
 		if ("addClass" in $$props) $$invalidate(10, addClass = $$props.addClass);
 		if ("cornerClass" in $$props) $$invalidate(11, cornerClass = $$props.cornerClass);
-		if ("autoOpen" in $$props) $$invalidate(31, autoOpen = $$props.autoOpen);
-		if ("width" in $$props) $$invalidate(32, width = $$props.width);
-		if ("minHeight" in $$props) $$invalidate(33, minHeight = $$props.minHeight);
+		if ("autoOpen" in $$props) $$invalidate(32, autoOpen = $$props.autoOpen);
+		if ("width" in $$props) $$invalidate(33, width = $$props.width);
+		if ("minHeight" in $$props) $$invalidate(34, minHeight = $$props.minHeight);
 		if ("icon" in $$props) $$invalidate(0, icon = $$props.icon);
 		if ("animation" in $$props) $$invalidate(12, animation = $$props.animation);
 		if ("animateSpeed" in $$props) $$invalidate(13, animateSpeed = $$props.animateSpeed);
 		if ("shadow" in $$props) $$invalidate(14, shadow = $$props.shadow);
-		if ("hide" in $$props) $$invalidate(34, hide = $$props.hide);
-		if ("delay" in $$props) $$invalidate(35, delay = $$props.delay);
-		if ("mouseReset" in $$props) $$invalidate(36, mouseReset = $$props.mouseReset);
-		if ("remove" in $$props) $$invalidate(37, remove = $$props.remove);
-		if ("destroy" in $$props) $$invalidate(38, destroy = $$props.destroy);
+		if ("hide" in $$props) $$invalidate(35, hide = $$props.hide);
+		if ("delay" in $$props) $$invalidate(36, delay = $$props.delay);
+		if ("mouseReset" in $$props) $$invalidate(37, mouseReset = $$props.mouseReset);
+		if ("remove" in $$props) $$invalidate(38, remove = $$props.remove);
+		if ("destroy" in $$props) $$invalidate(39, destroy = $$props.destroy);
 		if ("stack" in $$props) $$invalidate(1, stack = $$props.stack);
 		if ("modules" in $$props) $$invalidate(2, modules = $$props.modules);
-		if ("open" in $$props) $$invalidate(41, open = $$props.open);
-		if ("close" in $$props) $$invalidate(42, close = $$props.close);
-		if ("animateIn" in $$props) $$invalidate(43, animateIn = $$props.animateIn);
-		if ("animateOut" in $$props) $$invalidate(44, animateOut = $$props.animateOut);
+		if ("open" in $$props) $$invalidate(42, open = $$props.open);
+		if ("close" in $$props) $$invalidate(43, close = $$props.close);
+		if ("animateIn" in $$props) $$invalidate(44, animateIn = $$props.animateIn);
+		if ("animateOut" in $$props) $$invalidate(45, animateOut = $$props.animateOut);
 	};
 
 	let _styles;
@@ -2470,43 +2253,43 @@ function instance($$self, $$props, $$invalidate) {
 	let _textElement;
 
 	$$self.$$.update = () => {
-		if ($$self.$$.dirty[0] & /*styling*/ 536870912) {
+		if ($$self.$$.dirty[0] & /*styling*/ 1073741824) {
 			// Grab styles from the styling object or use the styles provided.
 			$: _styles = typeof styling === "object"
 			? styling
 			: styleRegistry[styling];
 		}
 
-		if ($$self.$$.dirty[0] & /*icons*/ 1073741824) {
+		if ($$self.$$.dirty[1] & /*icons*/ 1) {
 			// Grab the icons from the icons object or use provided icons
 			$: _icons = typeof icons === "object" ? icons : iconRegistry[icons];
 		}
 
-		if ($$self.$$.dirty[1] & /*width*/ 2) {
-			$: $$invalidate(22, _widthStyle = typeof width === "string" ? "width: " + width + ";" : "");
+		if ($$self.$$.dirty[1] & /*width*/ 4) {
+			$: $$invalidate(23, _widthStyle = typeof width === "string" ? "width: " + width + ";" : "");
 		}
 
-		if ($$self.$$.dirty[1] & /*minHeight*/ 4) {
-			$: $$invalidate(23, _minHeightStyle = typeof minHeight === "string"
+		if ($$self.$$.dirty[1] & /*minHeight*/ 8) {
+			$: $$invalidate(24, _minHeightStyle = typeof minHeight === "string"
 			? "min-height: " + minHeight + ";"
 			: "");
 		}
 
 		if ($$self.$$.dirty[0] & /*title*/ 32) {
-			$: $$invalidate(24, _titleElement = title instanceof HTMLElement);
+			$: $$invalidate(25, _titleElement = title instanceof HTMLElement);
 		}
 
 		if ($$self.$$.dirty[0] & /*text*/ 128) {
-			$: $$invalidate(25, _textElement = text instanceof HTMLElement);
+			$: $$invalidate(26, _textElement = text instanceof HTMLElement);
 		}
 
-		if ($$self.$$.dirty[0] & /*_titleElement, refs, title*/ 16777256) {
+		if ($$self.$$.dirty[0] & /*_titleElement, refs, title*/ 33554472) {
 			$: if (_titleElement && refs.titleContainer) {
 				refs.titleContainer.appendChild(title);
 			}
 		}
 
-		if ($$self.$$.dirty[0] & /*_textElement, refs, text*/ 33554568) {
+		if ($$self.$$.dirty[0] & /*_textElement, refs, text*/ 67109000) {
 			$: if (_textElement && refs.textContainer) {
 				refs.textContainer.appendChild(text);
 			}
@@ -2536,6 +2319,7 @@ function instance($$self, $$props, $$invalidate) {
 		_moveClass,
 		_moduleClasses,
 		_masking,
+		_maskingIn,
 		_widthStyle,
 		_minHeightStyle,
 		_titleElement,
@@ -2559,10 +2343,9 @@ function instance($$self, $$props, $$invalidate) {
 		close,
 		animateIn,
 		animateOut,
-		position,
 		cancelClose,
 		queueClose,
-		preventTimerClose,
+		_preventTimerClose,
 		fire,
 		addModuleClass,
 		removeModuleClass,
@@ -2573,7 +2356,9 @@ function instance($$self, $$props, $$invalidate) {
 		setAnimating,
 		getAnimatingClass,
 		setAnimatingClass,
-		setMasking,
+		_getMoveClass,
+		_setMoveClass,
+		_setMasking,
 		_state,
 		_timer,
 		_animTimer,
@@ -2581,6 +2366,7 @@ function instance($$self, $$props, $$invalidate) {
 		_timerHide,
 		_moduleAccessors,
 		_moduleIsNoticeOpen,
+		_maskingTimer,
 		_updatingIcon,
 		_oldHide,
 		_oldIcon,
@@ -2637,38 +2423,37 @@ class PNotifyCoreComponent extends SvelteComponent {
 				titleTrusted: 6,
 				text: 7,
 				textTrusted: 8,
-				styling: 29,
-				icons: 30,
+				styling: 30,
+				icons: 31,
 				mode: 9,
 				addClass: 10,
 				cornerClass: 11,
-				autoOpen: 31,
-				width: 32,
-				minHeight: 33,
+				autoOpen: 32,
+				width: 33,
+				minHeight: 34,
 				icon: 0,
 				animation: 12,
 				animateSpeed: 13,
 				shadow: 14,
-				hide: 34,
-				delay: 35,
-				mouseReset: 36,
-				remove: 37,
-				destroy: 38,
+				hide: 35,
+				delay: 36,
+				mouseReset: 37,
+				remove: 38,
+				destroy: 39,
 				stack: 1,
 				modules: 2,
 				refs: 3,
-				getState: 39,
+				getState: 40,
 				getStyle: 15,
 				getIcon: 16,
-				init: 40,
-				open: 41,
-				close: 42,
-				animateIn: 43,
-				animateOut: 44,
-				position: 45,
+				init: 41,
+				open: 42,
+				close: 43,
+				animateIn: 44,
+				animateOut: 45,
 				cancelClose: 46,
 				queueClose: 47,
-				preventTimerClose: 48,
+				_preventTimerClose: 48,
 				fire: 49,
 				addModuleClass: 50,
 				removeModuleClass: 51,
@@ -2679,7 +2464,9 @@ class PNotifyCoreComponent extends SvelteComponent {
 				setAnimating: 56,
 				getAnimatingClass: 57,
 				setAnimatingClass: 58,
-				setMasking: 59
+				_getMoveClass: 59,
+				_setMoveClass: 60,
+				_setMasking: 61
 			},
 			[-1, -1, -1, -1]
 		);
@@ -2731,7 +2518,7 @@ class PNotifyCoreComponent extends SvelteComponent {
 	}
 
 	get styling() {
-		return this.$$.ctx[29];
+		return this.$$.ctx[30];
 	}
 
 	set styling(styling) {
@@ -2740,7 +2527,7 @@ class PNotifyCoreComponent extends SvelteComponent {
 	}
 
 	get icons() {
-		return this.$$.ctx[30];
+		return this.$$.ctx[31];
 	}
 
 	set icons(icons) {
@@ -2776,7 +2563,7 @@ class PNotifyCoreComponent extends SvelteComponent {
 	}
 
 	get autoOpen() {
-		return this.$$.ctx[31];
+		return this.$$.ctx[32];
 	}
 
 	set autoOpen(autoOpen) {
@@ -2785,7 +2572,7 @@ class PNotifyCoreComponent extends SvelteComponent {
 	}
 
 	get width() {
-		return this.$$.ctx[32];
+		return this.$$.ctx[33];
 	}
 
 	set width(width) {
@@ -2794,7 +2581,7 @@ class PNotifyCoreComponent extends SvelteComponent {
 	}
 
 	get minHeight() {
-		return this.$$.ctx[33];
+		return this.$$.ctx[34];
 	}
 
 	set minHeight(minHeight) {
@@ -2839,7 +2626,7 @@ class PNotifyCoreComponent extends SvelteComponent {
 	}
 
 	get hide() {
-		return this.$$.ctx[34];
+		return this.$$.ctx[35];
 	}
 
 	set hide(hide) {
@@ -2848,7 +2635,7 @@ class PNotifyCoreComponent extends SvelteComponent {
 	}
 
 	get delay() {
-		return this.$$.ctx[35];
+		return this.$$.ctx[36];
 	}
 
 	set delay(delay) {
@@ -2857,7 +2644,7 @@ class PNotifyCoreComponent extends SvelteComponent {
 	}
 
 	get mouseReset() {
-		return this.$$.ctx[36];
+		return this.$$.ctx[37];
 	}
 
 	set mouseReset(mouseReset) {
@@ -2866,7 +2653,7 @@ class PNotifyCoreComponent extends SvelteComponent {
 	}
 
 	get remove() {
-		return this.$$.ctx[37];
+		return this.$$.ctx[38];
 	}
 
 	set remove(remove) {
@@ -2875,7 +2662,7 @@ class PNotifyCoreComponent extends SvelteComponent {
 	}
 
 	get destroy() {
-		return this.$$.ctx[38];
+		return this.$$.ctx[39];
 	}
 
 	set destroy(destroy) {
@@ -2906,7 +2693,7 @@ class PNotifyCoreComponent extends SvelteComponent {
 	}
 
 	get getState() {
-		return this.$$.ctx[39];
+		return this.$$.ctx[40];
 	}
 
 	get getStyle() {
@@ -2918,11 +2705,11 @@ class PNotifyCoreComponent extends SvelteComponent {
 	}
 
 	get init() {
-		return this.$$.ctx[40];
+		return this.$$.ctx[41];
 	}
 
 	get open() {
-		return this.$$.ctx[41];
+		return this.$$.ctx[42];
 	}
 
 	set open(open) {
@@ -2931,7 +2718,7 @@ class PNotifyCoreComponent extends SvelteComponent {
 	}
 
 	get close() {
-		return this.$$.ctx[42];
+		return this.$$.ctx[43];
 	}
 
 	set close(close) {
@@ -2940,7 +2727,7 @@ class PNotifyCoreComponent extends SvelteComponent {
 	}
 
 	get animateIn() {
-		return this.$$.ctx[43];
+		return this.$$.ctx[44];
 	}
 
 	set animateIn(animateIn) {
@@ -2949,16 +2736,12 @@ class PNotifyCoreComponent extends SvelteComponent {
 	}
 
 	get animateOut() {
-		return this.$$.ctx[44];
+		return this.$$.ctx[45];
 	}
 
 	set animateOut(animateOut) {
 		this.$set({ animateOut });
 		flush();
-	}
-
-	get position() {
-		return this.$$.ctx[45];
 	}
 
 	get cancelClose() {
@@ -2969,7 +2752,7 @@ class PNotifyCoreComponent extends SvelteComponent {
 		return this.$$.ctx[47];
 	}
 
-	get preventTimerClose() {
+	get _preventTimerClose() {
 		return this.$$.ctx[48];
 	}
 
@@ -3013,8 +2796,16 @@ class PNotifyCoreComponent extends SvelteComponent {
 		return this.$$.ctx[58];
 	}
 
-	get setMasking() {
+	get _getMoveClass() {
 		return this.$$.ctx[59];
+	}
+
+	get _setMoveClass() {
+		return this.$$.ctx[60];
+	}
+
+	get _setMasking() {
+		return this.$$.ctx[61];
 	}
 }
 
