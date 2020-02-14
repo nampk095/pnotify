@@ -563,7 +563,7 @@ function instance($$self, $$props, $$invalidate) {
 								$$invalidate(14, focusNextChange = false);
 							}
 						}
-					} else if (confirm && (focus === true || focus === null && _notice.stack.modal)) {
+					} else if (confirm && (focus === true || focus === null && _notice.stack.modal === true)) {
 						if (buttons.length && buttonsElem) {
 							let i = buttons.length - 1;
 

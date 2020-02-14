@@ -1,19 +1,32 @@
 export default class Stack {
   constructor (options) {
-    this.dir1 = options.dir1 || null;
-    this.dir2 = options.dir2 || null;
-    this.firstpos1 = options.firstpos1;
-    this.firstpos2 = options.firstpos2;
-    this.spacing1 = options.spacing1;
-    this.spacing2 = options.spacing2;
-    this.push = options.push || 'bottom';
-    this.maxOpen = 'maxOpen' in options ? options.maxOpen : 1;
-    this.maxStrategy = 'maxStrategy' in options ? options.maxStrategy : 'wait';
-    this.maxClosureCausesWait = 'maxClosureCausesWait' in options ? options.maxClosureCausesWait : true;
-    this.modal = 'modal' in options ? options.modal : 'ish';
-    this.overlayClose = 'overlayClose' in options ? options.overlayClose : true;
-    this.overlayClosesPinned = options.overlayClosesPinned || false;
-    this.context = options.context || (window && document.body) || null;
+    Object.assign(this, {
+      dir1: null,
+      dir2: null,
+      firstpos1: null,
+      firstpos2: null,
+      spacing1: 25,
+      spacing2: 25,
+      push: 'bottom',
+      maxOpen: 1,
+      maxStrategy: 'wait',
+      maxClosureCausesWait: true,
+      modal: 'ish',
+      overlayClose: true,
+      overlayClosesPinned: false,
+      context: (window && document.body) || null
+    }, options);
+
+    // Validate the options.
+    if (this.modal === 'ish' && this.maxOpen !== 1) {
+      throw new Error('A modalish stack must have a maxOpen value of 1.');
+    }
+    if (this.modal === 'ish' && !this.dir1) {
+      throw new Error('A modalish stack must have a direction.');
+    }
+    if (this.push === 'top' && this.modal === 'ish' && this.maxStrategy !== 'close') {
+      throw new Error('A modalish stack that pushes to the top must use the close maxStrategy.');
+    }
 
     // -- Private properties.
 
@@ -96,7 +109,7 @@ export default class Stack {
   }
 
   close () {
-    this.forEach(notice => notice.close(false));
+    this.forEach(notice => notice.close(false, false));
   }
 
   open () {
@@ -120,7 +133,6 @@ export default class Stack {
       this.forEach(notice => {
         this._positionNotice(notice);
       }, { start: 'head', dir: 'next' });
-      this._collapsingModalState = false;
     } else {
       delete this._nextpos1;
       delete this._nextpos2;
@@ -155,7 +167,8 @@ export default class Stack {
     // Skip this notice if it's not shown.
     if (
       !elem.classList.contains('ui-pnotify-in') &&
-      !elem.classList.contains('ui-pnotify-initial-hidden')
+      !elem.classList.contains('ui-pnotify-initial-hidden') &&
+      notice !== this._masking
     ) {
       return;
     }
@@ -210,7 +223,7 @@ export default class Stack {
           break;
       }
       // Remember the first pos1, so the first notice goes there.
-      if (typeof firstpos1 === 'undefined') {
+      if (firstpos1 == null) {
         firstpos1 = curpos1;
         _nextpos1 = firstpos1;
       }
@@ -241,26 +254,30 @@ export default class Stack {
           break;
       }
       // Remember the first pos2, so the first notice goes there.
-      if (typeof firstpos2 === 'undefined') {
+      if (firstpos2 == null) {
         firstpos2 = curpos2;
         _nextpos2 = firstpos2;
       }
 
-      // Check that it's not beyond the viewport edge.
-      const endY = _nextpos1 + elem.offsetHeight + (typeof this.spacing1 === 'undefined' ? 25 : this.spacing1);
-      const endX = _nextpos1 + elem.offsetWidth + (typeof this.spacing1 === 'undefined' ? 25 : this.spacing1);
-      if (
-        ((this.dir1 === 'down' || this.dir1 === 'up') && endY > spaceY) ||
-        ((this.dir1 === 'left' || this.dir1 === 'right') && endX > spaceX)
-      ) {
-        // If it is, it needs to go back to the first pos1, and over on pos2.
-        _nextpos1 = firstpos1;
-        _nextpos2 += _addpos2 + (typeof this.spacing2 === 'undefined' ? 25 : this.spacing2);
-        _addpos2 = 0;
+      // Don't move masking notices along dir2. They should always be beside the
+      // leader along dir1.
+      if (notice !== this._masking) {
+        // Check that it's not beyond the viewport edge.
+        const endY = _nextpos1 + elem.offsetHeight + this.spacing1;
+        const endX = _nextpos1 + elem.offsetWidth + this.spacing1;
+        if (
+          ((this.dir1 === 'down' || this.dir1 === 'up') && endY > spaceY) ||
+          ((this.dir1 === 'left' || this.dir1 === 'right') && endX > spaceX)
+        ) {
+          // If it is, it needs to go back to the first pos1, and over on pos2.
+          _nextpos1 = firstpos1;
+          _nextpos2 += _addpos2 + this.spacing2;
+          _addpos2 = 0;
+        }
       }
 
       // Move the notice on dir2.
-      if (typeof _nextpos2 === 'number') {
+      if (_nextpos2 != null) {
         elem.style[csspos2] = _nextpos2 + 'px';
         if (!this._animation) {
           // eslint-disable-next-line no-unused-expressions
@@ -308,7 +325,7 @@ export default class Stack {
 
     if (this.dir1) {
       // Move the notice on dir1.
-      if (typeof _nextpos1 === 'number') {
+      if (_nextpos1 != null) {
         elem.style[csspos1] = _nextpos1 + 'px';
         if (!this._animation) {
           // eslint-disable-next-line no-unused-expressions
@@ -320,11 +337,11 @@ export default class Stack {
       switch (this.dir1) {
         case 'down':
         case 'up':
-          _nextpos1 += elem.offsetHeight + (typeof this.spacing1 === 'undefined' ? 25 : this.spacing1);
+          _nextpos1 += elem.offsetHeight + this.spacing1;
           break;
         case 'left':
         case 'right':
-          _nextpos1 += elem.offsetWidth + (typeof this.spacing1 === 'undefined' ? 25 : this.spacing1);
+          _nextpos1 += elem.offsetWidth + this.spacing1;
           break;
       }
     } else {
@@ -439,17 +456,21 @@ export default class Stack {
             if (!nextNoticeFromModalState) {
               nextNoticeFromModalState = notice;
             }
-            notice.close(false, true);
+            notice.close(notice === nextNoticeFromModalState, false, true);
           }
         }, {
-          start: this._leader
+          start: this._leader,
+          dir: 'next'
         });
-
-        // Queue position.
-        this.queuePosition(0);
 
         // Remove the modal state overlay.
         this._removeOverlay();
+      }
+
+      // Turn off any masking off timer that may still be running.
+      if (maskingOffTimer) {
+        clearTimeout(maskingOffTimer);
+        maskingOffTimer = null;
       }
 
       // Set the next waiting notice to be masking.
@@ -461,16 +482,15 @@ export default class Stack {
         // The next notice that is "waiting" is usually fine, but if we're
         // leaving the modal state, it will still be "closing" here, so we have
         // to work around that. :P
+        // Also, when coming back from modal state, the notice should
+        // immediately be masking instead of fading in.
         if (notice.getState() === 'waiting' || notice === nextNoticeFromModalState) {
-          if (maskingOffTimer) {
-            clearTimeout(maskingOffTimer);
-            maskingOffTimer = null;
-          }
-          this._setMasking(notice);
+          this._setMasking(notice, !!nextNoticeFromModalState);
           return false;
         }
       }, {
-        start: this._leader
+        start: this._leader,
+        dir: 'next'
       });
     };
 
@@ -482,6 +502,7 @@ export default class Stack {
         clearTimeout(maskingOffTimer);
         maskingOffTimer = null;
       }
+      // TODO: Something wrong here when you come right back from the modal state.
       maskingOffTimer = setTimeout(() => {
         maskingOffTimer = null;
         this._setMasking(null);
@@ -496,9 +517,13 @@ export default class Stack {
     ]);
   }
 
-  _setMasking (masking) {
+  _setMasking (masking, immediate) {
     if (this._masking) {
-      this._masking._setMasking(false);
+      if (this._masking === masking) {
+        // Nothing to do.
+        return;
+      }
+      this._masking._setMasking(false, immediate);
     }
 
     if (this._maskingOff) {
@@ -512,7 +537,23 @@ export default class Stack {
       return;
     }
 
-    this._masking._setMasking(true);
+    // Reset the position data and position the leader.
+    this._resetPositionData();
+    if (this._leader) {
+      this._positionNotice(this._leader);
+    }
+
+    // Get this notice ready for positioning.
+    // this._masking.setAnimatingClass('ui-pnotify-initial-hidden');
+    this._masking._setMasking(this.dir1, immediate);
+
+    // Wait for the DOM to update.
+    window.requestAnimationFrame(() => {
+      if (this._masking) {
+        this._positionNotice(this._masking);
+        // this._masking.setAnimatingClass('');
+      }
+    });
 
     const maskingInteraction = () => {
       // If the masked notice is moused over or focused, the stack enters the
@@ -520,7 +561,7 @@ export default class Stack {
       if (this.modal === 'ish') {
         this._insertOverlay();
 
-        this._setMasking(null);
+        this._setMasking(null, true);
 
         this.forEach(notice => {
           // Prevent the notices from timed closing.
@@ -530,7 +571,8 @@ export default class Stack {
             notice.open();
           }
         }, {
-          start: this._leader
+          start: this._leader,
+          dir: 'next'
         });
       }
     };
@@ -547,9 +589,7 @@ export default class Stack {
     if (this.modal === 'ish' && notice === this._leader) {
       this._setLeader(null);
       if (this._masking) {
-        const next = this._masking;
         this._setMasking(null);
-        next.open();
       }
     }
 
@@ -582,9 +622,9 @@ export default class Stack {
       if (this._overlayOpen) {
         this._removeOverlay();
       }
+    } else if (!this._collapsingModalState) {
+      this.queuePosition(0);
     }
-
-    this.queuePosition(0);
   }
 
   _handleNoticeOpened (notice) {
@@ -598,7 +638,10 @@ export default class Stack {
           ['opening', 'open'].indexOf(notice.getState()) !== -1
         ) {
           // Close oldest notices, leaving only stack.maxOpen from the stack.
-          notice.close(false, this.maxClosureCausesWait);
+          notice.close(false, false, this.maxClosureCausesWait);
+          if (notice === this._leader) {
+            this._setLeader(null);
+          }
           toClose--;
           return !!toClose;
         }
@@ -622,6 +665,9 @@ export default class Stack {
     if (!this._overlay) {
       this._overlay = document.createElement('div');
       this._overlay.classList.add('ui-pnotify-modal-overlay');
+      if (this.dir1) {
+        this._overlay.classList.add('ui-pnotify-modal-overlay-' + this.dir1);
+      }
       if (this.overlayClose) {
         this._overlay.classList.add('ui-pnotify-modal-overlay-closes');
       }
@@ -645,7 +691,7 @@ export default class Stack {
               notice.close();
             } else if (!notice.hide && this.modal === 'ish') {
               if (this._leader) {
-                notice.close(false, true);
+                notice.close(false, false, true);
               } else {
                 this._setLeader(notice);
               }
@@ -667,6 +713,7 @@ export default class Stack {
         this._overlay.classList.add('ui-pnotify-modal-overlay-in');
       });
     }
+    this._collapsingModalState = false;
   }
 
   _removeOverlay () {
@@ -678,7 +725,10 @@ export default class Stack {
         if (this._overlay.parentNode) {
           this._overlay.parentNode.removeChild(this._overlay);
         }
-      }, 75);
+      }, 250);
+      setTimeout(() => {
+        this._collapsingModalState = false;
+      }, 400);
     }
   }
 }

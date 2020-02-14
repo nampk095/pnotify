@@ -21,7 +21,7 @@ function instance($$self, $$props, $$invalidate) {
 	let _animateOut;
 	let _animation;
 
-	function animateIn(callback) {
+	function animateIn(callback, immediate) {
 		// Declare that the notice is animating in.
 		_notice.setAnimating("in");
 
@@ -44,10 +44,15 @@ function instance($$self, $$props, $$invalidate) {
 		};
 
 		off = _notice.on("animationend", finished);
-		_notice.setAnimatingClass("ui-pnotify-in animated " + inClass);
+
+		if (immediate) {
+			finished();
+		} else {
+			_notice.setAnimatingClass("ui-pnotify-in animated " + inClass);
+		}
 	}
 
-	function animateOut(callback) {
+	function animateOut(callback, immediate) {
 		// Declare that the notice is animating out.
 		_notice.setAnimating("out");
 
@@ -72,7 +77,12 @@ function instance($$self, $$props, $$invalidate) {
 		};
 
 		off = _notice.on("animationend", finished);
-		_notice.setAnimatingClass("ui-pnotify-in animated " + outClass);
+
+		if (immediate) {
+			finished();
+		} else {
+			_notice.setAnimatingClass("ui-pnotify-in animated " + outClass);
+		}
 	}
 
 	const attention = (aniClass, callback) => {

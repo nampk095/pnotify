@@ -37,25 +37,25 @@ import { onMount, beforeUpdate, tick, createEventDispatcher } from "svelte";
 
 function get_each_context(ctx, list, i) {
 	const child_ctx = ctx.slice();
-	child_ctx[107] = list[i];
+	child_ctx[109] = list[i];
 	return child_ctx;
 }
 
 function get_each_context_1(ctx, list, i) {
 	const child_ctx = ctx.slice();
-	child_ctx[107] = list[i];
+	child_ctx[109] = list[i];
 	return child_ctx;
 }
 
 function get_each_context_2(ctx, list, i) {
 	const child_ctx = ctx.slice();
-	child_ctx[107] = list[i];
+	child_ctx[109] = list[i];
 	return child_ctx;
 }
 
 function get_each_context_3(ctx, list, i) {
 	const child_ctx = ctx.slice();
-	child_ctx[107] = list[i];
+	child_ctx[109] = list[i];
 	return child_ctx;
 }
 
@@ -66,7 +66,7 @@ function create_if_block_10(ctx) {
 	let each_1_anchor;
 	let current;
 	let each_value_3 = modulesPrependContainer;
-	const get_key = ctx => /*module*/ ctx[107].key;
+	const get_key = ctx => /*module*/ ctx[109].key;
 
 	for (let i = 0; i < each_value_3.length; i += 1) {
 		let child_ctx = get_each_context_3(ctx, each_value_3, i);
@@ -127,13 +127,13 @@ function create_each_block_3(key_1, ctx) {
 	let first;
 	let switch_instance_anchor;
 	let current;
-	const switch_instance_spread_levels = [{ _notice: /*self*/ ctx[17] }, /*modules*/ ctx[2][/*module*/ ctx[107].key]];
+	const switch_instance_spread_levels = [{ _notice: /*self*/ ctx[17] }, /*modules*/ ctx[2][/*module*/ ctx[109].key]];
 
 	function init_handler(...args) {
-		return /*init_handler*/ ctx[97](/*module*/ ctx[107], ...args);
+		return /*init_handler*/ ctx[99](/*module*/ ctx[109], ...args);
 	}
 
-	var switch_value = /*module*/ ctx[107];
+	var switch_value = /*module*/ ctx[109];
 
 	function switch_props(ctx) {
 		let switch_instance_props = {};
@@ -175,11 +175,11 @@ function create_each_block_3(key_1, ctx) {
 			const switch_instance_changes = (dirty[0] & /*self, modules*/ 131076)
 			? get_spread_update(switch_instance_spread_levels, [
 					dirty[0] & /*self*/ 131072 && { _notice: /*self*/ ctx[17] },
-					dirty[0] & /*modules*/ 4 && get_spread_object(/*modules*/ ctx[2][/*module*/ ctx[107].key])
+					dirty[0] & /*modules*/ 4 && get_spread_object(/*modules*/ ctx[2][/*module*/ ctx[109].key])
 				])
 			: {};
 
-			if (switch_value !== (switch_value = /*module*/ ctx[107])) {
+			if (switch_value !== (switch_value = /*module*/ ctx[109])) {
 				if (switch_instance) {
 					group_outros();
 					const old_component = switch_instance;
@@ -242,7 +242,7 @@ function create_if_block_9(ctx) {
 		m(target, anchor) {
 			insert(target, div, anchor);
 			append(div, span);
-			/*div_binding*/ ctx[98](div);
+			/*div_binding*/ ctx[100](div);
 		},
 		p(ctx, dirty) {
 			if (dirty[0] & /*icon, type*/ 17 && span_class_value !== (span_class_value = /*icon*/ ctx[0] === true
@@ -253,7 +253,7 @@ function create_if_block_9(ctx) {
 		},
 		d(detaching) {
 			if (detaching) detach(div);
-			/*div_binding*/ ctx[98](null);
+			/*div_binding*/ ctx[100](null);
 		}
 	};
 }
@@ -265,7 +265,7 @@ function create_if_block_8(ctx) {
 	let each_1_anchor;
 	let current;
 	let each_value_2 = modulesPrependContent;
-	const get_key = ctx => /*module*/ ctx[107].key;
+	const get_key = ctx => /*module*/ ctx[109].key;
 
 	for (let i = 0; i < each_value_2.length; i += 1) {
 		let child_ctx = get_each_context_2(ctx, each_value_2, i);
@@ -326,13 +326,13 @@ function create_each_block_2(key_1, ctx) {
 	let first;
 	let switch_instance_anchor;
 	let current;
-	const switch_instance_spread_levels = [{ _notice: /*self*/ ctx[17] }, /*modules*/ ctx[2][/*module*/ ctx[107].key]];
+	const switch_instance_spread_levels = [{ _notice: /*self*/ ctx[17] }, /*modules*/ ctx[2][/*module*/ ctx[109].key]];
 
 	function init_handler_1(...args) {
-		return /*init_handler_1*/ ctx[99](/*module*/ ctx[107], ...args);
+		return /*init_handler_1*/ ctx[101](/*module*/ ctx[109], ...args);
 	}
 
-	var switch_value = /*module*/ ctx[107];
+	var switch_value = /*module*/ ctx[109];
 
 	function switch_props(ctx) {
 		let switch_instance_props = {};
@@ -374,11 +374,11 @@ function create_each_block_2(key_1, ctx) {
 			const switch_instance_changes = (dirty[0] & /*self, modules*/ 131076)
 			? get_spread_update(switch_instance_spread_levels, [
 					dirty[0] & /*self*/ 131072 && { _notice: /*self*/ ctx[17] },
-					dirty[0] & /*modules*/ 4 && get_spread_object(/*modules*/ ctx[2][/*module*/ ctx[107].key])
+					dirty[0] & /*modules*/ 4 && get_spread_object(/*modules*/ ctx[2][/*module*/ ctx[109].key])
 				])
 			: {};
 
-			if (switch_value !== (switch_value = /*module*/ ctx[107])) {
+			if (switch_value !== (switch_value = /*module*/ ctx[109])) {
 				if (switch_instance) {
 					group_outros();
 					const old_component = switch_instance;
@@ -424,7 +424,7 @@ function create_each_block_2(key_1, ctx) {
 function create_if_block_5(ctx) {
 	let div;
 	let div_class_value;
-	let if_block = !/*_titleElement*/ ctx[25] && create_if_block_6(ctx);
+	let if_block = !/*_titleElement*/ ctx[26] && create_if_block_6(ctx);
 
 	return {
 		c() {
@@ -435,10 +435,10 @@ function create_if_block_5(ctx) {
 		m(target, anchor) {
 			insert(target, div, anchor);
 			if (if_block) if_block.m(div, null);
-			/*div_binding_1*/ ctx[100](div);
+			/*div_binding_1*/ ctx[102](div);
 		},
 		p(ctx, dirty) {
-			if (!/*_titleElement*/ ctx[25]) {
+			if (!/*_titleElement*/ ctx[26]) {
 				if (if_block) {
 					if_block.p(ctx, dirty);
 				} else {
@@ -454,7 +454,7 @@ function create_if_block_5(ctx) {
 		d(detaching) {
 			if (detaching) detach(div);
 			if (if_block) if_block.d();
-			/*div_binding_1*/ ctx[100](null);
+			/*div_binding_1*/ ctx[102](null);
 		}
 	};
 }
@@ -548,7 +548,7 @@ function create_if_block_7(ctx) {
 function create_if_block_2(ctx) {
 	let div;
 	let div_class_value;
-	let if_block = !/*_textElement*/ ctx[26] && create_if_block_3(ctx);
+	let if_block = !/*_textElement*/ ctx[27] && create_if_block_3(ctx);
 
 	return {
 		c() {
@@ -560,10 +560,10 @@ function create_if_block_2(ctx) {
 		m(target, anchor) {
 			insert(target, div, anchor);
 			if (if_block) if_block.m(div, null);
-			/*div_binding_2*/ ctx[101](div);
+			/*div_binding_2*/ ctx[103](div);
 		},
 		p(ctx, dirty) {
-			if (!/*_textElement*/ ctx[26]) {
+			if (!/*_textElement*/ ctx[27]) {
 				if (if_block) {
 					if_block.p(ctx, dirty);
 				} else {
@@ -579,7 +579,7 @@ function create_if_block_2(ctx) {
 		d(detaching) {
 			if (detaching) detach(div);
 			if (if_block) if_block.d();
-			/*div_binding_2*/ ctx[101](null);
+			/*div_binding_2*/ ctx[103](null);
 		}
 	};
 }
@@ -676,7 +676,7 @@ function create_if_block_1(ctx) {
 	let each_1_anchor;
 	let current;
 	let each_value_1 = modulesAppendContent;
-	const get_key = ctx => /*module*/ ctx[107].key;
+	const get_key = ctx => /*module*/ ctx[109].key;
 
 	for (let i = 0; i < each_value_1.length; i += 1) {
 		let child_ctx = get_each_context_1(ctx, each_value_1, i);
@@ -737,13 +737,13 @@ function create_each_block_1(key_1, ctx) {
 	let first;
 	let switch_instance_anchor;
 	let current;
-	const switch_instance_spread_levels = [{ _notice: /*self*/ ctx[17] }, /*modules*/ ctx[2][/*module*/ ctx[107].key]];
+	const switch_instance_spread_levels = [{ _notice: /*self*/ ctx[17] }, /*modules*/ ctx[2][/*module*/ ctx[109].key]];
 
 	function init_handler_2(...args) {
-		return /*init_handler_2*/ ctx[102](/*module*/ ctx[107], ...args);
+		return /*init_handler_2*/ ctx[104](/*module*/ ctx[109], ...args);
 	}
 
-	var switch_value = /*module*/ ctx[107];
+	var switch_value = /*module*/ ctx[109];
 
 	function switch_props(ctx) {
 		let switch_instance_props = {};
@@ -785,11 +785,11 @@ function create_each_block_1(key_1, ctx) {
 			const switch_instance_changes = (dirty[0] & /*self, modules*/ 131076)
 			? get_spread_update(switch_instance_spread_levels, [
 					dirty[0] & /*self*/ 131072 && { _notice: /*self*/ ctx[17] },
-					dirty[0] & /*modules*/ 4 && get_spread_object(/*modules*/ ctx[2][/*module*/ ctx[107].key])
+					dirty[0] & /*modules*/ 4 && get_spread_object(/*modules*/ ctx[2][/*module*/ ctx[109].key])
 				])
 			: {};
 
-			if (switch_value !== (switch_value = /*module*/ ctx[107])) {
+			if (switch_value !== (switch_value = /*module*/ ctx[109])) {
 				if (switch_instance) {
 					group_outros();
 					const old_component = switch_instance;
@@ -838,7 +838,7 @@ function create_if_block(ctx) {
 	let each_1_anchor;
 	let current;
 	let each_value = modulesAppendContainer;
-	const get_key = ctx => /*module*/ ctx[107].key;
+	const get_key = ctx => /*module*/ ctx[109].key;
 
 	for (let i = 0; i < each_value.length; i += 1) {
 		let child_ctx = get_each_context(ctx, each_value, i);
@@ -899,13 +899,13 @@ function create_each_block(key_1, ctx) {
 	let first;
 	let switch_instance_anchor;
 	let current;
-	const switch_instance_spread_levels = [{ _notice: /*self*/ ctx[17] }, /*modules*/ ctx[2][/*module*/ ctx[107].key]];
+	const switch_instance_spread_levels = [{ _notice: /*self*/ ctx[17] }, /*modules*/ ctx[2][/*module*/ ctx[109].key]];
 
 	function init_handler_3(...args) {
-		return /*init_handler_3*/ ctx[104](/*module*/ ctx[107], ...args);
+		return /*init_handler_3*/ ctx[106](/*module*/ ctx[109], ...args);
 	}
 
-	var switch_value = /*module*/ ctx[107];
+	var switch_value = /*module*/ ctx[109];
 
 	function switch_props(ctx) {
 		let switch_instance_props = {};
@@ -947,11 +947,11 @@ function create_each_block(key_1, ctx) {
 			const switch_instance_changes = (dirty[0] & /*self, modules*/ 131076)
 			? get_spread_update(switch_instance_spread_levels, [
 					dirty[0] & /*self*/ 131072 && { _notice: /*self*/ ctx[17] },
-					dirty[0] & /*modules*/ 4 && get_spread_object(/*modules*/ ctx[2][/*module*/ ctx[107].key])
+					dirty[0] & /*modules*/ 4 && get_spread_object(/*modules*/ ctx[2][/*module*/ ctx[109].key])
 				])
 			: {};
 
-			if (switch_value !== (switch_value = /*module*/ ctx[107])) {
+			if (switch_value !== (switch_value = /*module*/ ctx[109])) {
 				if (switch_instance) {
 					group_outros();
 					const old_component = switch_instance;
@@ -1036,18 +1036,20 @@ function create_fragment(ctx) {
 			t5 = space();
 			if (if_block6) if_block6.c();
 			attr(div0, "class", div0_class_value = "ui-pnotify-content " + /*getStyle*/ ctx[15]("content"));
-			attr(div1, "class", div1_class_value = "\n        ui-pnotify-container\n        " + /*getStyle*/ ctx[15]("container") + "\n        " + /*getStyle*/ ctx[15](/*type*/ ctx[4]) + "\n        " + /*cornerClass*/ ctx[11] + "\n        " + (/*shadow*/ ctx[14] ? "ui-pnotify-shadow" : "") + "\n        " + /*_moduleClasses*/ ctx[20].container.join(" ") + "\n      ");
-			attr(div1, "style", div1_style_value = "" + (/*_widthStyle*/ ctx[23] + " " + /*_minHeightStyle*/ ctx[24]));
+			attr(div1, "class", div1_class_value = "\n        ui-pnotify-container\n        " + /*getStyle*/ ctx[15]("container") + "\n        " + /*getStyle*/ ctx[15](/*type*/ ctx[4]) + "\n        " + /*cornerClass*/ ctx[11] + "\n        " + (/*shadow*/ ctx[14] ? "ui-pnotify-shadow" : "") + "\n        " + /*_moduleClasses*/ ctx[21].container.join(" ") + "\n      ");
+			attr(div1, "style", div1_style_value = "" + (/*_widthStyle*/ ctx[24] + " " + /*_minHeightStyle*/ ctx[25]));
 			attr(div1, "role", "alert");
 			attr(div2, "aria-live", "assertive");
 			attr(div2, "role", "alertdialog");
 			attr(div2, "ui-pnotify", "");
 
-			attr(div2, "class", div2_class_value = "\n      ui-pnotify\n      " + (/*icon*/ ctx[0] !== false ? "ui-pnotify-with-icon" : "") + "\n      " + /*getStyle*/ ctx[15]("element") + "\n      ui-pnotify-mode-" + /*mode*/ ctx[9] + "\n      " + /*addClass*/ ctx[10] + "\n      " + /*_animatingClass*/ ctx[18] + "\n      " + /*_moveClass*/ ctx[19] + "\n      " + (/*animation*/ ctx[12] === "fade"
+			attr(div2, "class", div2_class_value = "\n      ui-pnotify\n      " + (/*icon*/ ctx[0] !== false ? "ui-pnotify-with-icon" : "") + "\n      " + /*getStyle*/ ctx[15]("element") + "\n      ui-pnotify-mode-" + /*mode*/ ctx[9] + "\n      " + /*addClass*/ ctx[10] + "\n      " + /*_animatingClass*/ ctx[19] + "\n      " + /*_moveClass*/ ctx[20] + "\n      " + (/*animation*/ ctx[12] === "fade"
 			? "ui-pnotify-fade-" + /*animateSpeed*/ ctx[13]
-			: "") + "\n      " + (/*stack*/ ctx[1] && /*stack*/ ctx[1].modal
+			: "") + "\n      " + (/*stack*/ ctx[1] && (/*stack*/ ctx[1].modal === true || /*stack*/ ctx[1].modal === "ish" && /*_timer*/ ctx[18] === "prevented")
 			? "ui-pnotify-modal"
-			: "") + "\n      " + (/*_masking*/ ctx[21] ? "ui-pnotify-masking" : "") + "\n      " + (/*_maskingIn*/ ctx[22] ? "ui-pnotify-masking-in" : "") + "\n      " + /*_moduleClasses*/ ctx[20].elem.join(" ") + "\n    ");
+			: "") + "\n      " + (/*_masking*/ ctx[22]
+			? "ui-pnotify-masking ui-pnotify-masking-" + /*_masking*/ ctx[22]
+			: "") + "\n      " + (/*_maskingIn*/ ctx[23] ? "ui-pnotify-masking-in" : "") + "\n      " + /*_moduleClasses*/ ctx[21].elem.join(" ") + "\n    ");
 		},
 		m(target, anchor) {
 			insert(target, div2, anchor);
@@ -1064,37 +1066,37 @@ function create_fragment(ctx) {
 			if (if_block4) if_block4.m(div0, null);
 			append(div0, t4);
 			if (if_block5) if_block5.m(div0, null);
-			/*div0_binding*/ ctx[103](div0);
+			/*div0_binding*/ ctx[105](div0);
 			append(div1, t5);
 			if (if_block6) if_block6.m(div1, null);
-			/*div1_binding*/ ctx[105](div1);
-			/*div2_binding*/ ctx[106](div2);
+			/*div1_binding*/ ctx[107](div1);
+			/*div2_binding*/ ctx[108](div2);
 			current = true;
 
 			dispose = [
-				listen(div2, "mouseenter", /*handleInteraction*/ ctx[27]),
-				listen(div2, "mouseleave", /*handleLeaveInteraction*/ ctx[28]),
-				listen(div2, "focusin", /*handleInteraction*/ ctx[27]),
-				listen(div2, "focusout", /*handleLeaveInteraction*/ ctx[28]),
-				listen(div2, "mouseover", /*mouseover_handler*/ ctx[80]),
-				listen(div2, "mouseout", /*mouseout_handler*/ ctx[81]),
-				listen(div2, "mouseenter", /*mouseenter_handler*/ ctx[82]),
-				listen(div2, "mouseleave", /*mouseleave_handler*/ ctx[83]),
-				listen(div2, "mousemove", /*mousemove_handler*/ ctx[84]),
-				listen(div2, "mousedown", /*mousedown_handler*/ ctx[78]),
-				listen(div2, "mouseup", /*mouseup_handler*/ ctx[85]),
-				listen(div2, "click", /*click_handler*/ ctx[86]),
-				listen(div2, "dblclick", /*dblclick_handler*/ ctx[87]),
-				listen(div2, "focus", /*focus_handler*/ ctx[88]),
-				listen(div2, "blur", /*blur_handler*/ ctx[89]),
-				listen(div2, "focusin", /*focusin_handler*/ ctx[90]),
-				listen(div2, "focusout", /*focusout_handler*/ ctx[91]),
-				listen(div2, "touchstart", /*touchstart_handler*/ ctx[92]),
-				listen(div2, "touchmove", /*touchmove_handler*/ ctx[93]),
-				listen(div2, "touchend", /*touchend_handler*/ ctx[94]),
-				listen(div2, "touchcancel", /*touchcancel_handler*/ ctx[95]),
-				listen(div2, "animationend", /*animationend_handler*/ ctx[96]),
-				listen(div2, "transitionend", /*transitionend_handler*/ ctx[79])
+				listen(div2, "mouseenter", /*handleInteraction*/ ctx[28]),
+				listen(div2, "mouseleave", /*handleLeaveInteraction*/ ctx[29]),
+				listen(div2, "focusin", /*handleInteraction*/ ctx[28]),
+				listen(div2, "focusout", /*handleLeaveInteraction*/ ctx[29]),
+				listen(div2, "mouseover", /*mouseover_handler*/ ctx[82]),
+				listen(div2, "mouseout", /*mouseout_handler*/ ctx[83]),
+				listen(div2, "mouseenter", /*mouseenter_handler*/ ctx[84]),
+				listen(div2, "mouseleave", /*mouseleave_handler*/ ctx[85]),
+				listen(div2, "mousemove", /*mousemove_handler*/ ctx[86]),
+				listen(div2, "mousedown", /*mousedown_handler*/ ctx[80]),
+				listen(div2, "mouseup", /*mouseup_handler*/ ctx[87]),
+				listen(div2, "click", /*click_handler*/ ctx[88]),
+				listen(div2, "dblclick", /*dblclick_handler*/ ctx[89]),
+				listen(div2, "focus", /*focus_handler*/ ctx[90]),
+				listen(div2, "blur", /*blur_handler*/ ctx[91]),
+				listen(div2, "focusin", /*focusin_handler*/ ctx[92]),
+				listen(div2, "focusout", /*focusout_handler*/ ctx[93]),
+				listen(div2, "touchstart", /*touchstart_handler*/ ctx[94]),
+				listen(div2, "touchmove", /*touchmove_handler*/ ctx[95]),
+				listen(div2, "touchend", /*touchend_handler*/ ctx[96]),
+				listen(div2, "touchcancel", /*touchcancel_handler*/ ctx[97]),
+				listen(div2, "animationend", /*animationend_handler*/ ctx[98]),
+				listen(div2, "transitionend", /*transitionend_handler*/ ctx[81])
 			];
 		},
 		p(ctx, dirty) {
@@ -1217,19 +1219,21 @@ function create_fragment(ctx) {
 				check_outros();
 			}
 
-			if (!current || dirty[0] & /*type, cornerClass, shadow, _moduleClasses*/ 1067024 && div1_class_value !== (div1_class_value = "\n        ui-pnotify-container\n        " + /*getStyle*/ ctx[15]("container") + "\n        " + /*getStyle*/ ctx[15](/*type*/ ctx[4]) + "\n        " + /*cornerClass*/ ctx[11] + "\n        " + (/*shadow*/ ctx[14] ? "ui-pnotify-shadow" : "") + "\n        " + /*_moduleClasses*/ ctx[20].container.join(" ") + "\n      ")) {
+			if (!current || dirty[0] & /*type, cornerClass, shadow, _moduleClasses*/ 2115600 && div1_class_value !== (div1_class_value = "\n        ui-pnotify-container\n        " + /*getStyle*/ ctx[15]("container") + "\n        " + /*getStyle*/ ctx[15](/*type*/ ctx[4]) + "\n        " + /*cornerClass*/ ctx[11] + "\n        " + (/*shadow*/ ctx[14] ? "ui-pnotify-shadow" : "") + "\n        " + /*_moduleClasses*/ ctx[21].container.join(" ") + "\n      ")) {
 				attr(div1, "class", div1_class_value);
 			}
 
-			if (!current || dirty[0] & /*_widthStyle, _minHeightStyle*/ 25165824 && div1_style_value !== (div1_style_value = "" + (/*_widthStyle*/ ctx[23] + " " + /*_minHeightStyle*/ ctx[24]))) {
+			if (!current || dirty[0] & /*_widthStyle, _minHeightStyle*/ 50331648 && div1_style_value !== (div1_style_value = "" + (/*_widthStyle*/ ctx[24] + " " + /*_minHeightStyle*/ ctx[25]))) {
 				attr(div1, "style", div1_style_value);
 			}
 
-			if (!current || dirty[0] & /*icon, mode, addClass, _animatingClass, _moveClass, animation, animateSpeed, stack, _masking, _maskingIn, _moduleClasses*/ 8140291 && div2_class_value !== (div2_class_value = "\n      ui-pnotify\n      " + (/*icon*/ ctx[0] !== false ? "ui-pnotify-with-icon" : "") + "\n      " + /*getStyle*/ ctx[15]("element") + "\n      ui-pnotify-mode-" + /*mode*/ ctx[9] + "\n      " + /*addClass*/ ctx[10] + "\n      " + /*_animatingClass*/ ctx[18] + "\n      " + /*_moveClass*/ ctx[19] + "\n      " + (/*animation*/ ctx[12] === "fade"
+			if (!current || dirty[0] & /*icon, mode, addClass, _animatingClass, _moveClass, animation, animateSpeed, stack, _timer, _masking, _maskingIn, _moduleClasses*/ 16528899 && div2_class_value !== (div2_class_value = "\n      ui-pnotify\n      " + (/*icon*/ ctx[0] !== false ? "ui-pnotify-with-icon" : "") + "\n      " + /*getStyle*/ ctx[15]("element") + "\n      ui-pnotify-mode-" + /*mode*/ ctx[9] + "\n      " + /*addClass*/ ctx[10] + "\n      " + /*_animatingClass*/ ctx[19] + "\n      " + /*_moveClass*/ ctx[20] + "\n      " + (/*animation*/ ctx[12] === "fade"
 			? "ui-pnotify-fade-" + /*animateSpeed*/ ctx[13]
-			: "") + "\n      " + (/*stack*/ ctx[1] && /*stack*/ ctx[1].modal
+			: "") + "\n      " + (/*stack*/ ctx[1] && (/*stack*/ ctx[1].modal === true || /*stack*/ ctx[1].modal === "ish" && /*_timer*/ ctx[18] === "prevented")
 			? "ui-pnotify-modal"
-			: "") + "\n      " + (/*_masking*/ ctx[21] ? "ui-pnotify-masking" : "") + "\n      " + (/*_maskingIn*/ ctx[22] ? "ui-pnotify-masking-in" : "") + "\n      " + /*_moduleClasses*/ ctx[20].elem.join(" ") + "\n    ")) {
+			: "") + "\n      " + (/*_masking*/ ctx[22]
+			? "ui-pnotify-masking ui-pnotify-masking-" + /*_masking*/ ctx[22]
+			: "") + "\n      " + (/*_maskingIn*/ ctx[23] ? "ui-pnotify-masking-in" : "") + "\n      " + /*_moduleClasses*/ ctx[21].elem.join(" ") + "\n    ")) {
 				attr(div2, "class", div2_class_value);
 			}
 		},
@@ -1256,10 +1260,10 @@ function create_fragment(ctx) {
 			if (if_block3) if_block3.d();
 			if (if_block4) if_block4.d();
 			if (if_block5) if_block5.d();
-			/*div0_binding*/ ctx[103](null);
+			/*div0_binding*/ ctx[105](null);
 			if (if_block6) if_block6.d();
-			/*div1_binding*/ ctx[105](null);
-			/*div2_binding*/ ctx[106](null);
+			/*div1_binding*/ ctx[107](null);
+			/*div2_binding*/ ctx[108](null);
 			run_all(dispose);
 		}
 	};
@@ -1533,7 +1537,7 @@ function instance($$self, $$props, $$invalidate) {
 		}
 
 		// Queue a position
-		if (_state !== "closed" && stack) {
+		if (_state !== "closed" && _state !== "closing" && stack && !stack._collapsingModalState) {
 			stack.queuePosition();
 		}
 
@@ -1575,10 +1579,6 @@ function instance($$self, $$props, $$invalidate) {
 		// Start the close timer.
 		if (hide && mouseReset && _animating !== "out") {
 			queueClose();
-		}
-
-		if (stack) {
-			stack.position();
 		}
 	}
 
@@ -1669,7 +1669,26 @@ function instance($$self, $$props, $$invalidate) {
 		}
 	}
 
-	let { open = () => {
+	function insertIntoDOM() {
+		// If the notice is not in the DOM, or in the wrong context, append it.
+		if (refs.elem && !refs.elem.parentNode || stack && stack.context && stack.context !== refs.elem.parentNode) {
+			if (stack && (stack.context || document.body)) {
+				if (!stack.context) {
+					$$invalidate(1, stack.context = document.body, stack);
+				}
+
+				stack.context.appendChild(refs.elem);
+			} else {
+				throw new Error("No context to insert this notice into.");
+			}
+		}
+	}
+
+	function removeFromDOM() {
+		refs.elem && refs.elem.parentNode.removeChild(refs.elem);
+	}
+
+	let { open = immediate => {
 		if (_state === "opening") {
 			return;
 		}
@@ -1688,11 +1707,11 @@ function instance($$self, $$props, $$invalidate) {
 		}
 
 		_state = "opening";
-		$$invalidate(21, _masking = false);
+		$$invalidate(22, _masking = false);
 
 		// This makes the notice visibity: hidden; so its dimensions can be
 		// determined.
-		$$invalidate(18, _animatingClass = "ui-pnotify-initial-hidden");
+		$$invalidate(19, _animatingClass = "ui-pnotify-initial-hidden");
 
 		runModules("beforeOpen");
 
@@ -1716,18 +1735,7 @@ function instance($$self, $$props, $$invalidate) {
 			return;
 		}
 
-		// If the notice is not in the DOM, or in the wrong context, append it.
-		if (refs.elem && !refs.elem.parentNode || stack && stack.context && stack.context !== refs.elem.parentNode) {
-			if (stack && (stack.context || document.body)) {
-				if (!stack.context) {
-					$$invalidate(1, stack.context = document.body, stack);
-				}
-
-				stack.context.appendChild(refs.elem);
-			} else {
-				throw new Error("No context to open this notice in.");
-			}
-		}
+		insertIntoDOM();
 
 		// Wait until the DOM is updated.
 		window.requestAnimationFrame(() => {
@@ -1750,11 +1758,11 @@ function instance($$self, $$props, $$invalidate) {
 				$$invalidate(1, stack._animation = true, stack);
 			}
 
-			animateIn(afterOpenCallback);
+			animateIn(afterOpenCallback, immediate);
 		});
 	} } = $$props;
 
-	let { close = (timerHide, waitAfterward) => {
+	let { close = (immediate, timerHide, waitAfterward) => {
 		if (_state === "closing" || _state === "closed") {
 			return;
 		}
@@ -1791,29 +1799,32 @@ function instance($$self, $$props, $$invalidate) {
 			clearTimeout(_timer);
 		}
 
-		_timer = null;
+		$$invalidate(18, _timer = null);
 
-		animateOut(() => {
-			_timerHide = false;
-			_state = waitAfterward ? "waiting" : "closed";
-			runModules("afterClose");
+		animateOut(
+			() => {
+				_timerHide = false;
+				_state = waitAfterward ? "waiting" : "closed";
+				runModules("afterClose");
 
-			if (destroy && !waitAfterward) {
-				// If we're supposed to destroy the notice, run the destroy module
-				// events, remove from notices array, and let Svelte handle DOM removal.
-				runDestroy();
-			} else if (remove && !waitAfterward) {
-				// If we're supposed to remove the notice from the DOM, do it.
-				refs.elem && refs.elem.parentNode.removeChild(refs.elem);
-			}
+				if (stack) {
+					stack._handleNoticeClosed(self);
+				}
 
-			if (stack) {
-				stack._handleNoticeClosed(self);
-			}
-		});
+				if (destroy && !waitAfterward) {
+					// If we're supposed to destroy the notice, run the destroy module
+					// events, remove from stack, and let Svelte handle DOM removal.
+					runDestroy();
+				} else if (remove && !waitAfterward) {
+					// If we're supposed to remove the notice from the DOM, do it.
+					removeFromDOM();
+				}
+			},
+			immediate
+		);
 	} } = $$props;
 
-	let { animateIn = async callback => {
+	let { animateIn = async (callback, immediate) => {
 		// Declare that the notice is animating in.
 		_animating = "in";
 
@@ -1857,25 +1868,25 @@ function instance($$self, $$props, $$invalidate) {
 			}
 		};
 
-		if (animation === "fade") {
+		if (animation === "fade" && !immediate) {
 			refs.elem && refs.elem.addEventListener("transitionend", finished);
-			$$invalidate(18, _animatingClass = "ui-pnotify-in");
+			$$invalidate(19, _animatingClass = "ui-pnotify-in");
 
 			// eslint-disable-next-line no-unused-expressions
 			refs.elem && refs.elem.style.opacity; // This line is necessary for some reason. Some notices don't fade without it.
 
-			$$invalidate(18, _animatingClass = "ui-pnotify-in ui-pnotify-fade-in");
+			$$invalidate(19, _animatingClass = "ui-pnotify-in ui-pnotify-fade-in");
 
 			// Just in case the event doesn't fire, call it after 650 ms.
 			_animTimer = setTimeout(finished, 650);
 		} else {
-			$$invalidate(18, _animatingClass = "ui-pnotify-in");
+			$$invalidate(19, _animatingClass = "ui-pnotify-in");
 			await tick();
 			finished();
 		}
 	} } = $$props;
 
-	let { animateOut = async callback => {
+	let { animateOut = async (callback, immediate) => {
 		// Declare that the notice is animating out.
 		_animating = "out";
 
@@ -1908,7 +1919,7 @@ function instance($$self, $$props, $$invalidate) {
 			}
 
 			if (!refs.elem || !refs.elem.style.opacity || refs.elem.style.opacity === "0" || !visible) {
-				$$invalidate(18, _animatingClass = "");
+				$$invalidate(19, _animatingClass = "");
 
 				if (callback) {
 					callback.call();
@@ -1922,14 +1933,14 @@ function instance($$self, $$props, $$invalidate) {
 			}
 		};
 
-		if (animation === "fade") {
+		if (animation === "fade" && !immediate) {
 			refs.elem && refs.elem.addEventListener("transitionend", finished);
-			$$invalidate(18, _animatingClass = "ui-pnotify-in");
+			$$invalidate(19, _animatingClass = "ui-pnotify-in");
 
 			// Just in case the event doesn't fire, call it after 650 ms.
 			_animTimer = setTimeout(finished, 650);
 		} else {
-			$$invalidate(18, _animatingClass = "");
+			$$invalidate(19, _animatingClass = "");
 			await tick();
 			finished();
 		}
@@ -1950,7 +1961,7 @@ function instance($$self, $$props, $$invalidate) {
 
 			_animating = false;
 
-			$$invalidate(18, _animatingClass = animation === "fade"
+			$$invalidate(19, _animatingClass = animation === "fade"
 			? "ui-pnotify-in ui-pnotify-fade-in"
 			: "ui-pnotify-in");
 		}
@@ -1964,15 +1975,15 @@ function instance($$self, $$props, $$invalidate) {
 		// Cancel any current close timer.
 		cancelClose();
 
-		_timer = setTimeout(() => close(true), isNaN(delay) ? 0 : delay);
+		$$invalidate(18, _timer = setTimeout(() => close(false, true), isNaN(delay) ? 0 : delay));
 	}
 
 	function _preventTimerClose(prevent) {
 		if (prevent) {
 			cancelClose();
-			_timer = "prevented";
+			$$invalidate(18, _timer = "prevented");
 		} else if (_timer === "prevented") {
-			_timer = null;
+			$$invalidate(18, _timer = null);
 
 			if (_state === "open" && hide) {
 				queueClose();
@@ -1993,7 +2004,7 @@ function instance($$self, $$props, $$invalidate) {
 			}
 		}
 
-		$$invalidate(20, _moduleClasses);
+		$$invalidate(21, _moduleClasses);
 	}
 
 	function removeModuleClass(element, ...classNames) {
@@ -2006,7 +2017,7 @@ function instance($$self, $$props, $$invalidate) {
 			}
 		}
 
-		$$invalidate(20, _moduleClasses);
+		$$invalidate(21, _moduleClasses);
 	}
 
 	function hasModuleClass(element, ...classNames) {
@@ -2042,7 +2053,7 @@ function instance($$self, $$props, $$invalidate) {
 	}
 
 	function setAnimatingClass(value) {
-		return $$invalidate(18, _animatingClass = value);
+		return $$invalidate(19, _animatingClass = value);
 	}
 
 	function _getMoveClass() {
@@ -2050,20 +2061,34 @@ function instance($$self, $$props, $$invalidate) {
 	}
 
 	function _setMoveClass(value) {
-		return $$invalidate(19, _moveClass = value);
+		return $$invalidate(20, _moveClass = value);
 	}
 
-	function _setMasking(value) {
-		if (value) {
-			$$invalidate(18, _animatingClass = "ui-pnotify-initial-hidden");
-			$$invalidate(21, _masking = true);
+	function _setMasking(value, immediate) {
+		if (_maskingTimer) {
+			clearTimeout(_maskingTimer);
+		}
 
-			// Wait for the DOM to update.
-			window.requestAnimationFrame(() => {
-				stack.position();
-				$$invalidate(18, _animatingClass = "");
-				$$invalidate(22, _maskingIn = true);
-			});
+		if (value) {
+			insertIntoDOM();
+			$$invalidate(22, _masking = value);
+
+			if (immediate) {
+				$$invalidate(23, _maskingIn = true);
+			} else {
+				window.requestAnimationFrame(() => {
+					if (_masking) {
+						$$invalidate(23, _maskingIn = true);
+					}
+				});
+			}
+		} else if (immediate) {
+			$$invalidate(22, _masking = false);
+			$$invalidate(23, _maskingIn = false);
+
+			if (remove && ["open", "opening", "closing"].indexOf(_state) === -1) {
+				removeFromDOM();
+			}
 		} else {
 			const finished = () => {
 				refs.elem && refs.elem.removeEventListener("transitionend", finished);
@@ -2073,11 +2098,15 @@ function instance($$self, $$props, $$invalidate) {
 				}
 
 				if (!_maskingIn) {
-					$$invalidate(21, _masking = false);
+					$$invalidate(22, _masking = false);
+
+					if (remove && ["open", "opening", "closing"].indexOf(_state) === -1) {
+						removeFromDOM();
+					}
 				}
 			};
 
-			$$invalidate(22, _maskingIn = false);
+			$$invalidate(23, _maskingIn = false);
 			refs.elem && refs.elem.addEventListener("transitionend", finished);
 
 			// eslint-disable-next-line no-unused-expressions
@@ -2220,29 +2249,29 @@ function instance($$self, $$props, $$invalidate) {
 		if ("titleTrusted" in $$props) $$invalidate(6, titleTrusted = $$props.titleTrusted);
 		if ("text" in $$props) $$invalidate(7, text = $$props.text);
 		if ("textTrusted" in $$props) $$invalidate(8, textTrusted = $$props.textTrusted);
-		if ("styling" in $$props) $$invalidate(30, styling = $$props.styling);
-		if ("icons" in $$props) $$invalidate(31, icons = $$props.icons);
+		if ("styling" in $$props) $$invalidate(31, styling = $$props.styling);
+		if ("icons" in $$props) $$invalidate(32, icons = $$props.icons);
 		if ("mode" in $$props) $$invalidate(9, mode = $$props.mode);
 		if ("addClass" in $$props) $$invalidate(10, addClass = $$props.addClass);
 		if ("cornerClass" in $$props) $$invalidate(11, cornerClass = $$props.cornerClass);
-		if ("autoOpen" in $$props) $$invalidate(32, autoOpen = $$props.autoOpen);
-		if ("width" in $$props) $$invalidate(33, width = $$props.width);
-		if ("minHeight" in $$props) $$invalidate(34, minHeight = $$props.minHeight);
+		if ("autoOpen" in $$props) $$invalidate(33, autoOpen = $$props.autoOpen);
+		if ("width" in $$props) $$invalidate(34, width = $$props.width);
+		if ("minHeight" in $$props) $$invalidate(35, minHeight = $$props.minHeight);
 		if ("icon" in $$props) $$invalidate(0, icon = $$props.icon);
 		if ("animation" in $$props) $$invalidate(12, animation = $$props.animation);
 		if ("animateSpeed" in $$props) $$invalidate(13, animateSpeed = $$props.animateSpeed);
 		if ("shadow" in $$props) $$invalidate(14, shadow = $$props.shadow);
-		if ("hide" in $$props) $$invalidate(35, hide = $$props.hide);
-		if ("delay" in $$props) $$invalidate(36, delay = $$props.delay);
-		if ("mouseReset" in $$props) $$invalidate(37, mouseReset = $$props.mouseReset);
-		if ("remove" in $$props) $$invalidate(38, remove = $$props.remove);
-		if ("destroy" in $$props) $$invalidate(39, destroy = $$props.destroy);
+		if ("hide" in $$props) $$invalidate(36, hide = $$props.hide);
+		if ("delay" in $$props) $$invalidate(37, delay = $$props.delay);
+		if ("mouseReset" in $$props) $$invalidate(38, mouseReset = $$props.mouseReset);
+		if ("remove" in $$props) $$invalidate(39, remove = $$props.remove);
+		if ("destroy" in $$props) $$invalidate(40, destroy = $$props.destroy);
 		if ("stack" in $$props) $$invalidate(1, stack = $$props.stack);
 		if ("modules" in $$props) $$invalidate(2, modules = $$props.modules);
-		if ("open" in $$props) $$invalidate(42, open = $$props.open);
-		if ("close" in $$props) $$invalidate(43, close = $$props.close);
-		if ("animateIn" in $$props) $$invalidate(44, animateIn = $$props.animateIn);
-		if ("animateOut" in $$props) $$invalidate(45, animateOut = $$props.animateOut);
+		if ("open" in $$props) $$invalidate(43, open = $$props.open);
+		if ("close" in $$props) $$invalidate(44, close = $$props.close);
+		if ("animateIn" in $$props) $$invalidate(45, animateIn = $$props.animateIn);
+		if ("animateOut" in $$props) $$invalidate(46, animateOut = $$props.animateOut);
 	};
 
 	let _styles;
@@ -2253,43 +2282,43 @@ function instance($$self, $$props, $$invalidate) {
 	let _textElement;
 
 	$$self.$$.update = () => {
-		if ($$self.$$.dirty[0] & /*styling*/ 1073741824) {
+		if ($$self.$$.dirty[1] & /*styling*/ 1) {
 			// Grab styles from the styling object or use the styles provided.
 			$: _styles = typeof styling === "object"
 			? styling
 			: styleRegistry[styling];
 		}
 
-		if ($$self.$$.dirty[1] & /*icons*/ 1) {
+		if ($$self.$$.dirty[1] & /*icons*/ 2) {
 			// Grab the icons from the icons object or use provided icons
 			$: _icons = typeof icons === "object" ? icons : iconRegistry[icons];
 		}
 
-		if ($$self.$$.dirty[1] & /*width*/ 4) {
-			$: $$invalidate(23, _widthStyle = typeof width === "string" ? "width: " + width + ";" : "");
+		if ($$self.$$.dirty[1] & /*width*/ 8) {
+			$: $$invalidate(24, _widthStyle = typeof width === "string" ? "width: " + width + ";" : "");
 		}
 
-		if ($$self.$$.dirty[1] & /*minHeight*/ 8) {
-			$: $$invalidate(24, _minHeightStyle = typeof minHeight === "string"
+		if ($$self.$$.dirty[1] & /*minHeight*/ 16) {
+			$: $$invalidate(25, _minHeightStyle = typeof minHeight === "string"
 			? "min-height: " + minHeight + ";"
 			: "");
 		}
 
 		if ($$self.$$.dirty[0] & /*title*/ 32) {
-			$: $$invalidate(25, _titleElement = title instanceof HTMLElement);
+			$: $$invalidate(26, _titleElement = title instanceof HTMLElement);
 		}
 
 		if ($$self.$$.dirty[0] & /*text*/ 128) {
-			$: $$invalidate(26, _textElement = text instanceof HTMLElement);
+			$: $$invalidate(27, _textElement = text instanceof HTMLElement);
 		}
 
-		if ($$self.$$.dirty[0] & /*_titleElement, refs, title*/ 33554472) {
+		if ($$self.$$.dirty[0] & /*_titleElement, refs, title*/ 67108904) {
 			$: if (_titleElement && refs.titleContainer) {
 				refs.titleContainer.appendChild(title);
 			}
 		}
 
-		if ($$self.$$.dirty[0] & /*_textElement, refs, text*/ 67109000) {
+		if ($$self.$$.dirty[0] & /*_textElement, refs, text*/ 134217864) {
 			$: if (_textElement && refs.textContainer) {
 				refs.textContainer.appendChild(text);
 			}
@@ -2315,6 +2344,7 @@ function instance($$self, $$props, $$invalidate) {
 		getStyle,
 		getIcon,
 		self,
+		_timer,
 		_animatingClass,
 		_moveClass,
 		_moduleClasses,
@@ -2360,7 +2390,6 @@ function instance($$self, $$props, $$invalidate) {
 		_setMoveClass,
 		_setMasking,
 		_state,
-		_timer,
 		_animTimer,
 		_animating,
 		_timerHide,
@@ -2375,6 +2404,8 @@ function instance($$self, $$props, $$invalidate) {
 		dispatch,
 		runModules,
 		initModule,
+		insertIntoDOM,
+		removeFromDOM,
 		mousedown_handler,
 		transitionend_handler,
 		mouseover_handler,
@@ -2423,50 +2454,50 @@ class PNotifyCoreComponent extends SvelteComponent {
 				titleTrusted: 6,
 				text: 7,
 				textTrusted: 8,
-				styling: 30,
-				icons: 31,
+				styling: 31,
+				icons: 32,
 				mode: 9,
 				addClass: 10,
 				cornerClass: 11,
-				autoOpen: 32,
-				width: 33,
-				minHeight: 34,
+				autoOpen: 33,
+				width: 34,
+				minHeight: 35,
 				icon: 0,
 				animation: 12,
 				animateSpeed: 13,
 				shadow: 14,
-				hide: 35,
-				delay: 36,
-				mouseReset: 37,
-				remove: 38,
-				destroy: 39,
+				hide: 36,
+				delay: 37,
+				mouseReset: 38,
+				remove: 39,
+				destroy: 40,
 				stack: 1,
 				modules: 2,
 				refs: 3,
-				getState: 40,
+				getState: 41,
 				getStyle: 15,
 				getIcon: 16,
-				init: 41,
-				open: 42,
-				close: 43,
-				animateIn: 44,
-				animateOut: 45,
-				cancelClose: 46,
-				queueClose: 47,
-				_preventTimerClose: 48,
-				fire: 49,
-				addModuleClass: 50,
-				removeModuleClass: 51,
-				hasModuleClass: 52,
-				getModuleAccessors: 53,
-				getModuleIsNoticeOpen: 54,
-				setModuleIsNoticeOpen: 55,
-				setAnimating: 56,
-				getAnimatingClass: 57,
-				setAnimatingClass: 58,
-				_getMoveClass: 59,
-				_setMoveClass: 60,
-				_setMasking: 61
+				init: 42,
+				open: 43,
+				close: 44,
+				animateIn: 45,
+				animateOut: 46,
+				cancelClose: 47,
+				queueClose: 48,
+				_preventTimerClose: 49,
+				fire: 50,
+				addModuleClass: 51,
+				removeModuleClass: 52,
+				hasModuleClass: 53,
+				getModuleAccessors: 54,
+				getModuleIsNoticeOpen: 55,
+				setModuleIsNoticeOpen: 56,
+				setAnimating: 57,
+				getAnimatingClass: 58,
+				setAnimatingClass: 59,
+				_getMoveClass: 60,
+				_setMoveClass: 61,
+				_setMasking: 62
 			},
 			[-1, -1, -1, -1]
 		);
@@ -2518,7 +2549,7 @@ class PNotifyCoreComponent extends SvelteComponent {
 	}
 
 	get styling() {
-		return this.$$.ctx[30];
+		return this.$$.ctx[31];
 	}
 
 	set styling(styling) {
@@ -2527,7 +2558,7 @@ class PNotifyCoreComponent extends SvelteComponent {
 	}
 
 	get icons() {
-		return this.$$.ctx[31];
+		return this.$$.ctx[32];
 	}
 
 	set icons(icons) {
@@ -2563,7 +2594,7 @@ class PNotifyCoreComponent extends SvelteComponent {
 	}
 
 	get autoOpen() {
-		return this.$$.ctx[32];
+		return this.$$.ctx[33];
 	}
 
 	set autoOpen(autoOpen) {
@@ -2572,7 +2603,7 @@ class PNotifyCoreComponent extends SvelteComponent {
 	}
 
 	get width() {
-		return this.$$.ctx[33];
+		return this.$$.ctx[34];
 	}
 
 	set width(width) {
@@ -2581,7 +2612,7 @@ class PNotifyCoreComponent extends SvelteComponent {
 	}
 
 	get minHeight() {
-		return this.$$.ctx[34];
+		return this.$$.ctx[35];
 	}
 
 	set minHeight(minHeight) {
@@ -2626,7 +2657,7 @@ class PNotifyCoreComponent extends SvelteComponent {
 	}
 
 	get hide() {
-		return this.$$.ctx[35];
+		return this.$$.ctx[36];
 	}
 
 	set hide(hide) {
@@ -2635,7 +2666,7 @@ class PNotifyCoreComponent extends SvelteComponent {
 	}
 
 	get delay() {
-		return this.$$.ctx[36];
+		return this.$$.ctx[37];
 	}
 
 	set delay(delay) {
@@ -2644,7 +2675,7 @@ class PNotifyCoreComponent extends SvelteComponent {
 	}
 
 	get mouseReset() {
-		return this.$$.ctx[37];
+		return this.$$.ctx[38];
 	}
 
 	set mouseReset(mouseReset) {
@@ -2653,7 +2684,7 @@ class PNotifyCoreComponent extends SvelteComponent {
 	}
 
 	get remove() {
-		return this.$$.ctx[38];
+		return this.$$.ctx[39];
 	}
 
 	set remove(remove) {
@@ -2662,7 +2693,7 @@ class PNotifyCoreComponent extends SvelteComponent {
 	}
 
 	get destroy() {
-		return this.$$.ctx[39];
+		return this.$$.ctx[40];
 	}
 
 	set destroy(destroy) {
@@ -2693,7 +2724,7 @@ class PNotifyCoreComponent extends SvelteComponent {
 	}
 
 	get getState() {
-		return this.$$.ctx[40];
+		return this.$$.ctx[41];
 	}
 
 	get getStyle() {
@@ -2705,11 +2736,11 @@ class PNotifyCoreComponent extends SvelteComponent {
 	}
 
 	get init() {
-		return this.$$.ctx[41];
+		return this.$$.ctx[42];
 	}
 
 	get open() {
-		return this.$$.ctx[42];
+		return this.$$.ctx[43];
 	}
 
 	set open(open) {
@@ -2718,7 +2749,7 @@ class PNotifyCoreComponent extends SvelteComponent {
 	}
 
 	get close() {
-		return this.$$.ctx[43];
+		return this.$$.ctx[44];
 	}
 
 	set close(close) {
@@ -2727,7 +2758,7 @@ class PNotifyCoreComponent extends SvelteComponent {
 	}
 
 	get animateIn() {
-		return this.$$.ctx[44];
+		return this.$$.ctx[45];
 	}
 
 	set animateIn(animateIn) {
@@ -2736,7 +2767,7 @@ class PNotifyCoreComponent extends SvelteComponent {
 	}
 
 	get animateOut() {
-		return this.$$.ctx[45];
+		return this.$$.ctx[46];
 	}
 
 	set animateOut(animateOut) {
@@ -2745,67 +2776,67 @@ class PNotifyCoreComponent extends SvelteComponent {
 	}
 
 	get cancelClose() {
-		return this.$$.ctx[46];
-	}
-
-	get queueClose() {
 		return this.$$.ctx[47];
 	}
 
-	get _preventTimerClose() {
+	get queueClose() {
 		return this.$$.ctx[48];
 	}
 
-	get fire() {
+	get _preventTimerClose() {
 		return this.$$.ctx[49];
 	}
 
-	get addModuleClass() {
+	get fire() {
 		return this.$$.ctx[50];
 	}
 
-	get removeModuleClass() {
+	get addModuleClass() {
 		return this.$$.ctx[51];
 	}
 
-	get hasModuleClass() {
+	get removeModuleClass() {
 		return this.$$.ctx[52];
 	}
 
-	get getModuleAccessors() {
+	get hasModuleClass() {
 		return this.$$.ctx[53];
 	}
 
-	get getModuleIsNoticeOpen() {
+	get getModuleAccessors() {
 		return this.$$.ctx[54];
 	}
 
-	get setModuleIsNoticeOpen() {
+	get getModuleIsNoticeOpen() {
 		return this.$$.ctx[55];
 	}
 
-	get setAnimating() {
+	get setModuleIsNoticeOpen() {
 		return this.$$.ctx[56];
 	}
 
-	get getAnimatingClass() {
+	get setAnimating() {
 		return this.$$.ctx[57];
 	}
 
-	get setAnimatingClass() {
+	get getAnimatingClass() {
 		return this.$$.ctx[58];
 	}
 
-	get _getMoveClass() {
+	get setAnimatingClass() {
 		return this.$$.ctx[59];
 	}
 
-	get _setMoveClass() {
+	get _getMoveClass() {
 		return this.$$.ctx[60];
 	}
 
-	get _setMasking() {
+	get _setMoveClass() {
 		return this.$$.ctx[61];
+	}
+
+	get _setMasking() {
+		return this.$$.ctx[62];
 	}
 }
 
