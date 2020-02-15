@@ -37,25 +37,25 @@ import { onMount, beforeUpdate, tick, createEventDispatcher } from "svelte";
 
 function get_each_context(ctx, list, i) {
 	const child_ctx = ctx.slice();
-	child_ctx[109] = list[i];
+	child_ctx[110] = list[i];
 	return child_ctx;
 }
 
 function get_each_context_1(ctx, list, i) {
 	const child_ctx = ctx.slice();
-	child_ctx[109] = list[i];
+	child_ctx[110] = list[i];
 	return child_ctx;
 }
 
 function get_each_context_2(ctx, list, i) {
 	const child_ctx = ctx.slice();
-	child_ctx[109] = list[i];
+	child_ctx[110] = list[i];
 	return child_ctx;
 }
 
 function get_each_context_3(ctx, list, i) {
 	const child_ctx = ctx.slice();
-	child_ctx[109] = list[i];
+	child_ctx[110] = list[i];
 	return child_ctx;
 }
 
@@ -66,7 +66,7 @@ function create_if_block_10(ctx) {
 	let each_1_anchor;
 	let current;
 	let each_value_3 = modulesPrependContainer;
-	const get_key = ctx => /*module*/ ctx[109].key;
+	const get_key = ctx => /*module*/ ctx[110].key;
 
 	for (let i = 0; i < each_value_3.length; i += 1) {
 		let child_ctx = get_each_context_3(ctx, each_value_3, i);
@@ -127,13 +127,13 @@ function create_each_block_3(key_1, ctx) {
 	let first;
 	let switch_instance_anchor;
 	let current;
-	const switch_instance_spread_levels = [{ _notice: /*self*/ ctx[17] }, /*modules*/ ctx[2][/*module*/ ctx[109].key]];
+	const switch_instance_spread_levels = [{ _notice: /*self*/ ctx[17] }, /*modules*/ ctx[2][/*module*/ ctx[110].key]];
 
 	function init_handler(...args) {
-		return /*init_handler*/ ctx[99](/*module*/ ctx[109], ...args);
+		return /*init_handler*/ ctx[100](/*module*/ ctx[110], ...args);
 	}
 
-	var switch_value = /*module*/ ctx[109];
+	var switch_value = /*module*/ ctx[110];
 
 	function switch_props(ctx) {
 		let switch_instance_props = {};
@@ -175,11 +175,11 @@ function create_each_block_3(key_1, ctx) {
 			const switch_instance_changes = (dirty[0] & /*self, modules*/ 131076)
 			? get_spread_update(switch_instance_spread_levels, [
 					dirty[0] & /*self*/ 131072 && { _notice: /*self*/ ctx[17] },
-					dirty[0] & /*modules*/ 4 && get_spread_object(/*modules*/ ctx[2][/*module*/ ctx[109].key])
+					dirty[0] & /*modules*/ 4 && get_spread_object(/*modules*/ ctx[2][/*module*/ ctx[110].key])
 				])
 			: {};
 
-			if (switch_value !== (switch_value = /*module*/ ctx[109])) {
+			if (switch_value !== (switch_value = /*module*/ ctx[110])) {
 				if (switch_instance) {
 					group_outros();
 					const old_component = switch_instance;
@@ -242,7 +242,7 @@ function create_if_block_9(ctx) {
 		m(target, anchor) {
 			insert(target, div, anchor);
 			append(div, span);
-			/*div_binding*/ ctx[100](div);
+			/*div_binding*/ ctx[101](div);
 		},
 		p(ctx, dirty) {
 			if (dirty[0] & /*icon, type*/ 17 && span_class_value !== (span_class_value = /*icon*/ ctx[0] === true
@@ -253,7 +253,7 @@ function create_if_block_9(ctx) {
 		},
 		d(detaching) {
 			if (detaching) detach(div);
-			/*div_binding*/ ctx[100](null);
+			/*div_binding*/ ctx[101](null);
 		}
 	};
 }
@@ -265,7 +265,7 @@ function create_if_block_8(ctx) {
 	let each_1_anchor;
 	let current;
 	let each_value_2 = modulesPrependContent;
-	const get_key = ctx => /*module*/ ctx[109].key;
+	const get_key = ctx => /*module*/ ctx[110].key;
 
 	for (let i = 0; i < each_value_2.length; i += 1) {
 		let child_ctx = get_each_context_2(ctx, each_value_2, i);
@@ -326,13 +326,13 @@ function create_each_block_2(key_1, ctx) {
 	let first;
 	let switch_instance_anchor;
 	let current;
-	const switch_instance_spread_levels = [{ _notice: /*self*/ ctx[17] }, /*modules*/ ctx[2][/*module*/ ctx[109].key]];
+	const switch_instance_spread_levels = [{ _notice: /*self*/ ctx[17] }, /*modules*/ ctx[2][/*module*/ ctx[110].key]];
 
 	function init_handler_1(...args) {
-		return /*init_handler_1*/ ctx[101](/*module*/ ctx[109], ...args);
+		return /*init_handler_1*/ ctx[102](/*module*/ ctx[110], ...args);
 	}
 
-	var switch_value = /*module*/ ctx[109];
+	var switch_value = /*module*/ ctx[110];
 
 	function switch_props(ctx) {
 		let switch_instance_props = {};
@@ -374,11 +374,11 @@ function create_each_block_2(key_1, ctx) {
 			const switch_instance_changes = (dirty[0] & /*self, modules*/ 131076)
 			? get_spread_update(switch_instance_spread_levels, [
 					dirty[0] & /*self*/ 131072 && { _notice: /*self*/ ctx[17] },
-					dirty[0] & /*modules*/ 4 && get_spread_object(/*modules*/ ctx[2][/*module*/ ctx[109].key])
+					dirty[0] & /*modules*/ 4 && get_spread_object(/*modules*/ ctx[2][/*module*/ ctx[110].key])
 				])
 			: {};
 
-			if (switch_value !== (switch_value = /*module*/ ctx[109])) {
+			if (switch_value !== (switch_value = /*module*/ ctx[110])) {
 				if (switch_instance) {
 					group_outros();
 					const old_component = switch_instance;
@@ -435,7 +435,7 @@ function create_if_block_5(ctx) {
 		m(target, anchor) {
 			insert(target, div, anchor);
 			if (if_block) if_block.m(div, null);
-			/*div_binding_1*/ ctx[102](div);
+			/*div_binding_1*/ ctx[103](div);
 		},
 		p(ctx, dirty) {
 			if (!/*_titleElement*/ ctx[26]) {
@@ -454,7 +454,7 @@ function create_if_block_5(ctx) {
 		d(detaching) {
 			if (detaching) detach(div);
 			if (if_block) if_block.d();
-			/*div_binding_1*/ ctx[102](null);
+			/*div_binding_1*/ ctx[103](null);
 		}
 	};
 }
@@ -560,7 +560,7 @@ function create_if_block_2(ctx) {
 		m(target, anchor) {
 			insert(target, div, anchor);
 			if (if_block) if_block.m(div, null);
-			/*div_binding_2*/ ctx[103](div);
+			/*div_binding_2*/ ctx[104](div);
 		},
 		p(ctx, dirty) {
 			if (!/*_textElement*/ ctx[27]) {
@@ -579,7 +579,7 @@ function create_if_block_2(ctx) {
 		d(detaching) {
 			if (detaching) detach(div);
 			if (if_block) if_block.d();
-			/*div_binding_2*/ ctx[103](null);
+			/*div_binding_2*/ ctx[104](null);
 		}
 	};
 }
@@ -676,7 +676,7 @@ function create_if_block_1(ctx) {
 	let each_1_anchor;
 	let current;
 	let each_value_1 = modulesAppendContent;
-	const get_key = ctx => /*module*/ ctx[109].key;
+	const get_key = ctx => /*module*/ ctx[110].key;
 
 	for (let i = 0; i < each_value_1.length; i += 1) {
 		let child_ctx = get_each_context_1(ctx, each_value_1, i);
@@ -737,13 +737,13 @@ function create_each_block_1(key_1, ctx) {
 	let first;
 	let switch_instance_anchor;
 	let current;
-	const switch_instance_spread_levels = [{ _notice: /*self*/ ctx[17] }, /*modules*/ ctx[2][/*module*/ ctx[109].key]];
+	const switch_instance_spread_levels = [{ _notice: /*self*/ ctx[17] }, /*modules*/ ctx[2][/*module*/ ctx[110].key]];
 
 	function init_handler_2(...args) {
-		return /*init_handler_2*/ ctx[104](/*module*/ ctx[109], ...args);
+		return /*init_handler_2*/ ctx[105](/*module*/ ctx[110], ...args);
 	}
 
-	var switch_value = /*module*/ ctx[109];
+	var switch_value = /*module*/ ctx[110];
 
 	function switch_props(ctx) {
 		let switch_instance_props = {};
@@ -785,11 +785,11 @@ function create_each_block_1(key_1, ctx) {
 			const switch_instance_changes = (dirty[0] & /*self, modules*/ 131076)
 			? get_spread_update(switch_instance_spread_levels, [
 					dirty[0] & /*self*/ 131072 && { _notice: /*self*/ ctx[17] },
-					dirty[0] & /*modules*/ 4 && get_spread_object(/*modules*/ ctx[2][/*module*/ ctx[109].key])
+					dirty[0] & /*modules*/ 4 && get_spread_object(/*modules*/ ctx[2][/*module*/ ctx[110].key])
 				])
 			: {};
 
-			if (switch_value !== (switch_value = /*module*/ ctx[109])) {
+			if (switch_value !== (switch_value = /*module*/ ctx[110])) {
 				if (switch_instance) {
 					group_outros();
 					const old_component = switch_instance;
@@ -838,7 +838,7 @@ function create_if_block(ctx) {
 	let each_1_anchor;
 	let current;
 	let each_value = modulesAppendContainer;
-	const get_key = ctx => /*module*/ ctx[109].key;
+	const get_key = ctx => /*module*/ ctx[110].key;
 
 	for (let i = 0; i < each_value.length; i += 1) {
 		let child_ctx = get_each_context(ctx, each_value, i);
@@ -899,13 +899,13 @@ function create_each_block(key_1, ctx) {
 	let first;
 	let switch_instance_anchor;
 	let current;
-	const switch_instance_spread_levels = [{ _notice: /*self*/ ctx[17] }, /*modules*/ ctx[2][/*module*/ ctx[109].key]];
+	const switch_instance_spread_levels = [{ _notice: /*self*/ ctx[17] }, /*modules*/ ctx[2][/*module*/ ctx[110].key]];
 
 	function init_handler_3(...args) {
-		return /*init_handler_3*/ ctx[106](/*module*/ ctx[109], ...args);
+		return /*init_handler_3*/ ctx[107](/*module*/ ctx[110], ...args);
 	}
 
-	var switch_value = /*module*/ ctx[109];
+	var switch_value = /*module*/ ctx[110];
 
 	function switch_props(ctx) {
 		let switch_instance_props = {};
@@ -947,11 +947,11 @@ function create_each_block(key_1, ctx) {
 			const switch_instance_changes = (dirty[0] & /*self, modules*/ 131076)
 			? get_spread_update(switch_instance_spread_levels, [
 					dirty[0] & /*self*/ 131072 && { _notice: /*self*/ ctx[17] },
-					dirty[0] & /*modules*/ 4 && get_spread_object(/*modules*/ ctx[2][/*module*/ ctx[109].key])
+					dirty[0] & /*modules*/ 4 && get_spread_object(/*modules*/ ctx[2][/*module*/ ctx[110].key])
 				])
 			: {};
 
-			if (switch_value !== (switch_value = /*module*/ ctx[109])) {
+			if (switch_value !== (switch_value = /*module*/ ctx[110])) {
 				if (switch_instance) {
 					group_outros();
 					const old_component = switch_instance;
@@ -1066,11 +1066,11 @@ function create_fragment(ctx) {
 			if (if_block4) if_block4.m(div0, null);
 			append(div0, t4);
 			if (if_block5) if_block5.m(div0, null);
-			/*div0_binding*/ ctx[105](div0);
+			/*div0_binding*/ ctx[106](div0);
 			append(div1, t5);
 			if (if_block6) if_block6.m(div1, null);
-			/*div1_binding*/ ctx[107](div1);
-			/*div2_binding*/ ctx[108](div2);
+			/*div1_binding*/ ctx[108](div1);
+			/*div2_binding*/ ctx[109](div2);
 			current = true;
 
 			dispose = [
@@ -1078,25 +1078,25 @@ function create_fragment(ctx) {
 				listen(div2, "mouseleave", /*handleLeaveInteraction*/ ctx[29]),
 				listen(div2, "focusin", /*handleInteraction*/ ctx[28]),
 				listen(div2, "focusout", /*handleLeaveInteraction*/ ctx[29]),
-				listen(div2, "mouseover", /*mouseover_handler*/ ctx[82]),
-				listen(div2, "mouseout", /*mouseout_handler*/ ctx[83]),
-				listen(div2, "mouseenter", /*mouseenter_handler*/ ctx[84]),
-				listen(div2, "mouseleave", /*mouseleave_handler*/ ctx[85]),
-				listen(div2, "mousemove", /*mousemove_handler*/ ctx[86]),
-				listen(div2, "mousedown", /*mousedown_handler*/ ctx[80]),
-				listen(div2, "mouseup", /*mouseup_handler*/ ctx[87]),
-				listen(div2, "click", /*click_handler*/ ctx[88]),
-				listen(div2, "dblclick", /*dblclick_handler*/ ctx[89]),
-				listen(div2, "focus", /*focus_handler*/ ctx[90]),
-				listen(div2, "blur", /*blur_handler*/ ctx[91]),
-				listen(div2, "focusin", /*focusin_handler*/ ctx[92]),
-				listen(div2, "focusout", /*focusout_handler*/ ctx[93]),
-				listen(div2, "touchstart", /*touchstart_handler*/ ctx[94]),
-				listen(div2, "touchmove", /*touchmove_handler*/ ctx[95]),
-				listen(div2, "touchend", /*touchend_handler*/ ctx[96]),
-				listen(div2, "touchcancel", /*touchcancel_handler*/ ctx[97]),
-				listen(div2, "animationend", /*animationend_handler*/ ctx[98]),
-				listen(div2, "transitionend", /*transitionend_handler*/ ctx[81])
+				listen(div2, "mouseover", /*mouseover_handler*/ ctx[83]),
+				listen(div2, "mouseout", /*mouseout_handler*/ ctx[84]),
+				listen(div2, "mouseenter", /*mouseenter_handler*/ ctx[85]),
+				listen(div2, "mouseleave", /*mouseleave_handler*/ ctx[86]),
+				listen(div2, "mousemove", /*mousemove_handler*/ ctx[87]),
+				listen(div2, "mousedown", /*mousedown_handler*/ ctx[81]),
+				listen(div2, "mouseup", /*mouseup_handler*/ ctx[88]),
+				listen(div2, "click", /*click_handler*/ ctx[89]),
+				listen(div2, "dblclick", /*dblclick_handler*/ ctx[90]),
+				listen(div2, "focus", /*focus_handler*/ ctx[91]),
+				listen(div2, "blur", /*blur_handler*/ ctx[92]),
+				listen(div2, "focusin", /*focusin_handler*/ ctx[93]),
+				listen(div2, "focusout", /*focusout_handler*/ ctx[94]),
+				listen(div2, "touchstart", /*touchstart_handler*/ ctx[95]),
+				listen(div2, "touchmove", /*touchmove_handler*/ ctx[96]),
+				listen(div2, "touchend", /*touchend_handler*/ ctx[97]),
+				listen(div2, "touchcancel", /*touchcancel_handler*/ ctx[98]),
+				listen(div2, "animationend", /*animationend_handler*/ ctx[99]),
+				listen(div2, "transitionend", /*transitionend_handler*/ ctx[82])
 			];
 		},
 		p(ctx, dirty) {
@@ -1260,10 +1260,10 @@ function create_fragment(ctx) {
 			if (if_block3) if_block3.d();
 			if (if_block4) if_block4.d();
 			if (if_block5) if_block5.d();
-			/*div0_binding*/ ctx[105](null);
+			/*div0_binding*/ ctx[106](null);
 			if (if_block6) if_block6.d();
-			/*div1_binding*/ ctx[107](null);
-			/*div2_binding*/ ctx[108](null);
+			/*div1_binding*/ ctx[108](null);
+			/*div2_binding*/ ctx[109](null);
 			run_all(dispose);
 		}
 	};
@@ -1466,8 +1466,10 @@ function instance($$self, $$props, $$invalidate) {
 	// Auto close timer.
 	let _timer = null;
 
-	// Animation timer.
-	let _animTimer = null;
+	// Animation timers.
+	let _animInTimer = null;
+
+	let _animOutTimer = null;
 
 	// Stores what is currently being animated (in or out).
 	let _animating = false;
@@ -1739,6 +1741,10 @@ function instance($$self, $$props, $$invalidate) {
 
 		// Wait until the DOM is updated.
 		window.requestAnimationFrame(() => {
+			if (_state !== "opening") {
+				return;
+			}
+
 			if (stack) {
 				// Mark the stack so it won't animate the new notice.
 				$$invalidate(1, stack._animation = false, stack);
@@ -1780,6 +1786,10 @@ function instance($$self, $$props, $$invalidate) {
 		};
 
 		if (_state === "waiting") {
+			if (waitAfterward) {
+				return;
+			}
+
 			_state = "closed";
 
 			// It's debatable whether the notice should be destroyed in this case, but
@@ -1835,8 +1845,8 @@ function instance($$self, $$props, $$invalidate) {
 
 			refs.elem && refs.elem.removeEventListener("transitionend", finished);
 
-			if (_animTimer) {
-				clearTimeout(_animTimer);
+			if (_animInTimer) {
+				clearTimeout(_animInTimer);
 			}
 
 			if (_animating !== "in") {
@@ -1864,7 +1874,7 @@ function instance($$self, $$props, $$invalidate) {
 				// Declare that the notice has completed animating.
 				_animating = false;
 			} else {
-				_animTimer = setTimeout(finished, 40);
+				_animInTimer = setTimeout(finished, 40);
 			}
 		};
 
@@ -1878,7 +1888,7 @@ function instance($$self, $$props, $$invalidate) {
 			$$invalidate(19, _animatingClass = "ui-pnotify-in ui-pnotify-fade-in");
 
 			// Just in case the event doesn't fire, call it after 650 ms.
-			_animTimer = setTimeout(finished, 650);
+			_animInTimer = setTimeout(finished, 650);
 		} else {
 			$$invalidate(19, _animatingClass = "ui-pnotify-in");
 			await tick();
@@ -1897,8 +1907,8 @@ function instance($$self, $$props, $$invalidate) {
 
 			refs.elem && refs.elem.removeEventListener("transitionend", finished);
 
-			if (_animTimer) {
-				clearTimeout(_animTimer);
+			if (_animOutTimer) {
+				clearTimeout(_animOutTimer);
 			}
 
 			if (_animating !== "out") {
@@ -1929,7 +1939,7 @@ function instance($$self, $$props, $$invalidate) {
 				_animating = false;
 			} else {
 				// In case this was called before the notice finished animating.
-				_animTimer = setTimeout(finished, 40);
+				_animOutTimer = setTimeout(finished, 40);
 			}
 		};
 
@@ -1938,7 +1948,7 @@ function instance($$self, $$props, $$invalidate) {
 			$$invalidate(19, _animatingClass = "ui-pnotify-in");
 
 			// Just in case the event doesn't fire, call it after 650 ms.
-			_animTimer = setTimeout(finished, 650);
+			_animOutTimer = setTimeout(finished, 650);
 		} else {
 			$$invalidate(19, _animatingClass = "");
 			await tick();
@@ -1951,8 +1961,8 @@ function instance($$self, $$props, $$invalidate) {
 			clearTimeout(_timer);
 		}
 
-		if (_animTimer) {
-			clearTimeout(_animTimer);
+		if (_animOutTimer) {
+			clearTimeout(_animOutTimer);
 		}
 
 		if (_state === "closing") {
@@ -2390,7 +2400,8 @@ function instance($$self, $$props, $$invalidate) {
 		_setMoveClass,
 		_setMasking,
 		_state,
-		_animTimer,
+		_animInTimer,
+		_animOutTimer,
 		_animating,
 		_timerHide,
 		_moduleAccessors,
