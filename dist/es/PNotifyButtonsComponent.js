@@ -6,7 +6,7 @@ import {
 	detach,
 	element,
 	empty,
-	init as init_1,
+	init,
 	insert,
 	listen,
 	noop,
@@ -15,14 +15,7 @@ import {
 } from "svelte/internal";
 
 import { icons } from "./PNotifyCore";
-
-import {
-	onMount,
-	onDestroy,
-	beforeUpdate,
-	tick,
-	createEventDispatcher
-} from "svelte";
+import { onDestroy, beforeUpdate, tick } from "svelte";
 
 function create_if_block_1(ctx) {
 	let div;
@@ -37,7 +30,7 @@ function create_if_block_1(ctx) {
 			span = element("span");
 			attr(span, "class", /*closerClass*/ ctx[10]);
 
-			attr(div, "class", div_class_value = "ui-pnotify-closer " + /*_notice*/ ctx[0].getStyle("closer") + " " + (!/*closerHover*/ ctx[3] || /*mouseIsIn*/ ctx[6]
+			attr(div, "class", div_class_value = "ui-pnotify-closer " + /*self*/ ctx[0].getStyle("closer") + " " + (!/*closerHover*/ ctx[3] || /*mouseIsIn*/ ctx[6]
 			? ""
 			: "ui-pnotify-buttons-hidden"));
 
@@ -55,7 +48,7 @@ function create_if_block_1(ctx) {
 				attr(span, "class", /*closerClass*/ ctx[10]);
 			}
 
-			if (dirty & /*_notice, closerHover, mouseIsIn*/ 73 && div_class_value !== (div_class_value = "ui-pnotify-closer " + /*_notice*/ ctx[0].getStyle("closer") + " " + (!/*closerHover*/ ctx[3] || /*mouseIsIn*/ ctx[6]
+			if (dirty & /*self, closerHover, mouseIsIn*/ 73 && div_class_value !== (div_class_value = "ui-pnotify-closer " + /*self*/ ctx[0].getStyle("closer") + " " + (!/*closerHover*/ ctx[3] || /*mouseIsIn*/ ctx[6]
 			? ""
 			: "ui-pnotify-buttons-hidden"))) {
 				attr(div, "class", div_class_value);
@@ -72,7 +65,7 @@ function create_if_block_1(ctx) {
 	};
 }
 
-// (61:0) {#if sticker && !(_notice && _notice.refs.elem.classList.contains('nonblock'))}
+// (61:0) {#if sticker && !(self.refs.elem && self.refs.elem.classList.contains('nonblock'))}
 function create_if_block(ctx) {
 	let div;
 	let span;
@@ -87,19 +80,19 @@ function create_if_block(ctx) {
 			div = element("div");
 			span = element("span");
 
-			attr(span, "class", span_class_value = "" + (/*stickerClass*/ ctx[7] + " " + (/*_notice*/ ctx[0].hide
+			attr(span, "class", span_class_value = "" + (/*stickerClass*/ ctx[7] + " " + (/*self*/ ctx[0].hide
 			? /*unstuckClass*/ ctx[9]
 			: /*stuckClass*/ ctx[8])));
 
-			attr(div, "class", div_class_value = "ui-pnotify-sticker " + /*_notice*/ ctx[0].getStyle("sticker") + " " + (!/*stickerHover*/ ctx[4] || /*mouseIsIn*/ ctx[6]
+			attr(div, "class", div_class_value = "ui-pnotify-sticker " + /*self*/ ctx[0].getStyle("sticker") + " " + (!/*stickerHover*/ ctx[4] || /*mouseIsIn*/ ctx[6]
 			? ""
 			: "ui-pnotify-buttons-hidden"));
 
 			attr(div, "role", "button");
-			attr(div, "aria-pressed", div_aria_pressed_value = !/*_notice*/ ctx[0].hide);
+			attr(div, "aria-pressed", div_aria_pressed_value = !/*self*/ ctx[0].hide);
 			attr(div, "tabindex", "0");
 
-			attr(div, "title", div_title_value = /*_notice*/ ctx[0].hide
+			attr(div, "title", div_title_value = /*self*/ ctx[0].hide
 			? /*labels*/ ctx[5].stick
 			: /*labels*/ ctx[5].unstick);
 		},
@@ -109,23 +102,23 @@ function create_if_block(ctx) {
 			dispose = listen(div, "click", /*handleStickerClick*/ ctx[11]);
 		},
 		p(ctx, dirty) {
-			if (dirty & /*stickerClass, _notice, unstuckClass, stuckClass*/ 897 && span_class_value !== (span_class_value = "" + (/*stickerClass*/ ctx[7] + " " + (/*_notice*/ ctx[0].hide
+			if (dirty & /*stickerClass, self, unstuckClass, stuckClass*/ 897 && span_class_value !== (span_class_value = "" + (/*stickerClass*/ ctx[7] + " " + (/*self*/ ctx[0].hide
 			? /*unstuckClass*/ ctx[9]
 			: /*stuckClass*/ ctx[8])))) {
 				attr(span, "class", span_class_value);
 			}
 
-			if (dirty & /*_notice, stickerHover, mouseIsIn*/ 81 && div_class_value !== (div_class_value = "ui-pnotify-sticker " + /*_notice*/ ctx[0].getStyle("sticker") + " " + (!/*stickerHover*/ ctx[4] || /*mouseIsIn*/ ctx[6]
+			if (dirty & /*self, stickerHover, mouseIsIn*/ 81 && div_class_value !== (div_class_value = "ui-pnotify-sticker " + /*self*/ ctx[0].getStyle("sticker") + " " + (!/*stickerHover*/ ctx[4] || /*mouseIsIn*/ ctx[6]
 			? ""
 			: "ui-pnotify-buttons-hidden"))) {
 				attr(div, "class", div_class_value);
 			}
 
-			if (dirty & /*_notice*/ 1 && div_aria_pressed_value !== (div_aria_pressed_value = !/*_notice*/ ctx[0].hide)) {
+			if (dirty & /*self*/ 1 && div_aria_pressed_value !== (div_aria_pressed_value = !/*self*/ ctx[0].hide)) {
 				attr(div, "aria-pressed", div_aria_pressed_value);
 			}
 
-			if (dirty & /*_notice, labels*/ 33 && div_title_value !== (div_title_value = /*_notice*/ ctx[0].hide
+			if (dirty & /*self, labels*/ 33 && div_title_value !== (div_title_value = /*self*/ ctx[0].hide
 			? /*labels*/ ctx[5].stick
 			: /*labels*/ ctx[5].unstick)) {
 				attr(div, "title", div_title_value);
@@ -139,9 +132,9 @@ function create_if_block(ctx) {
 }
 
 function create_fragment(ctx) {
-	let show_if_1 = /*closer*/ ctx[2] && !(/*_notice*/ ctx[0] && /*_notice*/ ctx[0].refs.elem.classList.contains("nonblock"));
+	let show_if_1 = /*closer*/ ctx[2] && !(/*self*/ ctx[0].refs.elem && /*self*/ ctx[0].refs.elem.classList.contains("nonblock"));
 	let t;
-	let show_if = /*sticker*/ ctx[1] && !(/*_notice*/ ctx[0] && /*_notice*/ ctx[0].refs.elem.classList.contains("nonblock"));
+	let show_if = /*sticker*/ ctx[1] && !(/*self*/ ctx[0].refs.elem && /*self*/ ctx[0].refs.elem.classList.contains("nonblock"));
 	let if_block1_anchor;
 	let if_block0 = show_if_1 && create_if_block_1(ctx);
 	let if_block1 = show_if && create_if_block(ctx);
@@ -160,7 +153,7 @@ function create_fragment(ctx) {
 			insert(target, if_block1_anchor, anchor);
 		},
 		p(ctx, [dirty]) {
-			if (dirty & /*closer, _notice*/ 5) show_if_1 = /*closer*/ ctx[2] && !(/*_notice*/ ctx[0] && /*_notice*/ ctx[0].refs.elem.classList.contains("nonblock"));
+			if (dirty & /*closer, self*/ 5) show_if_1 = /*closer*/ ctx[2] && !(/*self*/ ctx[0].refs.elem && /*self*/ ctx[0].refs.elem.classList.contains("nonblock"));
 
 			if (show_if_1) {
 				if (if_block0) {
@@ -175,7 +168,7 @@ function create_fragment(ctx) {
 				if_block0 = null;
 			}
 
-			if (dirty & /*sticker, _notice*/ 3) show_if = /*sticker*/ ctx[1] && !(/*_notice*/ ctx[0] && /*_notice*/ ctx[0].refs.elem.classList.contains("nonblock"));
+			if (dirty & /*sticker, self*/ 3) show_if = /*sticker*/ ctx[1] && !(/*self*/ ctx[0].refs.elem && /*self*/ ctx[0].refs.elem.classList.contains("nonblock"));
 
 			if (show_if) {
 				if (if_block1) {
@@ -250,8 +243,7 @@ Object.assign(icons.fontawesome5, {
 });
 
 function instance($$self, $$props, $$invalidate) {
-	const dispatch = createEventDispatcher();
-	let { _notice = null } = $$props;
+	let { self = null } = $$props;
 	let { closer = defaults.closer } = $$props;
 	let { closerHover = defaults.closerHover } = $$props;
 	let { sticker = defaults.sticker } = $$props;
@@ -268,16 +260,15 @@ function instance($$self, $$props, $$invalidate) {
 
 	beforeUpdate(async () => {
 		if (updatingIcon) {
-			console.log("updating...");
 			return;
 		}
 
 		// Font Awesome 5 uses dark magic by replacing the icon element with an SVG.
 		// In order to make it play nice with Svelte, we have to clear the element
 		// and make it again.
-		const icon = _notice.hide ? unstuckClass : stuckClass;
+		const icon = self.hide ? unstuckClass : stuckClass;
 
-		if (icon !== oldIcon && (_notice.icons === "fontawesome5" || typeof stickerClass === "string" && stickerClass.match(/(^| )fa[srlb]($| )/) || typeof icon === "string" && icon.match(/(^| )fa[srlb]($| )/))) {
+		if (icon !== oldIcon && (self.icons === "fontawesome5" || typeof stickerClass === "string" && stickerClass.match(/(^| )fa[srlb]($| )/) || typeof icon === "string" && icon.match(/(^| )fa[srlb]($| )/))) {
 			$$invalidate(1, sticker = false);
 			updatingIcon = true;
 			await tick();
@@ -287,22 +278,13 @@ function instance($$self, $$props, $$invalidate) {
 		}
 	});
 
-	onMount(() => {
-		dispatch("init", { init });
-	});
-
-	let removeMouseEnterHandler;
-	let removeMouseLeaveHandler;
+	let removeMouseEnterHandler = self.on("mouseenter", handleMouseEnter);
+	let removeMouseLeaveHandler = self.on("mouseleave", handleMouseLeave);
 
 	onDestroy(() => {
 		removeMouseEnterHandler && removeMouseEnterHandler();
 		removeMouseLeaveHandler && removeMouseLeaveHandler();
 	});
-
-	function init() {
-		removeMouseEnterHandler = _notice.on("mouseenter", handleMouseEnter);
-		removeMouseLeaveHandler = _notice.on("mouseleave", handleMouseLeave);
-	}
 
 	function handleMouseEnter() {
 		$$invalidate(6, mouseIsIn = true);
@@ -313,16 +295,16 @@ function instance($$self, $$props, $$invalidate) {
 	}
 
 	function handleStickerClick() {
-		$$invalidate(0, _notice.hide = !_notice.hide, _notice);
+		$$invalidate(0, self.hide = !self.hide, self);
 	}
 
 	function handleCloserClick() {
-		_notice.close(false);
+		self.close(false);
 		$$invalidate(6, mouseIsIn = false);
 	}
 
 	$$self.$set = $$props => {
-		if ("_notice" in $$props) $$invalidate(0, _notice = $$props._notice);
+		if ("self" in $$props) $$invalidate(0, self = $$props.self);
 		if ("closer" in $$props) $$invalidate(2, closer = $$props.closer);
 		if ("closerHover" in $$props) $$invalidate(3, closerHover = $$props.closerHover);
 		if ("sticker" in $$props) $$invalidate(1, sticker = $$props.sticker);
@@ -337,42 +319,42 @@ function instance($$self, $$props, $$invalidate) {
 	let closerClass;
 
 	$$self.$$.update = () => {
-		if ($$self.$$.dirty & /*_notice, classes*/ 8193) {
+		if ($$self.$$.dirty & /*self, classes*/ 8193) {
 			// These are button icon classes.
-			$: $$invalidate(7, stickerClass = _notice
+			$: $$invalidate(7, stickerClass = self
 			? classes.sticker === null
-				? _notice.getIcon("sticker")
+				? self.getIcon("sticker")
 				: classes.sticker
 			: "");
 		}
 
-		if ($$self.$$.dirty & /*_notice, classes*/ 8193) {
-			$: $$invalidate(8, stuckClass = _notice
+		if ($$self.$$.dirty & /*self, classes*/ 8193) {
+			$: $$invalidate(8, stuckClass = self
 			? classes.stuck === null
-				? _notice.getIcon("stuck")
+				? self.getIcon("stuck")
 				: classes.stuck
 			: "");
 		}
 
-		if ($$self.$$.dirty & /*_notice, classes*/ 8193) {
-			$: $$invalidate(9, unstuckClass = _notice
+		if ($$self.$$.dirty & /*self, classes*/ 8193) {
+			$: $$invalidate(9, unstuckClass = self
 			? classes.unstuck === null
-				? _notice.getIcon("unstuck")
+				? self.getIcon("unstuck")
 				: classes.unstuck
 			: "");
 		}
 
-		if ($$self.$$.dirty & /*_notice, classes*/ 8193) {
-			$: $$invalidate(10, closerClass = _notice
+		if ($$self.$$.dirty & /*self, classes*/ 8193) {
+			$: $$invalidate(10, closerClass = self
 			? classes.closer === null
-				? _notice.getIcon("closer")
+				? self.getIcon("closer")
 				: classes.closer
 			: "");
 		}
 	};
 
 	return [
-		_notice,
+		self,
 		sticker,
 		closer,
 		closerHover,
@@ -385,8 +367,7 @@ function instance($$self, $$props, $$invalidate) {
 		closerClass,
 		handleStickerClick,
 		handleCloserClick,
-		classes,
-		init
+		classes
 	];
 }
 
@@ -394,20 +375,15 @@ class PNotifyButtonsComponent extends SvelteComponent {
 	constructor(options) {
 		super();
 
-		init_1(this, options, instance, create_fragment, safe_not_equal, {
-			_notice: 0,
+		init(this, options, instance, create_fragment, safe_not_equal, {
+			self: 0,
 			closer: 2,
 			closerHover: 3,
 			sticker: 1,
 			stickerHover: 4,
 			labels: 5,
-			classes: 13,
-			init: 14
+			classes: 13
 		});
-	}
-
-	get init() {
-		return this.$$.ctx[14];
 	}
 }
 

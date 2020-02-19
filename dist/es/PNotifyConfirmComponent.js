@@ -23,11 +23,10 @@ import {
 } from "svelte/internal";
 
 import { styles } from "./PNotifyCore";
-import { onMount, createEventDispatcher } from "svelte";
 
 function get_each_context(ctx, list, i) {
 	const child_ctx = ctx.slice();
-	child_ctx[23] = list[i];
+	child_ctx[21] = list[i];
 	return child_ctx;
 }
 
@@ -57,9 +56,9 @@ function create_if_block(ctx) {
 				each_blocks[i].c();
 			}
 
-			attr(div0, "class", div0_class_value = "\n          ui-pnotify-action-bar\n          " + /*_notice*/ ctx[1].getStyle("action-bar") + "\n        ");
+			attr(div0, "class", div0_class_value = "\n          ui-pnotify-action-bar\n          " + /*self*/ ctx[1].getStyle("action-bar") + "\n        ");
 			set_style(div0, "justify-content", /*align*/ ctx[6]);
-			attr(div1, "class", div1_class_value = "\n    ui-pnotify-confirm\n    " + /*_notice*/ ctx[1].getStyle("text") + "\n    " + /*_notice*/ ctx[1].getStyle("confirm") + "\n  ");
+			attr(div1, "class", div1_class_value = "\n    ui-pnotify-confirm\n    " + /*self*/ ctx[1].getStyle("text") + "\n    " + /*self*/ ctx[1].getStyle("confirm") + "\n  ");
 		},
 		m(target, anchor) {
 			insert(target, div1, anchor);
@@ -71,7 +70,7 @@ function create_if_block(ctx) {
 				each_blocks[i].m(div0, null);
 			}
 
-			/*div0_binding*/ ctx[22](div0);
+			/*div0_binding*/ ctx[20](div0);
 		},
 		p(ctx, dirty) {
 			if (/*prompt*/ ctx[3]) {
@@ -87,7 +86,7 @@ function create_if_block(ctx) {
 				if_block = null;
 			}
 
-			if (dirty & /*_notice, buttons, handleClick*/ 2178) {
+			if (dirty & /*self, buttons, handleClick*/ 2178) {
 				each_value = /*buttons*/ ctx[7];
 				let i;
 
@@ -110,7 +109,7 @@ function create_if_block(ctx) {
 				each_blocks.length = each_value.length;
 			}
 
-			if (dirty & /*_notice*/ 2 && div0_class_value !== (div0_class_value = "\n          ui-pnotify-action-bar\n          " + /*_notice*/ ctx[1].getStyle("action-bar") + "\n        ")) {
+			if (dirty & /*self*/ 2 && div0_class_value !== (div0_class_value = "\n          ui-pnotify-action-bar\n          " + /*self*/ ctx[1].getStyle("action-bar") + "\n        ")) {
 				attr(div0, "class", div0_class_value);
 			}
 
@@ -118,7 +117,7 @@ function create_if_block(ctx) {
 				set_style(div0, "justify-content", /*align*/ ctx[6]);
 			}
 
-			if (dirty & /*_notice*/ 2 && div1_class_value !== (div1_class_value = "\n    ui-pnotify-confirm\n    " + /*_notice*/ ctx[1].getStyle("text") + "\n    " + /*_notice*/ ctx[1].getStyle("confirm") + "\n  ")) {
+			if (dirty & /*self*/ 2 && div1_class_value !== (div1_class_value = "\n    ui-pnotify-confirm\n    " + /*self*/ ctx[1].getStyle("text") + "\n    " + /*self*/ ctx[1].getStyle("confirm") + "\n  ")) {
 				attr(div1, "class", div1_class_value);
 			}
 		},
@@ -126,7 +125,7 @@ function create_if_block(ctx) {
 			if (detaching) detach(div1);
 			if (if_block) if_block.d();
 			destroy_each(each_blocks, detaching);
-			/*div0_binding*/ ctx[22](null);
+			/*div0_binding*/ ctx[20](null);
 		}
 	};
 }
@@ -148,7 +147,7 @@ function create_if_block_2(ctx) {
 		c() {
 			div = element("div");
 			if_block.c();
-			attr(div, "class", div_class_value = "\n            ui-pnotify-prompt-bar\n            " + /*_notice*/ ctx[1].getStyle("prompt-bar") + "\n          ");
+			attr(div, "class", div_class_value = "\n            ui-pnotify-prompt-bar\n            " + /*self*/ ctx[1].getStyle("prompt-bar") + "\n          ");
 		},
 		m(target, anchor) {
 			insert(target, div, anchor);
@@ -167,7 +166,7 @@ function create_if_block_2(ctx) {
 				}
 			}
 
-			if (dirty & /*_notice*/ 2 && div_class_value !== (div_class_value = "\n            ui-pnotify-prompt-bar\n            " + /*_notice*/ ctx[1].getStyle("prompt-bar") + "\n          ")) {
+			if (dirty & /*self*/ 2 && div_class_value !== (div_class_value = "\n            ui-pnotify-prompt-bar\n            " + /*self*/ ctx[1].getStyle("prompt-bar") + "\n          ")) {
 				attr(div, "class", div_class_value);
 			}
 		},
@@ -188,20 +187,20 @@ function create_else_block_1(ctx) {
 		c() {
 			input = element("input");
 			attr(input, "type", "text");
-			attr(input, "class", input_class_value = "\n                ui-pnotify-prompt-input\n                " + /*_notice*/ ctx[1].getStyle("input") + "\n                " + /*promptClass*/ ctx[4] + "\n              ");
+			attr(input, "class", input_class_value = "\n                ui-pnotify-prompt-input\n                " + /*self*/ ctx[1].getStyle("input") + "\n                " + /*promptClass*/ ctx[4] + "\n              ");
 		},
 		m(target, anchor) {
 			insert(target, input, anchor);
-			/*input_binding*/ ctx[19](input);
+			/*input_binding*/ ctx[17](input);
 			set_input_value(input, /*promptValue*/ ctx[0]);
 
 			dispose = [
 				listen(input, "keypress", /*handleKeyPress*/ ctx[12]),
-				listen(input, "input", /*input_input_handler*/ ctx[20])
+				listen(input, "input", /*input_input_handler*/ ctx[18])
 			];
 		},
 		p(ctx, dirty) {
-			if (dirty & /*_notice, promptClass*/ 18 && input_class_value !== (input_class_value = "\n                ui-pnotify-prompt-input\n                " + /*_notice*/ ctx[1].getStyle("input") + "\n                " + /*promptClass*/ ctx[4] + "\n              ")) {
+			if (dirty & /*self, promptClass*/ 18 && input_class_value !== (input_class_value = "\n                ui-pnotify-prompt-input\n                " + /*self*/ ctx[1].getStyle("input") + "\n                " + /*promptClass*/ ctx[4] + "\n              ")) {
 				attr(input, "class", input_class_value);
 			}
 
@@ -211,7 +210,7 @@ function create_else_block_1(ctx) {
 		},
 		d(detaching) {
 			if (detaching) detach(input);
-			/*input_binding*/ ctx[19](null);
+			/*input_binding*/ ctx[17](null);
 			run_all(dispose);
 		}
 	};
@@ -227,20 +226,20 @@ function create_if_block_3(ctx) {
 		c() {
 			textarea = element("textarea");
 			attr(textarea, "rows", "5");
-			attr(textarea, "class", textarea_class_value = "\n                ui-pnotify-prompt-input\n                " + /*_notice*/ ctx[1].getStyle("input") + "\n                " + /*promptClass*/ ctx[4] + "\n              ");
+			attr(textarea, "class", textarea_class_value = "\n                ui-pnotify-prompt-input\n                " + /*self*/ ctx[1].getStyle("input") + "\n                " + /*promptClass*/ ctx[4] + "\n              ");
 		},
 		m(target, anchor) {
 			insert(target, textarea, anchor);
-			/*textarea_binding*/ ctx[17](textarea);
+			/*textarea_binding*/ ctx[15](textarea);
 			set_input_value(textarea, /*promptValue*/ ctx[0]);
 
 			dispose = [
 				listen(textarea, "keypress", /*handleKeyPress*/ ctx[12]),
-				listen(textarea, "input", /*textarea_input_handler*/ ctx[18])
+				listen(textarea, "input", /*textarea_input_handler*/ ctx[16])
 			];
 		},
 		p(ctx, dirty) {
-			if (dirty & /*_notice, promptClass*/ 18 && textarea_class_value !== (textarea_class_value = "\n                ui-pnotify-prompt-input\n                " + /*_notice*/ ctx[1].getStyle("input") + "\n                " + /*promptClass*/ ctx[4] + "\n              ")) {
+			if (dirty & /*self, promptClass*/ 18 && textarea_class_value !== (textarea_class_value = "\n                ui-pnotify-prompt-input\n                " + /*self*/ ctx[1].getStyle("input") + "\n                " + /*promptClass*/ ctx[4] + "\n              ")) {
 				attr(textarea, "class", textarea_class_value);
 			}
 
@@ -250,7 +249,7 @@ function create_if_block_3(ctx) {
 		},
 		d(detaching) {
 			if (detaching) detach(textarea);
-			/*textarea_binding*/ ctx[17](null);
+			/*textarea_binding*/ ctx[15](null);
 			run_all(dispose);
 		}
 	};
@@ -258,7 +257,7 @@ function create_if_block_3(ctx) {
 
 // (119:57) {:else}
 function create_else_block(ctx) {
-	let t_value = /*button*/ ctx[23].text + "";
+	let t_value = /*button*/ ctx[21].text + "";
 	let t;
 
 	return {
@@ -269,7 +268,7 @@ function create_else_block(ctx) {
 			insert(target, t, anchor);
 		},
 		p(ctx, dirty) {
-			if (dirty & /*buttons*/ 128 && t_value !== (t_value = /*button*/ ctx[23].text + "")) set_data(t, t_value);
+			if (dirty & /*buttons*/ 128 && t_value !== (t_value = /*button*/ ctx[21].text + "")) set_data(t, t_value);
 		},
 		d(detaching) {
 			if (detaching) detach(t);
@@ -280,7 +279,7 @@ function create_else_block(ctx) {
 // (119:14) {#if button.textTrusted}
 function create_if_block_1(ctx) {
 	let html_tag;
-	let raw_value = /*button*/ ctx[23].text + "";
+	let raw_value = /*button*/ ctx[21].text + "";
 
 	return {
 		c() {
@@ -290,7 +289,7 @@ function create_if_block_1(ctx) {
 			html_tag.m(target, anchor);
 		},
 		p(ctx, dirty) {
-			if (dirty & /*buttons*/ 128 && raw_value !== (raw_value = /*button*/ ctx[23].text + "")) html_tag.p(raw_value);
+			if (dirty & /*buttons*/ 128 && raw_value !== (raw_value = /*button*/ ctx[21].text + "")) html_tag.p(raw_value);
 		},
 		d(detaching) {
 			if (detaching) html_tag.d();
@@ -305,7 +304,7 @@ function create_each_block(ctx) {
 	let dispose;
 
 	function select_block_type_1(ctx, dirty) {
-		if (/*button*/ ctx[23].textTrusted) return create_if_block_1;
+		if (/*button*/ ctx[21].textTrusted) return create_if_block_1;
 		return create_else_block;
 	}
 
@@ -313,7 +312,7 @@ function create_each_block(ctx) {
 	let if_block = current_block_type(ctx);
 
 	function click_handler(...args) {
-		return /*click_handler*/ ctx[21](/*button*/ ctx[23], ...args);
+		return /*click_handler*/ ctx[19](/*button*/ ctx[21], ...args);
 	}
 
 	return {
@@ -322,10 +321,10 @@ function create_each_block(ctx) {
 			if_block.c();
 			attr(button, "type", "button");
 
-			attr(button, "class", button_class_value = "\n              ui-pnotify-action-button\n              " + /*_notice*/ ctx[1].getStyle("btn") + "\n              " + (/*button*/ ctx[23].primary
-			? /*_notice*/ ctx[1].getStyle("btn-primary")
-			: /*_notice*/ ctx[1].getStyle("btn-secondary")) + "\n              " + (/*button*/ ctx[23].addClass
-			? /*button*/ ctx[23].addClass
+			attr(button, "class", button_class_value = "\n              ui-pnotify-action-button\n              " + /*self*/ ctx[1].getStyle("btn") + "\n              " + (/*button*/ ctx[21].primary
+			? /*self*/ ctx[1].getStyle("btn-primary")
+			: /*self*/ ctx[1].getStyle("btn-secondary")) + "\n              " + (/*button*/ ctx[21].addClass
+			? /*button*/ ctx[21].addClass
 			: "") + "\n            ");
 		},
 		m(target, anchor) {
@@ -348,10 +347,10 @@ function create_each_block(ctx) {
 				}
 			}
 
-			if (dirty & /*_notice, buttons*/ 130 && button_class_value !== (button_class_value = "\n              ui-pnotify-action-button\n              " + /*_notice*/ ctx[1].getStyle("btn") + "\n              " + (/*button*/ ctx[23].primary
-			? /*_notice*/ ctx[1].getStyle("btn-primary")
-			: /*_notice*/ ctx[1].getStyle("btn-secondary")) + "\n              " + (/*button*/ ctx[23].addClass
-			? /*button*/ ctx[23].addClass
+			if (dirty & /*self, buttons*/ 130 && button_class_value !== (button_class_value = "\n              ui-pnotify-action-button\n              " + /*self*/ ctx[1].getStyle("btn") + "\n              " + (/*button*/ ctx[21].primary
+			? /*self*/ ctx[1].getStyle("btn-primary")
+			: /*self*/ ctx[1].getStyle("btn-secondary")) + "\n              " + (/*button*/ ctx[21].addClass
+			? /*button*/ ctx[21].addClass
 			: "") + "\n            ")) {
 				attr(button, "class", button_class_value);
 			}
@@ -428,7 +427,7 @@ const defaults = {
 			promptTrigger: true,
 			click: (notice, value) => {
 				notice.close();
-				notice.fire("pnotify.confirm", { notice, value });
+				notice.fire("pnotify:confirm", { notice, value });
 			}
 		},
 		{
@@ -437,7 +436,7 @@ const defaults = {
 			addClass: "",
 			click: notice => {
 				notice.close();
-				notice.fire("pnotify.cancel", { notice });
+				notice.fire("pnotify:cancel", { notice });
 			}
 		}
 	]
@@ -463,8 +462,7 @@ Object.assign(styles.bootstrap4, {
 });
 
 function instance($$self, $$props, $$invalidate) {
-	const dispatch = createEventDispatcher();
-	let { _notice = null } = $$props;
+	let { self = null } = $$props;
 	let { confirm = defaults.confirm } = $$props;
 	let { prompt = defaults.prompt } = $$props;
 	let { promptClass = defaults.promptClass } = $$props;
@@ -478,17 +476,13 @@ function instance($$self, $$props, $$invalidate) {
 	let buttonsElem;
 	let focusNextChange = false;
 
-	onMount(() => {
-		dispatch("init", { afterOpen });
-	});
-
-	function afterOpen() {
+	self.on("pnotify:afterOpen", () => {
 		$$invalidate(14, focusNextChange = true);
-	}
+	});
 
 	function handleClick(button, event) {
 		if (button.click) {
-			button.click(_notice, prompt ? promptValue : null, event);
+			button.click(self, prompt ? promptValue : null, event);
 		}
 	}
 
@@ -499,7 +493,7 @@ function instance($$self, $$props, $$invalidate) {
 
 			for (let i = 0; i < buttons.length; i++) {
 				if (buttons[i].promptTrigger && buttons[i].click) {
-					buttons[i].click(_notice, prompt ? promptValue : null, event);
+					buttons[i].click(self, prompt ? promptValue : null, event);
 				}
 			}
 		}
@@ -536,7 +530,7 @@ function instance($$self, $$props, $$invalidate) {
 	}
 
 	$$self.$set = $$props => {
-		if ("_notice" in $$props) $$invalidate(1, _notice = $$props._notice);
+		if ("self" in $$props) $$invalidate(1, self = $$props.self);
 		if ("confirm" in $$props) $$invalidate(2, confirm = $$props.confirm);
 		if ("prompt" in $$props) $$invalidate(3, prompt = $$props.prompt);
 		if ("promptClass" in $$props) $$invalidate(4, promptClass = $$props.promptClass);
@@ -548,7 +542,7 @@ function instance($$self, $$props, $$invalidate) {
 	};
 
 	$$self.$$.update = () => {
-		if ($$self.$$.dirty & /*focusNextChange, prompt, focus, promptMultiLine, promptMultiElem, promptSingleElem, confirm, _notice, buttons, buttonsElem*/ 26542) {
+		if ($$self.$$.dirty & /*focusNextChange, prompt, focus, promptMultiLine, promptMultiElem, promptSingleElem, confirm, self, buttons, buttonsElem*/ 26542) {
 			$: {
 				if (focusNextChange) {
 					if (prompt && focus !== false) {
@@ -563,11 +557,11 @@ function instance($$self, $$props, $$invalidate) {
 								$$invalidate(14, focusNextChange = false);
 							}
 						}
-					} else if (confirm && (focus === true || focus === null && _notice.stack.modal === true)) {
+					} else if (confirm && (focus === true || focus === null && self.stack.modal === true)) {
 						if (buttons.length && buttonsElem) {
 							let i = buttons.length - 1;
 
-							while (i >= 0) {
+							while (i > 0) {
 								if (buttons[i].promptTrigger) {
 									break;
 								}
@@ -586,7 +580,7 @@ function instance($$self, $$props, $$invalidate) {
 
 	return [
 		promptValue,
-		_notice,
+		self,
 		confirm,
 		prompt,
 		promptClass,
@@ -600,8 +594,6 @@ function instance($$self, $$props, $$invalidate) {
 		handleKeyPress,
 		focus,
 		focusNextChange,
-		dispatch,
-		afterOpen,
 		textarea_binding,
 		textarea_input_handler,
 		input_binding,
@@ -616,7 +608,7 @@ class PNotifyConfirmComponent extends SvelteComponent {
 		super();
 
 		init(this, options, instance, create_fragment, safe_not_equal, {
-			_notice: 1,
+			self: 1,
 			confirm: 2,
 			prompt: 3,
 			promptClass: 4,

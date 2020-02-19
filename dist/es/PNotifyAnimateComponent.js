@@ -13,7 +13,7 @@ const defaults = {
 };
 
 function instance($$self, $$props, $$invalidate) {
-	let { _notice = null } = $$props;
+	let { self = null } = $$props;
 	let { animate = defaults.animate } = $$props;
 	let { inClass = defaults.inClass } = $$props;
 	let { outClass = defaults.outClass } = $$props;
@@ -21,136 +21,137 @@ function instance($$self, $$props, $$invalidate) {
 	let _animateOut;
 	let _animation;
 
+	self.on("pnotify:update", () => {
+		if (animate && self.refs.elem) {
+			var animSpeed = 250;
+
+			if (self.animateSpeed === "slow") {
+				animSpeed = 400;
+			} else if (self.animateSpeed === "fast") {
+				animSpeed = 100;
+			} else if (self.animateSpeed > 0) {
+				animSpeed = self.animateSpeed;
+			}
+
+			animSpeed = animSpeed / 1000;
+
+			if (self.refs.elem.style.animationDuration !== animSpeed + "s") {
+				$$invalidate(0, self.refs.elem.style.animationDuration = animSpeed + "s", self);
+			}
+		}
+	});
+
 	function animateIn(callback, immediate) {
 		// Declare that the notice is animating in.
-		_notice.setAnimating("in");
+		self.setAnimating("in");
 
 		let off;
 
 		const finished = event => {
-			if (event && _notice.refs.elem && event.target !== _notice.refs.elem) {
+			if (event && self.refs.elem && event.target !== self.refs.elem) {
 				return;
 			}
 
 			off();
-			_notice.setAnimatingClass("ui-pnotify-in animated");
+			self.setAnimatingClass("ui-pnotify-in animated");
 
 			if (callback) {
 				callback.call();
 			}
 
 			// Declare that the notice has completed animating.
-			_notice.setAnimating(false);
+			self.setAnimating(false);
 		};
 
-		off = _notice.on("animationend", finished);
+		off = self.on("animationend", finished);
 
 		if (immediate) {
 			finished();
 		} else {
-			_notice.setAnimatingClass("ui-pnotify-in animated " + inClass);
+			self.setAnimatingClass("ui-pnotify-in animated " + inClass);
 		}
 	}
 
 	function animateOut(callback, immediate) {
 		// Declare that the notice is animating out.
-		_notice.setAnimating("out");
+		self.setAnimating("out");
 
 		let off;
 
 		const finished = event => {
-			if (event && _notice.refs.elem && event.target !== _notice.refs.elem) {
+			if (event && self.refs.elem && event.target !== self.refs.elem) {
 				return;
 			}
 
 			off();
-			_notice.setAnimatingClass("animated");
+			self.setAnimatingClass("animated");
 
 			if (callback) {
 				callback.call();
 			}
 
 			// Declare that the notice has completed animating.
-			if (_notice.setAnimating) {
-				_notice.setAnimating(false);
+			if (self.setAnimating) {
+				self.setAnimating(false);
 			}
 		};
 
-		off = _notice.on("animationend", finished);
+		off = self.on("animationend", finished);
 
 		if (immediate) {
 			finished();
 		} else {
-			_notice.setAnimatingClass("ui-pnotify-in animated " + outClass);
+			self.setAnimatingClass("ui-pnotify-in animated " + outClass);
 		}
 	}
 
-	const attention = (aniClass, callback) => {
+	self.attention = (aniClass, callback) => {
 		let off;
 
 		const cb = () => {
 			off();
-			_notice.removeModuleClass("container", "animated", aniClass);
+			self.removeModuleClass("container", "animated", aniClass);
 
 			if (callback) {
-				callback.call(_notice);
+				callback.call(self);
 			}
 		};
 
-		off = _notice.on("animationend", cb);
-		_notice.addModuleClass("container", "animated", aniClass);
+		off = self.on("animationend", cb);
+		self.addModuleClass("container", "animated", aniClass);
 	};
 
 	$$self.$set = $$props => {
-		if ("_notice" in $$props) $$invalidate(0, _notice = $$props._notice);
+		if ("self" in $$props) $$invalidate(0, self = $$props.self);
 		if ("animate" in $$props) $$invalidate(1, animate = $$props.animate);
 		if ("inClass" in $$props) $$invalidate(2, inClass = $$props.inClass);
 		if ("outClass" in $$props) $$invalidate(3, outClass = $$props.outClass);
 	};
 
 	$$self.$$.update = () => {
-		if ($$self.$$.dirty & /*animate, _notice, animSpeed*/ 259) {
-			$: {
-				if (animate && _notice.refs.elem) {
-					var animSpeed = 250;
-
-					if (_notice.animateSpeed === "slow") {
-						$$invalidate(8, animSpeed = 400);
-					} else if (_notice.animateSpeed === "fast") {
-						$$invalidate(8, animSpeed = 100);
-					} else if (_notice.animateSpeed > 0) {
-						$$invalidate(8, animSpeed = _notice.animateSpeed);
-					}
-
-					$$invalidate(8, animSpeed = animSpeed / 1000);
-					$$invalidate(0, _notice.refs.elem.style.animationDuration = animSpeed + "s", _notice);
-				}
-			}
-		}
-
-		if ($$self.$$.dirty & /*animate, _animateIn, _notice, _animation, _animateOut*/ 227) {
+		if ($$self.$$.dirty & /*animate, _animateIn, self, _animation, _animateOut*/ 115) {
 			$: {
 				if (animate && !_animateIn) {
-					$$invalidate(7, _animation = _notice.animation);
-					$$invalidate(5, _animateIn = _notice.animateIn);
-					$$invalidate(6, _animateOut = _notice.animateOut);
-					_notice.$set({ animation: "none", animateIn, animateOut });
+					$$invalidate(6, _animation = self.animation);
+					$$invalidate(4, _animateIn = self.animateIn);
+					$$invalidate(5, _animateOut = self.animateOut);
+					self.$set({ animation: "none", animateIn, animateOut });
 				} else if (!animate && _animateIn) {
-					_notice.$set({
+					self.$set({
 						animation: _animation,
 						animateIn: _animateIn,
 						animateOut: _animateOut
 					});
 
-					$$invalidate(7, _animation = null);
-					$$invalidate(5, _animateIn = null);
-					$$invalidate(6, _animateOut = null);
+					$$invalidate(6, _animation = null);
+					$$invalidate(4, _animateIn = null);
+					$$invalidate(5, _animateOut = null);
 				}
 			}
 		}
 	};
 
-	return [_notice, animate, inClass, outClass, attention];
+	return [self, animate, inClass, outClass];
 }
 
 class PNotifyAnimateComponent extends SvelteComponent {
@@ -158,16 +159,11 @@ class PNotifyAnimateComponent extends SvelteComponent {
 		super();
 
 		init(this, options, instance, null, safe_not_equal, {
-			_notice: 0,
+			self: 0,
 			animate: 1,
 			inClass: 2,
-			outClass: 3,
-			attention: 4
+			outClass: 3
 		});
-	}
-
-	get attention() {
-		return this.$$.ctx[4];
 	}
 }
 

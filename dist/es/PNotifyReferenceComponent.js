@@ -6,7 +6,7 @@ import {
 	detach,
 	element,
 	empty,
-	init as init_1,
+	init,
 	insert,
 	listen,
 	noop,
@@ -18,7 +18,6 @@ import {
 } from "svelte/internal";
 
 import { icons } from "./PNotifyCore";
-import { onMount, createEventDispatcher } from "svelte";
 
 function create_if_block(ctx) {
 	let button;
@@ -41,8 +40,8 @@ function create_if_block(ctx) {
 			t1 = text(t1_value);
 			t2 = space();
 			div = element("div");
-			attr(i, "class", i_class_value = "" + (null_to_empty(/*_notice*/ ctx[0].getIcon("refresh")) + " svelte-9v3agu"));
-			attr(button, "class", button_class_value = "ui-pnotify-action-button ui-pnotify-reference-button " + /*_notice*/ ctx[0].getStyle("btn") + " " + /*_notice*/ ctx[0].getStyle("btn-secondary") + " svelte-9v3agu");
+			attr(i, "class", i_class_value = "" + (null_to_empty(/*self*/ ctx[0].getIcon("refresh")) + " svelte-9v3agu"));
+			attr(button, "class", button_class_value = "ui-pnotify-action-button ui-pnotify-reference-button " + /*self*/ ctx[0].getStyle("btn") + " " + /*self*/ ctx[0].getStyle("btn-secondary") + " svelte-9v3agu");
 			attr(button, "type", "button");
 			button.disabled = button_disabled_value = !/*mouseIsIn*/ ctx[3];
 			attr(div, "class", "ui-pnotify-reference-clearing svelte-9v3agu");
@@ -57,13 +56,13 @@ function create_if_block(ctx) {
 			dispose = listen(button, "click", /*doSomething*/ ctx[4]);
 		},
 		p(ctx, dirty) {
-			if (dirty & /*_notice*/ 1 && i_class_value !== (i_class_value = "" + (null_to_empty(/*_notice*/ ctx[0].getIcon("refresh")) + " svelte-9v3agu"))) {
+			if (dirty & /*self*/ 1 && i_class_value !== (i_class_value = "" + (null_to_empty(/*self*/ ctx[0].getIcon("refresh")) + " svelte-9v3agu"))) {
 				attr(i, "class", i_class_value);
 			}
 
 			if (dirty & /*labels*/ 4 && t1_value !== (t1_value = /*labels*/ ctx[2].text + "")) set_data(t1, t1_value);
 
-			if (dirty & /*_notice*/ 1 && button_class_value !== (button_class_value = "ui-pnotify-action-button ui-pnotify-reference-button " + /*_notice*/ ctx[0].getStyle("btn") + " " + /*_notice*/ ctx[0].getStyle("btn-secondary") + " svelte-9v3agu")) {
+			if (dirty & /*self*/ 1 && button_class_value !== (button_class_value = "ui-pnotify-action-button ui-pnotify-reference-button " + /*self*/ ctx[0].getStyle("btn") + " " + /*self*/ ctx[0].getStyle("btn-secondary") + " svelte-9v3agu")) {
 				attr(button, "class", button_class_value);
 			}
 
@@ -132,61 +131,42 @@ Object.assign(icons.bootstrap3, { refresh: "glyphicon glyphicon-refresh" });
 Object.assign(icons.fontawesome4, { refresh: "fa fa-refresh" });
 Object.assign(icons.fontawesome5, { refresh: "fas fa-sync" });
 
-function beforeOpen() {
-	
-} // Called before the notice is opened.
-
-function afterOpen() {
-	
-} // Called after the notice is opened.
-
-function beforeClose() {
-	
-} // Called before the notice is closed.
-
-function afterClose() {
-	
-} // Called after the notice is closed.
-
-function beforeDestroy() {
-	
-} // Called before the notice is destroyed.
-
-function afterDestroy() {
-	
-} // Called after the notice is destroyed.
-
 function instance($$self, $$props, $$invalidate) {
-	const dispatch = createEventDispatcher();
-	let { _notice = null } = $$props;
+	let { self = null } = $$props;
 	let { putThing = defaults.putThing } = $$props;
 	let { labels = defaults.labels } = $$props;
 
 	// Here you can define variables not meant to be exported as options.
 	let mouseIsIn = false;
 
-	// This is the second way to init a module. Because we put markup in the
-	// template, we have to fire this event to tell PNotifyCore that we are ready
-	// to be initialized.
-	onMount(() => {
-		dispatch("init", {
-			// This is optional, and will be called after the DOM is ready and options
-			// have been set.
-			init,
-			// Include these if you need them to run.
-			beforeOpen,
-			afterOpen,
-			beforeClose,
-			afterClose,
-			beforeDestroy,
-			afterDestroy
-		});
-	});
+	self.on("mouseenter", () => $$invalidate(3, mouseIsIn = true));
+	self.on("mouseleave", () => $$invalidate(3, mouseIsIn = false));
 
-	function init() {
-		_notice.on("mouseenter", () => $$invalidate(3, mouseIsIn = true));
-		_notice.on("mouseleave", () => $$invalidate(3, mouseIsIn = false));
-	}
+	// I have nothing to put in these, just showing you that they exist. You
+	// won't need to include them if you aren't using them.
+	self.on("pnotify:beforeOpen", () => {
+		
+	}); // Called before the notice is opened.
+
+	self.on("pnotify:afterOpen", () => {
+		
+	}); // Called after the notice is opened.
+
+	self.on("pnotify:beforeClose", () => {
+		
+	}); // Called before the notice is closed.
+
+	self.on("pnotify:afterClose", () => {
+		
+	}); // Called after the notice is closed.
+
+	self.on("pnotify:beforeDestroy", () => {
+		
+	}); // Called before the notice is destroyed.
+
+	self.on("pnotify:afterDestroy", () => {
+		
+	}); // Called after the notice is destroyed.
 
 	function doSomething() {
 		// Spin the notice around.
@@ -201,35 +181,25 @@ function instance($$self, $$props, $$invalidate) {
 					clearInterval(timer);
 				}
 
-				$$invalidate(0, _notice.refs.elem.style.transform = "rotate(" + curAngle + "deg)", _notice);
+				$$invalidate(0, self.refs.elem.style.transform = "rotate(" + curAngle + "deg)", self);
 			},
 			20
 		);
 	}
 
 	$$self.$set = $$props => {
-		if ("_notice" in $$props) $$invalidate(0, _notice = $$props._notice);
+		if ("self" in $$props) $$invalidate(0, self = $$props.self);
 		if ("putThing" in $$props) $$invalidate(1, putThing = $$props.putThing);
 		if ("labels" in $$props) $$invalidate(2, labels = $$props.labels);
 	};
 
-	return [_notice, putThing, labels, mouseIsIn, doSomething, init];
+	return [self, putThing, labels, mouseIsIn, doSomething];
 }
 
 class PNotifyReferenceComponent extends SvelteComponent {
 	constructor(options) {
 		super();
-
-		init_1(this, options, instance, create_fragment, safe_not_equal, {
-			_notice: 0,
-			putThing: 1,
-			labels: 2,
-			init: 5
-		});
-	}
-
-	get init() {
-		return this.$$.ctx[5];
+		init(this, options, instance, create_fragment, safe_not_equal, { self: 0, putThing: 1, labels: 2 });
 	}
 }
 

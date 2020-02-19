@@ -2,7 +2,7 @@
 import {
 	SvelteComponent,
 	globals,
-	init as init_1,
+	init,
 	listen,
 	noop,
 	safe_not_equal
@@ -38,129 +38,126 @@ const defaults = {
 };
 
 function instance($$self, $$props, $$invalidate) {
-	let { _notice = null } = $$props;
+	let { self = null } = $$props;
 	let { swipeDismiss = defaults.swipeDismiss } = $$props;
 	let { styling = defaults.styling } = $$props;
+	let origXY = null;
+	let diffXY = null;
+	let noticeWidthHeight = null;
+	let noticeOpacity = null;
+	let csspos = "left";
+	let direction = "X";
+	let span = "Width";
 	let windowInnerWidth = window.innerWidth;
 
-	function windowResize() {
-		$$invalidate(6, windowInnerWidth = window.innerWidth);
-	}
+	self.on("touchstart", e => {
+		if (!swipeDismiss) {
+			return;
+		}
 
-	function init() {
-		let origXY = null;
-		let diffXY = null;
-		let noticeWidthHeight = null;
-		let noticeOpacity = null;
-		let csspos = "left";
-		let direction = "X";
-		let span = "Width";
+		const stack = self.stack;
 
-		_notice.on("touchstart", e => {
-			if (!swipeDismiss) {
-				return;
+		if (stack) {
+			switch (stack.dir1) {
+				case "up":
+				case "down":
+					csspos = "left";
+					direction = "X";
+					span = "Width";
+					break;
+				case "left":
+				case "right":
+					csspos = "top";
+					direction = "Y";
+					span = "Height";
+					break;
 			}
+		}
 
-			const stack = _notice.stack;
+		origXY = e.touches[0]["screen" + direction];
+		noticeWidthHeight = self.refs.elem["scroll" + span];
+		noticeOpacity = window.getComputedStyle(self.refs.elem)["opacity"];
+		$$invalidate(1, self.refs.container.style[csspos] = 0, self);
+	});
 
-			if (stack) {
-				switch (stack.dir1) {
-					case "up":
-					case "down":
-						csspos = "left";
-						direction = "X";
-						span = "Width";
-						break;
-					case "left":
-					case "right":
-						csspos = "top";
-						direction = "Y";
-						span = "Height";
-						break;
-				}
-			}
+	self.on("touchmove", e => {
+		if (!origXY || !swipeDismiss) {
+			return;
+		}
 
-			origXY = e.touches[0]["screen" + direction];
-			noticeWidthHeight = _notice.refs.elem["scroll" + span];
-			noticeOpacity = window.getComputedStyle(_notice.refs.elem)["opacity"];
-			$$invalidate(1, _notice.refs.container.style[csspos] = 0, _notice);
-		});
+		const curXY = e.touches[0]["screen" + direction];
+		diffXY = curXY - origXY;
+		const opacity = (1 - Math.abs(diffXY) / noticeWidthHeight) * noticeOpacity;
+		$$invalidate(1, self.refs.elem.style.opacity = opacity, self);
+		$$invalidate(1, self.refs.container.style[csspos] = diffXY + "px", self);
+	});
 
-		_notice.on("touchmove", e => {
-			if (!origXY || !swipeDismiss) {
-				return;
-			}
+	self.on("touchend", () => {
+		if (!origXY || !swipeDismiss) {
+			return;
+		}
 
-			const curXY = e.touches[0]["screen" + direction];
-			diffXY = curXY - origXY;
-			const opacity = (1 - Math.abs(diffXY) / noticeWidthHeight) * noticeOpacity;
-			$$invalidate(1, _notice.refs.elem.style.opacity = opacity, _notice);
-			$$invalidate(1, _notice.refs.container.style[csspos] = diffXY + "px", _notice);
-		});
+		self.refs.container.classList.add("ui-pnotify-mobile-animate-left");
 
-		_notice.on("touchend", () => {
-			if (!origXY || !swipeDismiss) {
-				return;
-			}
+		if (Math.abs(diffXY) > 40) {
+			const goLeft = diffXY < 0
+			? noticeWidthHeight * -2
+			: noticeWidthHeight * 2;
 
-			_notice.refs.container.classList.add("ui-pnotify-mobile-animate-left");
+			$$invalidate(1, self.refs.elem.style.opacity = 0, self);
+			$$invalidate(1, self.refs.container.style[csspos] = goLeft + "px", self);
+			self.close();
+		} else {
+			self.refs.elem.style.removeProperty("opacity");
+			self.refs.container.style.removeProperty(csspos);
+		}
 
-			if (Math.abs(diffXY) > 40) {
-				const goLeft = diffXY < 0
-				? noticeWidthHeight * -2
-				: noticeWidthHeight * 2;
+		origXY = null;
+		diffXY = null;
+		noticeWidthHeight = null;
+		noticeOpacity = null;
+	});
 
-				$$invalidate(1, _notice.refs.elem.style.opacity = 0, _notice);
-				$$invalidate(1, _notice.refs.container.style[csspos] = goLeft + "px", _notice);
-				_notice.close();
-			} else {
-				_notice.refs.elem.style.removeProperty("opacity");
-				_notice.refs.container.style.removeProperty(csspos);
-			}
+	self.on("touchcancel", () => {
+		if (!origXY || !swipeDismiss) {
+			return;
+		}
 
-			origXY = null;
-			diffXY = null;
-			noticeWidthHeight = null;
-			noticeOpacity = null;
-		});
+		self.refs.elem.style.removeProperty("opacity");
+		self.refs.container.style.removeProperty(csspos);
+		origXY = null;
+		diffXY = null;
+		noticeWidthHeight = null;
+		noticeOpacity = null;
+	});
 
-		_notice.on("touchcancel", () => {
-			if (!origXY || !swipeDismiss) {
-				return;
-			}
-
-			_notice.refs.elem.style.removeProperty("opacity");
-			_notice.refs.container.style.removeProperty(csspos);
-			origXY = null;
-			diffXY = null;
-			noticeWidthHeight = null;
-			noticeOpacity = null;
-		});
-	}
-
-	function afterClose() {
+	self.on("pnotify:afterClose", () => {
 		// Remove any styling we added to close it.
 		if (!swipeDismiss) {
 			return;
 		}
 
-		_notice.refs.elem.style.removeProperty("opacity");
-		_notice.refs.container.style.removeProperty("left");
-		_notice.refs.container.style.removeProperty("top");
+		self.refs.elem.style.removeProperty("opacity");
+		self.refs.container.style.removeProperty("left");
+		self.refs.container.style.removeProperty("top");
+	});
+
+	function windowResize() {
+		$$invalidate(11, windowInnerWidth = window.innerWidth);
 	}
 
 	$$self.$set = $$props => {
-		if ("_notice" in $$props) $$invalidate(1, _notice = $$props._notice);
+		if ("self" in $$props) $$invalidate(1, self = $$props.self);
 		if ("swipeDismiss" in $$props) $$invalidate(2, swipeDismiss = $$props.swipeDismiss);
 		if ("styling" in $$props) $$invalidate(3, styling = $$props.styling);
 	};
 
 	$$self.$$.update = () => {
-		if ($$self.$$.dirty & /*_notice, styling, windowInnerWidth*/ 74) {
+		if ($$self.$$.dirty & /*self, styling, windowInnerWidth*/ 2058) {
 			$: {
-				const stack = _notice.stack;
+				const stack = self.stack;
 
-				if (styling && !_notice.hasModuleClass("elem", "ui-pnotify-mobile-able")) {
+				if (styling && !self.hasModuleClass("elem", "ui-pnotify-mobile-able")) {
 					if (stack) {
 						if (windowInnerWidth <= 480) {
 							if (!stack.mobileOrigSpacing1) {
@@ -208,27 +205,27 @@ function instance($$self, $$props, $$invalidate) {
 							}
 						}
 
-						_notice.removeModuleClass("elem", "ui-pnotify-mobile-top", "ui-pnotify-mobile-bottom", "ui-pnotify-mobile-right", "ui-pnotify-mobile-left");
+						self.removeModuleClass("elem", "ui-pnotify-mobile-top", "ui-pnotify-mobile-bottom", "ui-pnotify-mobile-right", "ui-pnotify-mobile-left");
 
 						switch (stack.dir1) {
 							case "down":
-								_notice.addModuleClass("elem", "ui-pnotify-mobile-top");
+								self.addModuleClass("elem", "ui-pnotify-mobile-top");
 								break;
 							case "up":
-								_notice.addModuleClass("elem", "ui-pnotify-mobile-bottom");
+								self.addModuleClass("elem", "ui-pnotify-mobile-bottom");
 								break;
 							case "left":
-								_notice.addModuleClass("elem", "ui-pnotify-mobile-right");
+								self.addModuleClass("elem", "ui-pnotify-mobile-right");
 								break;
 							case "right":
-								_notice.addModuleClass("elem", "ui-pnotify-mobile-left");
+								self.addModuleClass("elem", "ui-pnotify-mobile-left");
 								break;
 						}
 					}
 
-					_notice.addModuleClass("elem", "ui-pnotify-mobile-able");
-				} else if (!styling && _notice.hasModuleClass("elem", "ui-pnotify-mobile-able")) {
-					_notice.removeModuleClass("elem", "ui-pnotify-mobile-able", "ui-pnotify-mobile-top", "ui-pnotify-mobile-bottom", "ui-pnotify-mobile-right", "ui-pnotify-mobile-left");
+					self.addModuleClass("elem", "ui-pnotify-mobile-able");
+				} else if (!styling && self.hasModuleClass("elem", "ui-pnotify-mobile-able")) {
+					self.removeModuleClass("elem", "ui-pnotify-mobile-able", "ui-pnotify-mobile-top", "ui-pnotify-mobile-bottom", "ui-pnotify-mobile-right", "ui-pnotify-mobile-left");
 
 					if (stack) {
 						if (stack.mobileOrigSpacing1) {
@@ -256,28 +253,13 @@ function instance($$self, $$props, $$invalidate) {
 		}
 	};
 
-	return [windowResize, _notice, swipeDismiss, styling, init, afterClose];
+	return [windowResize, self, swipeDismiss, styling];
 }
 
 class PNotifyMobileComponent extends SvelteComponent {
 	constructor(options) {
 		super();
-
-		init_1(this, options, instance, create_fragment, safe_not_equal, {
-			_notice: 1,
-			swipeDismiss: 2,
-			styling: 3,
-			init: 4,
-			afterClose: 5
-		});
-	}
-
-	get init() {
-		return this.$$.ctx[4];
-	}
-
-	get afterClose() {
-		return this.$$.ctx[5];
+		init(this, options, instance, create_fragment, safe_not_equal, { self: 1, swipeDismiss: 2, styling: 3 });
 	}
 }
 
