@@ -13,6 +13,7 @@ export default class Stack {
       maxStrategy: 'wait',
       maxClosureCausesWait: true,
       modal: 'ish',
+      modalishFlash: true,
       overlayClose: true,
       overlayClosesPinned: false,
       context: (window && document.body) || null
@@ -96,9 +97,8 @@ export default class Stack {
       throw new Error('Invalid start param.');
     }
     while (node.notice) {
-      if (callback(node.notice) === false) {
-        break;
-      }
+      const notice = node.notice;
+      // Get the next node first.
       if (dir === 'prev' || (this.push === 'top' && dir === 'newer') || (this.push === 'bottom' && dir === 'older')) {
         node = node.prev;
       } else if (dir === 'next' || (this.push === 'top' && dir === 'older') || (this.push === 'bottom' && dir === 'newer')) {
@@ -106,15 +106,19 @@ export default class Stack {
       } else {
         throw new Error('Invalid dir param.');
       }
+      // Call the callback last, just in case the callback removes the notice.
+      if (callback(notice) === false) {
+        break;
+      }
     }
   }
 
-  close () {
-    this.forEach(notice => notice.close(false, false));
+  close (immediate) {
+    this.forEach(notice => notice.close(immediate, false, false));
   }
 
-  open () {
-    this.forEach(notice => notice.open());
+  open (immediate) {
+    this.forEach(notice => notice.open(immediate));
   }
 
   openLast () {
@@ -158,7 +162,7 @@ export default class Stack {
   }
 
   // Position the notice.
-  _positionNotice (notice) {
+  _positionNotice (notice, masking = notice === this._masking) {
     // Get the notice's stack.
     const elem = notice.refs.elem;
     if (!elem) {
@@ -169,7 +173,7 @@ export default class Stack {
     if (
       !elem.classList.contains('ui-pnotify-in') &&
       !elem.classList.contains('ui-pnotify-initial-hidden') &&
-      notice !== this._masking
+      !masking
     ) {
       return;
     }
@@ -187,7 +191,7 @@ export default class Stack {
     // Read from the DOM to cause refresh.
     elem.getBoundingClientRect();
 
-    if (this._animation && notice !== this._masking && !this._collapsingModalState) {
+    if (this._animation && !masking && !this._collapsingModalState) {
       // Add animate class.
       notice._setMoveClass('ui-pnotify-move');
     } else {
@@ -262,7 +266,7 @@ export default class Stack {
 
       // Don't move masking notices along dir2. They should always be beside the
       // leader along dir1.
-      if (notice !== this._masking) {
+      if (!masking) {
         // Check that it's not beyond the viewport edge.
         const endY = _nextpos1 + elem.offsetHeight + this.spacing1;
         const endX = _nextpos1 + elem.offsetWidth + this.spacing1;
@@ -358,7 +362,7 @@ export default class Stack {
     }
 
     // If we're not positioning the masking notice, update the stack properties.
-    if (notice !== this._masking) {
+    if (!masking) {
       this.firstpos1 = firstpos1;
       this.firstpos2 = firstpos2;
       this._nextpos1 = _nextpos1;
@@ -368,27 +372,53 @@ export default class Stack {
   }
 
   _addNotice (notice) {
+    // This is the linked list node.
     const node = {
       notice,
       prev: null,
       next: null
     };
+
+    // Push to the correct side of the linked list.
     if (this.push === 'top') {
       node.next = this._noticeHead.next;
       node.prev = this._noticeHead;
-      this._noticeHead.next.prev = node;
-      this._noticeHead.next = node;
+      node.next.prev = node;
+      node.prev.next = node;
     } else {
       node.prev = this._noticeTail.prev;
       node.next = this._noticeTail;
-      this._noticeTail.prev.next = node;
-      this._noticeTail.prev = node;
+      node.prev.next = node;
+      node.next.prev = node;
     }
+
+    // Add to the map.
     this._noticeMap.set(notice, node);
+
+    // Increment the length to match.
     this._length++;
+
     if (!this._listener) {
       this._listener = () => this.position();
       this.context.addEventListener('pnotify:position', this._listener);
+    }
+
+    if (['open', 'opening', 'closing'].indexOf(notice.getState()) !== -1) {
+      // If the notice is already open, handle it immediately.
+      this._handleNoticeOpened(notice);
+    } else if (this.modal === 'ish' && this.modalishFlash && this._shouldNoticeWait()) {
+      // If it's not open, and it's going to be a waiting notice, flash it.
+      const off = notice.on('pnotify:mount', () => {
+        off();
+        notice._setMasking(this.dir1, false, () => {
+          notice._setMasking(false);
+        });
+        this._resetPositionData();
+        this._positionNotice(this._leader);
+        window.requestAnimationFrame(() => {
+          this._positionNotice(notice, true);
+        });
+      });
     }
   }
 
@@ -408,11 +438,16 @@ export default class Stack {
       this._setMasking(null);
     }
 
-    // Remove the notice from the DLL.
+    // Remove the notice from the linked list.
     node.prev.next = node.next;
     node.next.prev = node.prev;
     node.prev = null;
     node.next = null;
+
+    // Remove the notice from the map.
+    this._noticeMap.delete(notice);
+
+    // Reduce the length to match.
     this._length--;
 
     if (!this._length && this._listener) {
@@ -423,6 +458,11 @@ export default class Stack {
 
     if (!this._length && this._overlayOpen) {
       this._removeOverlay();
+    }
+
+    // If the notice is open, handle it as if it had closed.
+    if (['open', 'opening', 'closing'].indexOf(notice.getState()) !== -1) {
+      this._handleNoticeClosed(notice);
     }
   }
 
@@ -545,14 +585,12 @@ export default class Stack {
     }
 
     // Get this notice ready for positioning.
-    // this._masking.setAnimatingClass('ui-pnotify-initial-hidden');
     this._masking._setMasking(this.dir1, immediate);
 
     // Wait for the DOM to update.
     window.requestAnimationFrame(() => {
       if (this._masking) {
         this._positionNotice(this._masking);
-        // this._masking.setAnimatingClass('');
       }
     });
 
@@ -655,6 +693,10 @@ export default class Stack {
 
     if (this.modal === 'ish' && (!this._leader || ['opening', 'open', 'closing'].indexOf(this._leader.getState()) === -1)) {
       this._setLeader(notice);
+    }
+
+    if (this.modal === 'ish' && this._overlayOpen) {
+      notice._preventTimerClose(true);
     }
   }
 
