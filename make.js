@@ -6,29 +6,26 @@ const svelte = require('svelte/compiler');
 
 const pnotifyComponents = [
   // Main code.
-  'PNotifyCoreComponent',
-  'PNotifyAnimateComponent',
-  'PNotifyButtonsComponent',
-  'PNotifyConfirmComponent',
-  'PNotifyDesktopComponent',
-  'PNotifyMobileComponent',
-
-  // Reference module.
-  'PNotifyReferenceComponent'
-];
-
-const pnotifySrc = [
-  // Main code.
-  'PNotifyCore',
-  'Stack',
+  'PNotify',
   'PNotifyAnimate',
-  'PNotifyButtons',
+  'PNotifyBootstrap3',
+  'PNotifyBootstrap4',
   'PNotifyConfirm',
   'PNotifyDesktop',
+  'PNotifyFontAwesome',
+  'PNotifyFontAwesome4',
+  'PNotifyFontAwesome5',
+  'PNotifyGlyphicon',
   'PNotifyMobile',
 
   // Reference module.
   'PNotifyReference'
+];
+
+const pnotifySrc = [
+  // Main code.
+  'Component',
+  'Stack'
 ];
 
 try {
@@ -40,7 +37,7 @@ try {
 
 // Compile Svelte component.
 for (const name of pnotifyComponents) {
-  const srcFilename = 'src/' + name + '.html';
+  const srcFilename = 'src/' + name + '.svelte';
   const dstFilename = 'dist/es/' + name + '.js';
   let code = fs.readFileSync(srcFilename, 'utf8');
   let map;
@@ -68,7 +65,7 @@ for (const name of pnotifySrc) {
   const dstFilename = 'dist/es/' + name + '.js';
   let code = fs.readFileSync(srcFilename, 'utf8');
 
-  code = code.replace(/import (.*) from (["'])\.\/(\w*)\.html(["'])/g, 'import $1 from $2./$3$4');
+  code = code.replace(/(import|export) (.*) from (["'])\.\/(\w*)\.svelte(["'])/g, '$1 $2 from $3./$4.js$5');
 
   fs.writeFileSync(dstFilename, code);
 }

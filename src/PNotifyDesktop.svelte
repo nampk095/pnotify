@@ -1,11 +1,6 @@
 <script context="module">
-  import PNotify from './PNotifyCore';
-
-  export const key = 'Desktop';
-
+  export const position = 'PrependContainer';
   export const defaults = {
-    // Display the notification as a desktop notification.
-    desktop: false,
     // If desktop notifications are not supported or allowed, fall back to a regular notice.
     fallback: true,
     // The URL of the icon to display. If false, no icon will show. If null, a default icon will show.
@@ -22,13 +17,14 @@
     options: {}
   };
 
-  export function requestPermission () {
+  function requestPermission () {
     if (typeof Notification !== 'undefined' && 'requestPermission' in Notification) {
       Notification.requestPermission();
     } else if ('webkitNotifications' in window) {
       window.webkitNotifications.requestPermission();
     }
   }
+  export { requestPermission as permission };
 
   const Notification = window.Notification;
 
@@ -93,7 +89,6 @@
   // The PNotify notice.
   export let self = null;
 
-  export let desktop = defaults.desktop;
   export let fallback = defaults.fallback;
   export let icon = defaults.icon;
   export let tag = defaults.tag;
@@ -108,7 +103,6 @@
   let _icon;
   let _tag;
 
-  $: _enabled = _permission && desktop;
   $: {
     if (self.animation !== 'none') {
       _oldAnimation = self.animation;
@@ -116,54 +110,52 @@
 
     // This is necessary so desktop notices don't cause spacing problems
     // when positioning.
-    if (self.getAnimatingClass() !== '' && _enabled) {
+    if (self.getAnimatingClass() !== '' && _permission) {
       self.setAnimatingClass('');
     }
 
-    if (!_enabled && self.hasModuleClass('elem', 'ui-pnotify-desktop-hide')) {
-      self.removeModuleClass('elem', 'ui-pnotify-desktop-hide');
+    if (!_permission && self.hasModuleClass('elem', 'pnotify-desktop-hide')) {
+      self.removeModuleClass('elem', 'pnotify-desktop-hide');
       self.animation = _oldAnimation;
-    } else if (_enabled && !self.hasModuleClass('elem', 'ui-pnotify-desktop-hide')) {
-      self.addModuleClass('elem', 'ui-pnotify-desktop-hide');
+    } else if (_permission && !self.hasModuleClass('elem', 'pnotify-desktop-hide')) {
+      self.addModuleClass('elem', 'pnotify-desktop-hide');
       self.animation = 'none';
       genNotice();
     }
   }
 
+  self.setModuleHandled(true);
+
   self.on('pnotify:beforeOpen', () => {
-    if (desktop && !_permission) {
+    if (!_permission) {
       requestPermission();
-    }
-    if (!_enabled) {
       return;
     }
     if (_desktop && 'show' in _desktop) {
-      self.setModuleIsNoticeOpen(true);
+      self.setModuleOpen(true);
       _desktop.show();
     }
   });
 
   self.on('pnotify:beforeClose', () => {
-    if (!_enabled) {
+    if (!_permission) {
       return;
     }
     if (_desktop && 'close' in _desktop) {
       _desktop.close();
-      self.setModuleIsNoticeOpen(false);
+      self.setModuleOpen(false);
     }
   });
 
-  if (desktop) {
-    _permission = checkPermission();
+  _permission = checkPermission();
 
-    if (_permission) {
-      self.addModuleClass('elem', 'ui-pnotify-desktop-hide');
-      self.animation = 'none';
-      genNotice();
-    } else if (!fallback) {
-      // Keep the notice from opening if fallback is false.
-      self.autoOpen = false;
-    }
+  if (_permission) {
+    self.addModuleClass('elem', 'pnotify-desktop-hide');
+    self.animation = 'none';
+    genNotice();
+  } else if (!fallback) {
+    // Keep the notice from opening if fallback is false.
+    self.autoOpen = false;
   }
 
   function genNotice () {
@@ -224,7 +216,7 @@
   }
 </script>
 <style>
-  :global([ui-pnotify].ui-pnotify-desktop-hide) {
+  :global([data-pnotify].pnotify-desktop-hide) {
     left: -10000px !important;
     display: none !important;
   }

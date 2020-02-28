@@ -1,8 +1,5 @@
 <script context="module">
-  import { styles } from './PNotifyCore';
-
-  export const key = 'Confirm';
-
+  export const position = 'AppendContent';
   export const defaults = {
     // Make a confirmation box.
     confirm: false,
@@ -43,80 +40,69 @@
       }
     ]
   };
-
-  // Add button styles to styling objects.
-  Object.assign(styles.bootstrap3, {
-    'action-bar': 'ui-pnotify-confirm-ml',
-    'prompt-bar': 'ui-pnotify-confirm-ml',
-    btn: 'btn btn-default ui-pnotify-confirm-mx-1',
-    'btn-primary': 'btn-primary',
-    'btn-secondary': '',
-    input: 'form-control'
-  });
-  Object.assign(styles.bootstrap4, {
-    'action-bar': 'ui-pnotify-confirm-ml',
-    'prompt-bar': 'ui-pnotify-confirm-ml',
-    btn: 'btn mx-1',
-    'btn-primary': 'btn-primary',
-    'btn-secondary': 'btn-secondary',
-    input: 'form-control'
-  });
 </script>
 
 {#if confirm || prompt}
-  <div class="
-    ui-pnotify-confirm
-    {self.getStyle('text')}
-    {self.getStyle('confirm')}
-  ">
+  <div
+    class="
+      pnotify-confirm
+      {self.getStyle('text')}
+      {self.getStyle('confirm')}
+    "
+  >
     {#if prompt}
       <div
-          class="
-            ui-pnotify-prompt-bar
-            {self.getStyle('prompt-bar')}
-          ">
+        class="
+          pnotify-prompt-bar
+          {self.getStyle('prompt-bar')}
+        "
+      >
         {#if promptMultiLine}
           <textarea
-              rows="5"
-              on:keypress={handleKeyPress}
-              bind:this={promptMultiElem}
-              class="
-                ui-pnotify-prompt-input
-                {self.getStyle('input')}
-                {promptClass}
-              "
-              bind:value={promptValue}></textarea>
+            rows="5"
+            on:keypress={handleKeyPress}
+            bind:this={promptMultiElem}
+            class="
+              pnotify-prompt-input
+              {self.getStyle('input')}
+              {promptClass}
+            "
+            bind:value={promptValue}
+          ></textarea>
         {:else}
           <input
-              type="text"
-              on:keypress={handleKeyPress}
-              bind:this={promptSingleElem}
-              class="
-                ui-pnotify-prompt-input
-                {self.getStyle('input')}
-                {promptClass}
-              "
-              bind:value={promptValue} />
+            type="text"
+            on:keypress={handleKeyPress}
+            bind:this={promptSingleElem}
+            class="
+              pnotify-prompt-input
+              {self.getStyle('input')}
+              {promptClass}
+            "
+            bind:value={promptValue}
+          />
         {/if}
       </div>
     {/if}
     <div
-        class="
-          ui-pnotify-action-bar
-          {self.getStyle('action-bar')}
-        "
-        style="justify-content: {align};"
-        bind:this={buttonsElem}>
+      class="
+        pnotify-action-bar
+        {self.getStyle('action-bar')}
+      "
+      style="justify-content: {align};"
+      bind:this={buttonsElem}
+    >
       {#each buttons as button}
         <button
-            type="button"
-            on:click={event => handleClick(button, event)}
-            class="
-              ui-pnotify-action-button
-              {self.getStyle('btn')}
-              {button.primary ? self.getStyle('btn-primary') : self.getStyle('btn-secondary')}
-              {button.addClass ? button.addClass : ''}
-            ">{#if button.textTrusted}{@html button.text}{:else}{button.text}{/if}</button>
+          type="button"
+          on:click={event => handleClick(button, event)}
+          class="
+            pnotify-action-button
+            {self.getStyle('btn')}
+            {button.primary ? self.getStyle('btn-primary') : self.getStyle('btn-secondary')}
+            {button.addClass ? button.addClass : ''}
+          "
+        >{#if button.textTrusted}{@html button.text}{:else}{button.text}{/if}</button>
       {/each}
     </div>
   </div>
@@ -200,29 +186,19 @@
 </script>
 
 <style>
-  :global(.ui-pnotify-action-bar),
-  :global(.ui-pnotify-prompt-bar) {
+  :global(.pnotify-action-bar),
+  :global(.pnotify-prompt-bar) {
     margin-top: 5px;
     clear: both;
   }
-  :global(.ui-pnotify-action-bar) {
+  :global(.pnotify-action-bar) {
     display: flex;
     flex-wrap: wrap;
     justify-content: flex-end;
   }
-  :global(.ui-pnotify-prompt-input) {
+  :global(.pnotify-prompt-input) {
     margin-bottom: 5px;
     display: block;
     width: 100%;
-  }
-  :global(.ui-pnotify-confirm-mx-1) {
-    margin: 0 5px;
-  }
-  :global(.ui-pnotify.ui-pnotify-with-icon .ui-pnotify-confirm-ml) {
-    margin-left: 24px;
-  }
-  :global([dir=rtl] .ui-pnotify.ui-pnotify-with-icon .ui-pnotify-confirm-ml) {
-    margin-right: 24px;
-    margin-left: 0;
   }
 </style>

@@ -13,26 +13,36 @@
 <svelte:options accessors={true} />
 
 <script context="module">
+  import { component } from './Component.js';
   import Stack from './Stack.js';
+  export { Stack };
 
-  let posTimer;
+  // Factory functions.
+  export const alert = options => component(getDefaultArgs(options));
+  export const notice = options => component(getDefaultArgs(options, 'notice'));
+  export const info = options => component(getDefaultArgs(options, 'info'));
+  export const success = options => component(getDefaultArgs(options, 'success'));
+  export const error = options => component(getDefaultArgs(options, 'error'));
 
-  // These actions need to be done once the DOM is ready.
-  function onDocumentLoaded () {
-    defaultStack.context = document.body;
-    // Reposition the notices when the window resizes.
-    window.addEventListener('resize', () => {
-      // This timer is used for queueing the position event so it doesn't run
-      // repeatedly.
-      if (posTimer) {
-        clearTimeout(posTimer);
-      }
-      posTimer = setTimeout(() => {
-        const event = new Event('pnotify:position');
-        document.body.dispatchEvent(event);
-        posTimer = null;
-      }, 10);
-    });
+  // Default arguments for the new notice helper functions.
+  function getDefaultArgs (options, type) {
+    if (typeof options !== 'object') {
+      options = { text: options };
+    }
+
+    // Only assign the type if it was requested, so we don't overwrite
+    // options.type if it has something assigned.
+    if (type) {
+      options.type = type;
+    }
+
+    let target = document.body;
+
+    if ('stack' in options && options.stack && options.stack.context) {
+      target = options.stack.context;
+    }
+
+    return { target, props: options };
   }
 
   export const defaultStack = new Stack({
@@ -45,6 +55,8 @@
     push: 'bottom'
   });
 
+  export const defaultModules = new Map();
+
   export const defaults = {
     // Type of the notice. 'notice', 'info', 'success', or 'error'.
     type: 'notice',
@@ -56,11 +68,13 @@
     text: false,
     // Whether to trust the text or escape its contents. (Not allow HTML.)
     textTrusted: false,
-    // What styling classes to use. (Can be 'brighttheme', 'material',
-    // 'bootstrap3', 'bootstrap4', or a styling object.)
+    // What styling classes to use. (Can be 'brighttheme', 'material', or a
+    // styling object.) (Note that the Bootstrap modules provide a different
+    // default.)
     styling: 'brighttheme',
-    // What icons to use (Can be 'brighttheme', 'material', 'bootstrap3',
-    // 'fontawesome4', 'fontawesome5', or an icon object.)
+    // What icons classes to use (Can be 'brighttheme', 'material', or an icon
+    // object.) (Note that the Font Awesome and Glyphicon modules provide a
+    // different default.)
     icons: 'brighttheme',
     // Light or dark version of the theme, if supported by the styling. This
     // overrides the CSS media query when a preference is given. (Can be
@@ -68,8 +82,10 @@
     mode: 'no-preference',
     // Additional classes to be added to the notice. (For custom styling.)
     addClass: '',
-    // Class to be added to the notice for corner styling.
-    cornerClass: '',
+    // Additional classes to be added to the notice, only when in modal.
+    addModalClass: '',
+    // Additional classes to be added to the notice, only when in modeless.
+    addModelessClass: '',
     // Display the notice immediately when it is created.
     autoOpen: true,
     // Width of the notice.
@@ -97,71 +113,54 @@
     delay: 8000,
     // Reset the hide timer if the mouse moves over the notice.
     mouseReset: true,
+    // Provide a button for the user to manually close the notice.
+    closer: true,
+    // Only show the closer button on hover.
+    closerHover: true,
+    // Provide a button for the user to manually stick the notice.
+    sticker: true,
+    // Only show the sticker button on hover.
+    stickerHover: true,
+    // The various displayed text, helps facilitating internationalization.
+    labels: {
+      close: 'Close',
+      stick: 'Stick',
+      unstick: 'Unstick'
+    },
     // Remove the notice's elements from the DOM after it is removed.
     remove: true,
-    // Whether to remove the notice from the stack array (and therefore,
+    // Whether to remove the notice from the stack (and therefore, stack
     // history) when it is closed.
     destroy: true,
     // The stack on which the notices will be placed. Also controls the
     // direction the notices stack.
     stack: defaultStack,
-    // This is where options for modules should be defined.
-    modules: {}
+    // This is where modules and their options should be added. It is a map of
+    // `module => options` entries.
+    modules: defaultModules
   };
 
-  // This object holds all the PNotify modules. They are used to provide
-  // additional functionality.
-  const moduleRegistry = {};
-  export { moduleRegistry as modules };
+  let posTimer;
 
-  // Modules can add themselves to these to be rendered in the template.
-  export const modulesPrependContainer = [];
-  export const modulesAppendContainer = [];
-  export const modulesPrependContent = [];
-  export const modulesAppendContent = [];
-
-  const styleRegistry = {
-    bootstrap3: {
-      container: 'alert',
-      notice: 'alert-warning',
-      info: 'alert-info',
-      success: 'alert-success',
-      error: 'alert-danger'
-    },
-    bootstrap4: {
-      container: 'alert',
-      notice: 'alert-warning',
-      info: 'alert-info',
-      success: 'alert-success',
-      error: 'alert-danger'
+  // These actions need to be done once the DOM is ready.
+  function onDocumentLoaded () {
+    if (!defaultStack.context) {
+      defaultStack.context = document.body;
     }
-  };
-  export { styleRegistry as styles };
-
-  // icons are separate from the style, since bs4 doesn't come with any
-  const iconRegistry = {
-    bootstrap3: {
-      notice: 'glyphicon glyphicon-exclamation-sign',
-      info: 'glyphicon glyphicon-info-sign',
-      success: 'glyphicon glyphicon-ok-sign',
-      error: 'glyphicon glyphicon-warning-sign'
-    },
-    // User must have Font Awesome v4.0+
-    fontawesome4: {
-      notice: 'fa fa-exclamation-circle',
-      info: 'fa fa-info-circle',
-      success: 'fa fa-check-circle',
-      error: 'fa fa-exclamation-triangle'
-    },
-    // User must have Font Awesome v5.0+
-    fontawesome5: {
-      notice: 'fas fa-exclamation-circle',
-      info: 'fas fa-info-circle',
-      success: 'fas fa-check-circle',
-      error: 'fas fa-exclamation-triangle'
-    }
-  };
-  export { iconRegistry as icons };
+    // Reposition the notices when the window resizes.
+    window.addEventListener('resize', () => {
+      // This timer is used for queueing the position event so it doesn't run
+      // repeatedly.
+      if (posTimer) {
+        clearTimeout(posTimer);
+      }
+      posTimer = setTimeout(() => {
+        const event = new Event('pnotify:position');
+        document.body.dispatchEvent(event);
+        posTimer = null;
+      }, 10);
+    });
+  }
 
   // Run the deferred actions once the DOM is ready.
   if (window && document.body) {
@@ -172,109 +171,108 @@
 </script>
 
 <div bind:this={refs.elem}
-    class="
-      ui-pnotify
-      {icon !== false ? 'ui-pnotify-with-icon' : ''}
-      {getStyle('element')}
-      ui-pnotify-mode-{mode}
-      {addClass}
-      {_animatingClass}
-      {_moveClass}
-      {animation === 'fade' ? 'ui-pnotify-fade-'+animateSpeed : ''}
-      {stack && (stack.modal === true || (stack.modal === 'ish' && _timer === 'prevented')) ? 'ui-pnotify-modal' : ''}
-      {_masking ? 'ui-pnotify-masking ui-pnotify-masking-' + _masking : ''}
-      {_maskingIn ? 'ui-pnotify-masking-in' : ''}
-      {_moduleClasses.elem.join(' ')}
-    "
-    aria-live="assertive"
-    role="alertdialog"
-    on:mouseenter={handleInteraction}
-    on:mouseleave={handleLeaveInteraction}
-    on:focusin={handleInteraction}
-    on:focusout={handleLeaveInteraction}
-    ui-pnotify
-    on:pnotify:init
-    on:pnotify:mount
-    on:pnotify:update
-    on:pnotify:beforeOpen
-    on:pnotify:afterOpen
-    on:pnotify:beforeClose
-    on:pnotify:afterClose
-    on:pnotify:beforeDestroy
-    on:pnotify:afterDestroy
-    on:mouseover
-    on:mouseout
-    on:mouseenter
-    on:mouseleave
-    on:mousemove
-    on:mousedown
-    on:mouseup
-    on:click
-    on:dblclick
-    on:focus
-    on:blur
-    on:focusin
-    on:focusout
-    on:touchstart
-    on:touchmove
-    on:touchend
-    on:touchcancel
-    on:animationend
-    on:transitionend>
+  data-pnotify
+  use:forwardEvents
+  class="
+    pnotify
+    {icon !== false ? 'pnotify-with-icon' : ''}
+    {getStyle('elem')}
+    pnotify-mode-{mode}
+    {addClass}
+    {_animatingClass}
+    {_moveClass}
+    {_stackDirClass}
+    {animation === 'fade' ? 'pnotify-fade-'+animateSpeed : ''}
+    {_modal ? 'pnotify-modal '+addModalClass : addModelessClass}
+    {_masking ? 'pnotify-masking' : ''}
+    {_maskingIn ? 'pnotify-masking-in' : ''}
+    {_moduleClasses.elem.join(' ')}
+  "
+  aria-live="assertive"
+  role="alertdialog"
+  on:mouseenter={handleInteraction}
+  on:mouseleave={handleLeaveInteraction}
+  on:focusin={handleInteraction}
+  on:focusout={handleLeaveInteraction}
+>
   <div bind:this={refs.container}
-      class="
-        ui-pnotify-container
-        {getStyle('container')}
-        {getStyle(type)}
-        {cornerClass}
-        {shadow ? 'ui-pnotify-shadow' : ''}
-        {_moduleClasses.container.join(' ')}
-      "
-      style="{_widthStyle} {_minHeightStyle}"
-      role="alert">
-    {#each modulesPrependContainer as module (module.key)}
-      <svelte:component this={module} self={self} {...modules[module.key]} />
+    class="
+      pnotify-container
+      {getStyle('container')}
+      {getStyle(type)}
+      {shadow ? 'pnotify-shadow' : ''}
+      {_moduleClasses.container.join(' ')}
+    "
+    style="{_widthStyle} {_minHeightStyle}"
+    role="alert"
+  >
+    {#each modulesPrependContainer as [module, options] (module)}
+      <svelte:component this={module.default} self={self} {...options} />
     {/each}
+    {#if closer && !_nonBlock}
+      <div
+        class="pnotify-closer {getStyle('closer')} {(!closerHover || _interacting) ? '' : 'pnotify-hidden'}"
+        role="button"
+        tabindex="0"
+        title={labels.close}
+        on:click={() => close(false)}
+      >
+        <span class={getIcon('closer')}></span>
+      </div>
+    {/if}
+    {#if sticker && !_nonBlock}
+      <div
+        class="pnotify-sticker {getStyle('sticker')} {(!stickerHover || _interacting) ? '' : 'pnotify-hidden'}"
+        role="button"
+        aria-pressed={!hide}
+        tabindex="0"
+        title={hide ? labels.stick : labels.unstick}
+        on:click={() => hide = !hide}
+      >
+        <span class="{getIcon('sticker')} {hide ? getIcon('unstuck') : getIcon('stuck')}"></span>
+      </div>
+    {/if}
     {#if icon !== false}
-      <div bind:this={refs.iconContainer} class="ui-pnotify-icon {getStyle('icon')}">
+      <div bind:this={refs.iconContainer} class="pnotify-icon {getStyle('icon')}">
         <span class={icon === true ? getIcon(type) : icon}></span>
       </div>
     {/if}
-    <div bind:this={refs.content} class="ui-pnotify-content {getStyle('content')}">
-      {#each modulesPrependContent as module (module.key)}
-        <svelte:component this={module} self={self} {...modules[module.key]} />
+    <div bind:this={refs.content} class="pnotify-content {getStyle('content')}">
+      {#each modulesPrependContent as [module, options] (module)}
+        <svelte:component this={module.default} self={self} {...options} />
       {/each}
       {#if title !== false}
-        <div bind:this={refs.titleContainer} class="ui-pnotify-title {getStyle('title')}">
+        <div bind:this={refs.titleContainer} class="pnotify-title {getStyle('title')}">
           {#if !_titleElement}
             {#if titleTrusted}
               {@html title}
             {:else}
-              <span class="ui-pnotify-pre-line">{title}</span>
+              <span class="pnotify-pre-line">{title}</span>
             {/if}
           {/if}
         </div>
       {/if}
       {#if text !== false}
         <div bind:this={refs.textContainer}
-            class="ui-pnotify-text {getStyle('text')}"
-            style="{_maxTextHeightStyle}"
-            role="alert">
+          class="pnotify-text {getStyle('text')}"
+          style="{_maxTextHeightStyle}"
+          role="alert"
+        >
           {#if !_textElement}
             {#if textTrusted}
               {@html text}
             {:else}
-              <span class="ui-pnotify-pre-line">{text}</span>
+              <span class="pnotify-pre-line">{text}</span>
             {/if}
           {/if}
         </div>
       {/if}
-      {#each modulesAppendContent as module (module.key)}
-        <svelte:component this={module} self={self} {...modules[module.key]} />
+      {#each modulesAppendContent as [module, options] (module)}
+        <svelte:component this={module.default} self={self} {...options} />
       {/each}
     </div>
-    {#each modulesAppendContainer as module (module.key)}
-      <svelte:component this={module} self={self} {...modules[module.key]} />
+    {#each modulesAppendContainer as [module, options] (module)}
+      <svelte:component this={module.default} self={self} {...options} />
     {/each}
   </div>
 </div>
@@ -282,36 +280,34 @@
 <script>
   import { onMount, beforeUpdate, tick, createEventDispatcher } from 'svelte';
   import { current_component } from 'svelte/internal';
+  import { forwardEventsBuilder } from '@smui/common/forwardEvents.js';
 
   const self = current_component;
   const dispatch = createEventDispatcher();
+  const forwardEvents = forwardEventsBuilder(current_component, [
+    'pnotify:init',
+    'pnotify:mount',
+    'pnotify:update',
+    'pnotify:beforeOpen',
+    'pnotify:afterOpen',
+    'pnotify:enterModal',
+    'pnotify:leaveModal',
+    'pnotify:beforeClose',
+    'pnotify:afterClose',
+    'pnotify:beforeDestroy',
+    'pnotify:afterDestroy',
+    'focusin',
+    'focusout',
+    'animationend',
+    'transitionend'
+  ]);
 
-  export let type = defaults.type;
-  export let title = defaults.title;
-  export let titleTrusted = defaults.titleTrusted;
-  export let text = defaults.text;
-  export let textTrusted = defaults.textTrusted;
-  export let styling = defaults.styling;
-  export let icons = defaults.icons;
-  export let mode = defaults.mode;
-  export let addClass = defaults.addClass;
-  export let cornerClass = defaults.cornerClass;
-  export let autoOpen = defaults.autoOpen;
-  export let width = defaults.width;
-  export let minHeight = defaults.minHeight;
-  export let maxTextHeight = defaults.maxTextHeight;
-  export let icon = defaults.icon;
-  export let animation = defaults.animation;
-  export let animateSpeed = defaults.animateSpeed;
-  export let shadow = defaults.shadow;
-  export let hide = defaults.hide;
-  export let delay = defaults.delay;
-  export let mouseReset = defaults.mouseReset;
-  export let remove = defaults.remove;
-  export let destroy = defaults.destroy;
+  // Modules must be declared for init. (We need to run init inside modules.)
+  export let modules = new Map(defaults.modules);
+  // Stack must be declared for init. (We need the context to fire the event.)
   export let stack = defaults.stack;
-  export let modules = Object.assign({}, defaults.modules);
 
+  // Refs are needed for init event.
   export const refs = {
     elem: null,
     container: null,
@@ -320,6 +316,40 @@
     titleContainer: null,
     textContainer: null
   };
+
+  // Run init to give a chance for modules to override defaults.
+  const selfDefaults = { ...defaults };
+  dispatchLifecycleEvent('init', { notice: self, defaults: selfDefaults });
+
+  export let type = selfDefaults.type;
+  export let title = selfDefaults.title;
+  export let titleTrusted = selfDefaults.titleTrusted;
+  export let text = selfDefaults.text;
+  export let textTrusted = selfDefaults.textTrusted;
+  export let styling = selfDefaults.styling;
+  export let icons = selfDefaults.icons;
+  export let mode = selfDefaults.mode;
+  export let addClass = selfDefaults.addClass;
+  export let addModalClass = selfDefaults.addModalClass;
+  export let addModelessClass = selfDefaults.addModelessClass;
+  export let autoOpen = selfDefaults.autoOpen;
+  export let width = selfDefaults.width;
+  export let minHeight = selfDefaults.minHeight;
+  export let maxTextHeight = selfDefaults.maxTextHeight;
+  export let icon = selfDefaults.icon;
+  export let animation = selfDefaults.animation;
+  export let animateSpeed = selfDefaults.animateSpeed;
+  export let shadow = selfDefaults.shadow;
+  export let hide = selfDefaults.hide;
+  export let delay = selfDefaults.delay;
+  export let mouseReset = selfDefaults.mouseReset;
+  export let closer = selfDefaults.closer;
+  export let closerHover = selfDefaults.closerHover;
+  export let sticker = selfDefaults.sticker;
+  export let stickerHover = selfDefaults.stickerHover;
+  export let labels = selfDefaults.labels;
+  export let remove = selfDefaults.remove;
+  export let destroy = selfDefaults.destroy;
 
   // The state can be 'waiting', 'opening', 'open', 'closing', or 'closed'.
   let _state = 'closed';
@@ -336,89 +366,48 @@
   let _moveClass = '';
   // Stores whether the notice was hidden by a timer.
   let _timerHide = false;
+  // Whether the mouse is over the notice or the notice is focused.
+  let _interacting = false;
   // Holds classes that modules add for the notice element or container element.
   let _moduleClasses = {
     elem: [],
     container: []
   };
   // Modules that change how the notice displays (causing the notice element to
-  // not appear) can set this to true to make PNotify assume the notice has
-  // opened.
-  let _moduleIsNoticeOpen = false;
+  // not appear) can set these to true to make PNotify handle it correctly.
+  let _moduleHandled = false;
+  let _moduleOpen = false;
   // The masking control for the second notice in a modalish stack when the
   // first notice is hovered.
   let _masking = false;
   let _maskingIn = false;
   let _maskingTimer = null;
 
-  // These hold the instances to the Svelte-loaded modules.
-  // const _modulesPrependContainerInstances = [];
-  // const _modulesAppendContainerInstances = [];
-
-  // This keeps the beforeUpdate handler from going into a loop when we're
-  // taming Font Awesome's magic.
-  let _updatingIcon = false;
-  // Save the old value of hide and icon, so we can do our magic.
+  // Save the old value of hide, so we can reset the timer if it changes.
   let _oldHide = hide;
-  let _oldIcon = icon;
 
-  // Grab styles from the styling object or use the styles provided.
-  $: _styles = typeof styling === 'object' ? styling : styleRegistry[styling];
   // Grab the icons from the icons object or use provided icons
-  $: _icons = typeof icons === 'object' ? icons : iconRegistry[icons];
   $: _widthStyle = typeof width === 'string' ? 'width: ' + width + ';' : '';
   $: _minHeightStyle = typeof minHeight === 'string' ? 'min-height: ' + minHeight + ';' : '';
-  $: _maxTextHeightStyle = typeof maxTextHeight === 'string' ? 'max-height: ' + maxTextHeight + '; overflow-y: auto;' : '';
+  $: _maxTextHeightStyle = typeof maxTextHeight === 'string' ? 'max-height: ' + maxTextHeight + '; overflow-y: auto; overscroll-behavior: contain;' : '';
   $: _titleElement = title instanceof HTMLElement;
   $: _textElement = text instanceof HTMLElement;
+  // Whether the notification is open in a modal stack (or a modalish stack in
+  // modal state).
+  $: _modal = stack && (stack.modal === true || (stack.modal === 'ish' && _timer === 'prevented')) && ['open', 'opening', 'closing'].indexOf(_state) !== -1;
+  $: _nonBlock = addClass.match(/\bnonblock\b/) || (addModalClass.match(/\bnonblock\b/) && _modal) || (addModelessClass.match(/\bnonblock\b/) && !_modal);
+  // This is for specific styling for how notices stack.
+  $: _stackDirClass = (stack && stack.dir1) ? 'pnotify-stack-'+stack.dir1 : '';
+
+  // Filter through the module objects, getting an array for each position.
+  $: modulesPrependContainer = Array.from(modules).filter(([module, options]) => module.position === 'PrependContainer');
+  $: modulesPrependContent = Array.from(modules).filter(([module, options]) => module.position === 'PrependContent');
+  $: modulesAppendContent = Array.from(modules).filter(([module, options]) => module.position === 'AppendContent');
+  $: modulesAppendContainer = Array.from(modules).filter(([module, options]) => module.position === 'AppendContainer');
 
   export const getState = () => _state;
-  export const getStyle = name => (_styles && name in _styles) ? _styles[name] : styling + '-' + name;
-  export const getIcon = name => (_icons && name in _icons) ? _icons[name] : icons + '-icon-' + name;
-
-  beforeUpdate(async () => {
-    if (_updatingIcon) {
-      return;
-    }
-
-    dispatchLifecycleEvent('update');
-
-    // Update the timed hiding.
-    if (_state !== 'closed' && _state !== 'waiting' && hide !== _oldHide) {
-      if (!hide) {
-        cancelClose();
-      } else if (!_oldHide) {
-        queueClose();
-      }
-    }
-
-    // Queue a position
-    if (_state !== 'closed' && _state !== 'closing' && stack && !stack._collapsingModalState) {
-      stack.queuePosition();
-    }
-
-    // Font Awesome 5 uses dark magic by replacing the icon element with an SVG.
-    // In order to make it play nice with Svelte, we have to clear the element
-    // and make it again.
-    if (
-      icon !== _oldIcon &&
-      (
-        (icon === true && icons === 'fontawesome5') ||
-        (typeof icon === 'string' && icon.match(/(^| )fa[srlb]($| )/))
-      )
-    ) {
-      const newIcon = icon;
-      icon = false;
-      _updatingIcon = true;
-      await tick();
-      icon = newIcon;
-      _updatingIcon = false;
-    }
-
-    // Save old options.
-    _oldHide = hide;
-    _oldIcon = icon;
-  });
+  export const getStyle = name => typeof styling === 'string' ? styling + '-' + name : (name in styling ? styling[name] : styling.prefix + '-' + name);
+  export const getIcon = name => typeof icons === 'string' ? icons + '-icon-' + name : (name in icons ? icons[name] : icons.prefix + '-icon-' + name);
 
   $: if (_titleElement && refs.titleContainer) {
     refs.titleContainer.appendChild(title);
@@ -441,6 +430,12 @@
     _oldStack = stack;
   }
 
+  let _oldModal = false;
+  $: if (_oldModal !== _modal) {
+    dispatchLifecycleEvent(_modal ? 'enterModal' : 'leaveModal');
+    _oldModal = _modal;
+  }
+
   onMount(() => {
     dispatchLifecycleEvent('mount');
 
@@ -450,7 +445,30 @@
     }
   });
 
+  beforeUpdate(async () => {
+    dispatchLifecycleEvent('update');
+
+    // Update the timed hiding.
+    if (_state !== 'closed' && _state !== 'waiting' && hide !== _oldHide) {
+      if (!hide) {
+        cancelClose();
+      } else if (!_oldHide) {
+        queueClose();
+      }
+    }
+
+    // Queue a position
+    if (_state !== 'closed' && _state !== 'closing' && stack && !stack._collapsingModalState) {
+      stack.queuePosition();
+    }
+
+    // Save old options.
+    _oldHide = hide;
+  });
+
   function handleInteraction (e) {
+    _interacting = true;
+
     // Stop animation, reset the removal timer when the user interacts.
     if (mouseReset && _state === 'closing') {
       if (!_timerHide) {
@@ -458,6 +476,7 @@
       }
       cancelClose();
     }
+
     // Stop the close timer.
     if (hide && mouseReset) {
       cancelClose();
@@ -465,6 +484,8 @@
   }
 
   function handleLeaveInteraction (e) {
+    _interacting = false;
+
     // Start the close timer.
     if (hide && mouseReset && _animating !== 'out') {
       queueClose();
@@ -477,6 +498,9 @@
       notice: self,
       ...detail
     };
+    if (event === 'init') {
+      Array.from(modules).forEach(([module, options]) => 'init' in module && module.init(eventDetail));
+    }
     let target = refs.elem || (stack && stack.context) || document.body;
     if (!target) {
       dispatch('pnotify:'+event, eventDetail);
@@ -521,7 +545,7 @@
       return;
     }
 
-    if (stack && stack._shouldNoticeWait()) {
+    if (!_moduleHandled && stack && stack._shouldNoticeWait()) {
       _state = 'waiting';
       return;
     }
@@ -534,7 +558,7 @@
     _masking = false;
     // This makes the notice visibity: hidden; so its dimensions can be
     // determined.
-    _animatingClass = 'ui-pnotify-initial-hidden';
+    _animatingClass = 'pnotify-initial pnotify-hidden';
 
     const afterOpenCallback = () => {
       // Now set it to hide.
@@ -552,7 +576,7 @@
       stack._handleNoticeOpened(self);
     }
 
-    if (_moduleIsNoticeOpen) {
+    if (_moduleOpen) {
       afterOpenCallback();
       return;
     }
@@ -627,6 +651,7 @@
     _timer = null;
 
     animateOut(() => {
+      _interacting = false;
       _timerHide = false;
       _state = waitAfterward ? 'waiting' : 'closed';
       dispatchLifecycleEvent('afterClose', { immediate, timerHide, waitAfterward });
@@ -659,7 +684,7 @@
       if (_animating !== 'in') {
         return;
       }
-      let visible = _moduleIsNoticeOpen;
+      let visible = _moduleOpen;
       if (!visible && refs.elem) {
         const domRect = refs.elem.getBoundingClientRect();
         for (let prop in domRect) {
@@ -682,13 +707,13 @@
 
     if (animation === 'fade' && !immediate) {
       refs.elem && refs.elem.addEventListener('transitionend', finished);
-      _animatingClass = 'ui-pnotify-in';
+      _animatingClass = 'pnotify-in';
       await tick();
-      _animatingClass = 'ui-pnotify-in ui-pnotify-fade-in';
+      _animatingClass = 'pnotify-in pnotify-fade-in';
       // Just in case the event doesn't fire, call it after 650 ms.
       _animInTimer = setTimeout(finished, 650);
     } else {
-      _animatingClass = 'ui-pnotify-in';
+      _animatingClass = 'pnotify-in';
       await tick();
       finished();
     }
@@ -709,7 +734,7 @@
       if (_animating !== 'out') {
         return;
       }
-      let visible = _moduleIsNoticeOpen;
+      let visible = _moduleOpen;
       if (!visible && refs.elem) {
         const domRect = refs.elem.getBoundingClientRect();
         for (let prop in domRect) {
@@ -734,7 +759,7 @@
 
     if (animation === 'fade' && !immediate) {
       refs.elem && refs.elem.addEventListener('transitionend', finished);
-      _animatingClass = 'ui-pnotify-in';
+      _animatingClass = 'pnotify-in';
       // Just in case the event doesn't fire, call it after 650 ms.
       _animOutTimer = setTimeout(finished, 650);
     } else {
@@ -756,7 +781,7 @@
       // If it's animating out, stop it.
       _state = 'open';
       _animating = false;
-      _animatingClass = animation === 'fade' ? 'ui-pnotify-in ui-pnotify-fade-in' : 'ui-pnotify-in';
+      _animatingClass = animation === 'fade' ? 'pnotify-in pnotify-fade-in' : 'pnotify-in';
     }
   }
 
@@ -780,6 +805,15 @@
         queueClose();
       }
     }
+  }
+
+  // Some shortcut functions.
+  export function on (...args) {
+    return self.$on(...args);
+  }
+
+  export function update (...args) {
+    return self.$set(...args);
   }
 
   export function fire (name, detail) {
@@ -817,12 +851,20 @@
     return true;
   }
 
-  export function getModuleIsNoticeOpen () {
-    return _moduleIsNoticeOpen;
+  export function getModuleHandled () {
+    return _moduleHandled;
   }
 
-  export function setModuleIsNoticeOpen (value) {
-    return _moduleIsNoticeOpen = value;
+  export function setModuleHandled (value) {
+    return _moduleHandled = value;
+  }
+
+  export function getModuleOpen () {
+    return _moduleOpen;
+  }
+
+  export function setModuleOpen (value) {
+    return _moduleOpen = value;
   }
 
   export function setAnimating (value) {
@@ -853,7 +895,7 @@
       return;
     }
     if (value) {
-      _masking = value;
+      _masking = true;
       _maskingIn = !!immediate;
       insertIntoDOM();
       await tick();
@@ -911,22 +953,20 @@
       _maskingTimer = setTimeout(finished, 650);
     }
   }
-
-  dispatchLifecycleEvent('init');
 </script>
 
 <style>
   /* -- Notice */
-  :global(body > .ui-pnotify) {
+  :global(body > .pnotify) {
     /* Notices in the body context should be fixed to the viewport. */
     position: fixed;
     /* Ensures notices are above everything */
     z-index: 100040;
   }
-  :global(body > .ui-pnotify.ui-pnotify-modal) {
+  :global(body > .pnotify.pnotify-modal) {
     z-index: 100042;
   }
-  :global(.ui-pnotify) {
+  :global(.pnotify) {
     position: absolute;
     height: auto;
     z-index: 1;
@@ -934,125 +974,120 @@
     transition: opacity .1s linear;
     opacity: 0;
   }
-  :global(.ui-pnotify.ui-pnotify-modal) {
+  :global(.pnotify.pnotify-modal) {
     z-index: 3;
   }
-  :global(.ui-pnotify.ui-pnotify-in) {
+  :global(.pnotify.pnotify-in) {
     display: block;
     opacity: 1;
   }
-  :global(.ui-pnotify.ui-pnotify-initial-hidden) {
+  :global(.pnotify.pnotify-initial) {
     display: block;
+  }
+  :global(.pnotify-hidden) {
     visibility: hidden;
   }
-  :global(.ui-pnotify.ui-pnotify-move) {
+  :global(.pnotify.pnotify-move) {
     transition: left .4s ease, top .4s ease, right .4s ease, bottom .4s ease;
   }
-  :global(.ui-pnotify.ui-pnotify-fade-slow) {
+  :global(.pnotify.pnotify-fade-slow) {
     transition: opacity .4s linear;
     opacity: 0;
   }
-  :global(.ui-pnotify.ui-pnotify-fade-slow.ui-pnotify.ui-pnotify-move) {
+  :global(.pnotify.pnotify-fade-slow.pnotify.pnotify-move) {
     transition: opacity .4s linear, left .4s ease, top .4s ease, right .4s ease, bottom .4s ease;
   }
-  :global(.ui-pnotify.ui-pnotify-fade-normal) {
+  :global(.pnotify.pnotify-fade-normal) {
     transition: opacity .25s linear;
     opacity: 0;
   }
-  :global(.ui-pnotify.ui-pnotify-fade-normal.ui-pnotify.ui-pnotify-move) {
+  :global(.pnotify.pnotify-fade-normal.pnotify.pnotify-move) {
     transition: opacity .25s linear, left .4s ease, top .4s ease, right .4s ease, bottom .4s ease;
   }
-  :global(.ui-pnotify.ui-pnotify-fade-fast) {
+  :global(.pnotify.pnotify-fade-fast) {
     transition: opacity .1s linear;
     opacity: 0;
   }
-  :global(.ui-pnotify.ui-pnotify-fade-fast.ui-pnotify.ui-pnotify-move) {
+  :global(.pnotify.pnotify-fade-fast.pnotify.pnotify-move) {
     transition: opacity .1s linear, left .4s ease, top .4s ease, right .4s ease, bottom .4s ease;
   }
-  :global(.ui-pnotify.ui-pnotify-masking) {
+  :global(.pnotify.pnotify-masking) {
     display: block;
     -webkit-mask-image: linear-gradient(to bottom, rgba(0, 0, 0, .8), rgba(0, 0, 0, 0) 30px, rgba(0, 0, 0, 0));
     mask-image: linear-gradient(to bottom, rgba(0, 0, 0, .8), rgba(0, 0, 0, 0) 30px, rgba(0, 0, 0, 0));
   }
-  :global(.ui-pnotify.ui-pnotify-masking-up) {
+  :global(.pnotify.pnotify-masking.pnotify-stack-up) {
     -webkit-mask-image: linear-gradient(to top, rgba(0, 0, 0, .8), rgba(0, 0, 0, 0) 30px, rgba(0, 0, 0, 0));
     mask-image: linear-gradient(to top, rgba(0, 0, 0, .8), rgba(0, 0, 0, 0) 30px, rgba(0, 0, 0, 0));
   }
-  :global(.ui-pnotify.ui-pnotify-masking-left) {
+  :global(.pnotify.pnotify-masking.pnotify-stack-left) {
     -webkit-mask-image: linear-gradient(to left, rgba(0, 0, 0, .8), rgba(0, 0, 0, 0) 30px, rgba(0, 0, 0, 0));
     mask-image: linear-gradient(to left, rgba(0, 0, 0, .8), rgba(0, 0, 0, 0) 30px, rgba(0, 0, 0, 0));
   }
-  :global(.ui-pnotify.ui-pnotify-masking-right) {
+  :global(.pnotify.pnotify-masking.pnotify-stack-right) {
     -webkit-mask-image: linear-gradient(to right, rgba(0, 0, 0, .8), rgba(0, 0, 0, 0) 30px, rgba(0, 0, 0, 0));
     mask-image: linear-gradient(to right, rgba(0, 0, 0, .8), rgba(0, 0, 0, 0) 30px, rgba(0, 0, 0, 0));
   }
-  :global(.ui-pnotify.ui-pnotify-fade-in, .ui-pnotify.ui-pnotify-masking-in) {
+  :global(.pnotify.pnotify-fade-in, .pnotify.pnotify-masking-in) {
     opacity: 1;
   }
-  :global(.ui-pnotify .ui-pnotify-shadow) {
+  :global(.pnotify .pnotify-shadow) {
     -webkit-box-shadow: 0px 6px 28px 0px rgba(0,0,0,0.1);
     -moz-box-shadow: 0px 6px 28px 0px rgba(0,0,0,0.1);
     box-shadow: 0px 6px 28px 0px rgba(0,0,0,0.1);
   }
-  :global(.ui-pnotify-container) {
+  :global(.pnotify-container) {
     background-position: 0 0;
     padding: .8em;
     height: 100%;
     margin: 0;
   }
-  :global(.ui-pnotify-container:after) {
+  :global(.pnotify-container:after) {
     content: " "; /* Older browser do not support empty content */
     visibility: hidden;
     display: block;
     height: 0;
     clear: both;
   }
-  :global(.ui-pnotify-container.ui-pnotify-sharp) {
-    -webkit-border-radius: 0;
-    -moz-border-radius: 0;
-    border-radius: 0;
+  :global(.pnotify-closer),
+  :global(.pnotify-sticker) {
+    float: right;
+    margin-left: .5em;
+    cursor: pointer;
   }
-  :global(.ui-pnotify-title) {
+  :global([dir=rtl] .pnotify-closer),
+  :global([dir=rtl] .pnotify-sticker) {
+    float: left;
+    margin-right: .5em;
+    margin-left: 0;
+  }
+  :global(.pnotify-title) {
     display: block;
     white-space: pre-line;
     margin-bottom: .4em;
     margin-top: 0;
   }
-  :global(.ui-pnotify.ui-pnotify-with-icon .ui-pnotify-content) {
+  :global(.pnotify.pnotify-with-icon .pnotify-content) {
     margin-left: 24px;
   }
-  :global([dir=rtl] .ui-pnotify.ui-pnotify-with-icon .ui-pnotify-content) {
+  :global([dir=rtl] .pnotify.pnotify-with-icon .pnotify-content) {
     margin-right: 24px;
     margin-left: 0;
   }
-  /* Bootstrap 4: make title text a tad smaller. */
-  :global(.ui-pnotify .bootstrap4-title) {
-    font-size: 1.2rem;
-  }
-  :global(.ui-pnotify-pre-line) {
+  :global(.pnotify-pre-line) {
     white-space: pre-line;
   }
-  :global(.ui-pnotify-icon),
-  :global(.ui-pnotify-icon span) {
+  :global(.pnotify-icon),
+  :global(.pnotify-icon span) {
     display: block;
     float: left;
   }
-  :global([dir=rtl] .ui-pnotify-icon),
-  :global([dir=rtl] .ui-pnotify-icon span) {
+  :global([dir=rtl] .pnotify-icon),
+  :global([dir=rtl] .pnotify-icon span) {
     float: right;
   }
-  /* Bootstrap 3: correct positioning of icon. */
-  :global(.ui-pnotify .bootstrap3-icon > span) {
-    position: relative;
-    top: 2px;
-  }
-  /* Bootstrap 4: correct positioning of icon. */
-  :global(.ui-pnotify .bootstrap4-icon > span) {
-    position: relative;
-    top: 4px;
-  }
   /* Overlay */
-  :global(.ui-pnotify-modal-overlay) {
+  :global(.pnotify-modal-overlay) {
     background-color: rgba(0, 0, 0, .6);
     top: 0;
     left: 0;
@@ -1067,28 +1102,28 @@
     justify-content: center;
     align-items: flex-end;
   }
-  :global(.ui-pnotify-modal-overlay-up) {
+  :global(.pnotify-modal-overlay-up) {
     align-items: flex-start;
   }
-  :global(.ui-pnotify-modal-overlay-left) {
+  :global(.pnotify-modal-overlay-left) {
     justify-content: flex-start;
     align-items: center;
   }
-  :global(.ui-pnotify-modal-overlay-right) {
+  :global(.pnotify-modal-overlay-right) {
     justify-content: flex-end;
     align-items: center;
   }
-  :global(.ui-pnotify-modal-overlay.ui-pnotify-modal-overlay-in) {
+  :global(.pnotify-modal-overlay.pnotify-modal-overlay-in) {
     opacity: 1;
   }
-  :global(.ui-pnotify-modal-overlay-closes:after) {
+  :global(.pnotify-modal-overlay-closes:after) {
     content: "×";
     font-family: Arial;
     font-size: 3rem;
     color: #fff;
     text-shadow: 0 0 .4rem #FFF;
   }
-  :global(body > .ui-pnotify-modal-overlay) {
+  :global(body > .pnotify-modal-overlay) {
     position: fixed;
     z-index: 100041;
   }
