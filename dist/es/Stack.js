@@ -85,7 +85,11 @@ export default class Stack {
     return this._length;
   }
 
-  forEach (callback, { start = 'oldest', dir = 'newer' } = {}) {
+  get leader () {
+    return this._leader;
+  }
+
+  forEach (callback, { start = 'oldest', dir = 'newer', skipModuleHandled = false } = {}) {
     let node;
     if (start === 'head' || (start === 'newest' && this.push === 'top') || (start === 'oldest' && this.push === 'bottom')) {
       node = this._noticeHead.next;
@@ -107,7 +111,7 @@ export default class Stack {
         throw new Error('Invalid dir param.');
       }
       // Call the callback last, just in case the callback removes the notice.
-      if (callback(notice) === false) {
+      if ((!skipModuleHandled || !notice.getModuleHandled()) && callback(notice) === false) {
         break;
       }
     }
@@ -137,7 +141,7 @@ export default class Stack {
       this._resetPositionData();
       this.forEach(notice => {
         this._positionNotice(notice);
-      }, { start: 'head', dir: 'next' });
+      }, { start: 'head', dir: 'next', skipModuleHandled: true });
     } else {
       delete this._nextpos1;
       delete this._nextpos2;
@@ -145,12 +149,9 @@ export default class Stack {
   }
 
   // Queue the position so it doesn't run repeatedly and use up resources.
-  queuePosition (milliseconds) {
+  queuePosition (milliseconds = 10) {
     if (this._posTimer) {
       clearTimeout(this._posTimer);
-    }
-    if (!milliseconds) {
-      milliseconds = 10;
     }
     this._posTimer = setTimeout(() => this.position(), milliseconds);
   }
@@ -171,8 +172,8 @@ export default class Stack {
 
     // Skip this notice if it's not shown.
     if (
-      !elem.classList.contains('ui-pnotify-in') &&
-      !elem.classList.contains('ui-pnotify-initial-hidden') &&
+      !elem.classList.contains('pnotify-in') &&
+      !elem.classList.contains('pnotify-initial') &&
       !masking
     ) {
       return;
@@ -193,7 +194,7 @@ export default class Stack {
 
     if (this._animation && !masking && !this._collapsingModalState) {
       // Add animate class.
-      notice._setMoveClass('ui-pnotify-move');
+      notice._setMoveClass('pnotify-move');
     } else {
       notice._setMoveClass('');
     }
@@ -410,7 +411,7 @@ export default class Stack {
       // If it's not open, and it's going to be a waiting notice, flash it.
       const off = notice.on('pnotify:mount', () => {
         off();
-        notice._setMasking(this.dir1, false, () => {
+        notice._setMasking(true, false, () => {
           notice._setMasking(false);
         });
         this._resetPositionData();
@@ -501,7 +502,8 @@ export default class Stack {
           }
         }, {
           start: this._leader,
-          dir: 'next'
+          dir: 'next',
+          skipModuleHandled: true
         });
 
         // Remove the modal state overlay.
@@ -531,7 +533,8 @@ export default class Stack {
         }
       }, {
         start: this._leader,
-        dir: 'next'
+        dir: 'next',
+        skipModuleHandled: true
       });
     };
 
@@ -585,7 +588,7 @@ export default class Stack {
     }
 
     // Get this notice ready for positioning.
-    this._masking._setMasking(this.dir1, immediate);
+    this._masking._setMasking(true, immediate);
 
     // Wait for the DOM to update.
     window.requestAnimationFrame(() => {
@@ -611,7 +614,8 @@ export default class Stack {
           }
         }, {
           start: this._leader,
-          dir: 'next'
+          dir: 'next',
+          skipModuleHandled: true
         });
       }
     };
@@ -623,6 +627,11 @@ export default class Stack {
   }
 
   _handleNoticeClosed (notice) {
+    if (notice.getModuleHandled()) {
+      // We don't deal with notices that are handled by a module.
+      return;
+    }
+
     this._openNotices--;
 
     if (this.modal === 'ish' && notice === this._leader) {
@@ -667,6 +676,11 @@ export default class Stack {
   }
 
   _handleNoticeOpened (notice) {
+    if (notice.getModuleHandled()) {
+      // We don't deal with notices that are handled by a module.
+      return;
+    }
+
     this._openNotices++;
 
     // Check the max in stack.
@@ -707,12 +721,12 @@ export default class Stack {
   _insertOverlay () {
     if (!this._overlay) {
       this._overlay = document.createElement('div');
-      this._overlay.classList.add('ui-pnotify-modal-overlay');
+      this._overlay.classList.add('pnotify-modal-overlay');
       if (this.dir1) {
-        this._overlay.classList.add('ui-pnotify-modal-overlay-' + this.dir1);
+        this._overlay.classList.add('pnotify-modal-overlay-' + this.dir1);
       }
       if (this.overlayClose) {
-        this._overlay.classList.add('ui-pnotify-modal-overlay-closes');
+        this._overlay.classList.add('pnotify-modal-overlay-closes');
       }
       if (this.context !== document.body) {
         this._overlay.style.height = this.context.scrollHeight + 'px';
@@ -739,6 +753,8 @@ export default class Stack {
                 this._setLeader(notice);
               }
             }
+          }, {
+            skipModuleHandled: true
           });
 
           if (this._overlayOpen) {
@@ -748,12 +764,12 @@ export default class Stack {
       });
     }
     if (this._overlay.parentNode !== this.context) {
-      this._overlay.classList.remove('ui-pnotify-modal-overlay-in');
+      this._overlay.classList.remove('pnotify-modal-overlay-in');
       this._overlay = this.context.insertBefore(this._overlay, this.context.firstChild);
       this._overlayOpen = true;
       this._overlayInserted = true;
       window.requestAnimationFrame(() => {
-        this._overlay.classList.add('ui-pnotify-modal-overlay-in');
+        this._overlay.classList.add('pnotify-modal-overlay-in');
       });
     }
     this._collapsingModalState = false;
@@ -761,7 +777,7 @@ export default class Stack {
 
   _removeOverlay () {
     if (this._overlay.parentNode) {
-      this._overlay.classList.remove('ui-pnotify-modal-overlay-in');
+      this._overlay.classList.remove('pnotify-modal-overlay-in');
       this._overlayOpen = false;
       setTimeout(() => {
         this._overlayInserted = false;
