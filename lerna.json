@@ -1,0 +1,15 @@
+{
+  "packages": [
+    "packages/*"
+  ],
+  "version": "5.0.0-alpha.6",
+  "command": {
+    "version": {
+      "allowBranch": [
+        "master",
+        "develop"
+      ],
+      "conventionalCommits": true
+    }
+  }
+}

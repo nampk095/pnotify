@@ -1,4 +1,1 @@
-/node_modules/
-/libtests/*/node_modules
-/libtests/*/dist
-/vendor/
+**/node_modules/
